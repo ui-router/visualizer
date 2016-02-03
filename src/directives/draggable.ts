@@ -1,6 +1,3 @@
-/// <reference path='../../typings/angularjs/angular.d.ts' />
-
-// import angular from "angular";
 import {app} from "../statevis.module";
 
 app.directive('draggable', ($document) => ({

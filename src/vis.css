@@ -1,3 +1,4 @@
+
 .uirStateVisContainer {
     z-index: 2;
     position: fixed;
@@ -22,7 +23,7 @@
 }
 
 .statevis circle {
-    r: 10;
+    /*r: 10;*/
     fill: #fff;
     stroke: grey;
     stroke-width: 3px;
@@ -33,7 +34,7 @@
 }
 
 .statevis circle.entered {
-    r: 10;
+    /*r: 10;*/
     stroke: black;
     stroke-width: 3px;
     fill: lightgreen;
@@ -44,7 +45,7 @@
 }
 
 .statevis circle.active {
-    r: 15;
+    /*r: 15;*/
     fill: green;
     stroke: black;
     stroke-width: 3px;

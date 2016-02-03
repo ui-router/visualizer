@@ -1,11 +1,7 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
 /// <reference path="../typings/d3/d3.d.ts" />
 
-// import {angular} from "angular";
-
-let moduleName = "ui.router.demo.vissvc";
-export default moduleName;
-let app = angular.module(moduleName, ['ui.router']);
+import {app} from "./statevis.module";
 
 /**
  * This service watches for state lifecycle (added/removed).  It maintains an array of states (wrapped as nodes).

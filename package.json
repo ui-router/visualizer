@@ -2,14 +2,13 @@
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "1.0.0",
-
   "scripts": {
     "clean": "rm -rf ./build",
     "compile": "./node_modules/typescript/bin/tsc",
-    "bundle": "webpack",
+    "bundle-prep": "cp src/*.css build/src/",
+    "bundle": "npm run bundle-prep && webpack",
     "all": "npm run clean && npm run compile && npm run bundle"
   },
-
   "homepage": "http://ui-router.github.com/visualizer",
   "contributors": [
     {
@@ -42,8 +41,12 @@
   "devDependencies": {
     "angular": "^1.4.9",
     "angular-ui-router": "^0.2.17",
+    "css-loader": "^0.23.1",
     "d3": "^3.5.14",
-    "ts-loader": "^0.8.0",
+    "oclazyload": "^1.0.9",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "style-loader": "^0.13.0",
     "typescript": "1.8.0",
     "webpack": "^1.12.12"
   },

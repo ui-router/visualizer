@@ -1,4 +1,3 @@
-/// <reference path='../../typings/angularjs/angular.d.ts' />
 import {app} from "../statevis.module";
 
 

@@ -2,10 +2,10 @@
 // http://alexandros.resin.io/angular-d3-svg/
 // MIT License https://opensource.org/licenses/MIT
 
+import {app} from "./statevis.module";
+
 /** This animation code was taken from trangular.js, and is used to interpolate 2 arrays of values using an easing fn */
-let moduleName = "ui.router.demo.d3ng";
-export default moduleName;
-angular.module(moduleName, []).service("d3ng", function(easing, $rootScope) {
+app.service("d3ng", function(easing, $rootScope) {
   return {
     animatePath: function(newValue, oldValue, duration, updateFrame, finishFn = function() {}, easeFn = easing.easeOutElastic) {
       let start = null, interpolate = d3.interpolateArray(oldValue, newValue);

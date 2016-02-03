@@ -2,10 +2,14 @@
 /// <reference path='../typings/angular-ui-router/angular-ui-router.d.ts' />
 /// <reference path='../typings/d3/d3.d.ts' />
 
-import d3ng from "./d3ng";
-import easing from "./easing";
-import visSvc from "./service"
+export let moduleName = "ui.router.statevis";
 
-let moduleName = "ui.router.statevis";
-export let app = angular.module(moduleName, ['ui.router', visSvc, d3ng, easing]);
-export default moduleName;
+import angular = require("angular");
+
+export let ng = angular || (<any> window).angular;
+export let app = ng.module(moduleName, ['ui.router']);
+
+
+import "./d3ng";
+import "./easing";
+import "./service"
