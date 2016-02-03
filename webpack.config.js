@@ -5,7 +5,7 @@ module.exports = {
         path: __dirname + "/build",
         filename: "visualizer.js",
         libraryTarget: "umd",
-        library: "ui.router.statevis",
+        library: "ui-router-visualizer",
         umdNamedDefine: true
     },
 
