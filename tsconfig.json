@@ -1,0 +1,19 @@
+{
+  "moduleResolution": "node",
+
+  "files": [
+    "src/statevis.ts"
+  ],
+
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "rootDir": ".",
+    "sourceRoot": "src",
+    "target": "es5",
+    "outDir": "build",
+    "declaration": true,
+    "sourceMap": true
+  }
+}

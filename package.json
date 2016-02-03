@@ -1,0 +1,51 @@
+{
+  "name": "ui-router-visualizer",
+  "description": "UI-Router State Visualizer and Transition Visualizer",
+  "version": "1.0.0",
+
+  "scripts": {
+    "clean": "rm -rf ./build",
+    "compile": "./node_modules/typescript/bin/tsc",
+    "bundle": "webpack",
+    "all": "npm run clean && npm run compile && npm run bundle"
+  },
+
+  "homepage": "http://ui-router.github.com/visualizer",
+  "contributors": [
+    {
+      "name": "Chris Thielen",
+      "web": "https://github.com/christopherthielen"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "UI-Router",
+      "web": "https://github.com/ui-router?tab=members"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ui-router/visualizer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ui-router/visualizer/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/angular-ui/ui-router/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "angular": "^1.4"
+  },
+  "devDependencies": {
+    "angular": "^1.4.9",
+    "angular-ui-router": "^0.2.17",
+    "d3": "^3.5.14",
+    "ts-loader": "^0.8.0",
+    "typescript": "1.8.0",
+    "webpack": "^1.12.12"
+  },
+  "main": "release/visualizer"
+}
