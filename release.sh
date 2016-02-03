@@ -21,5 +21,5 @@ git add release/* && \
 git commit -m "release($VER)" && \
 git tag $VER && \
 echo "tag $VER created. Run the following commands:" && echo && echo && \
-echo "git push origin $ver && npm publish" && \
+echo "git push origin $VER && npm publish" && \
 echo "git checkout master; git branch -D release";
