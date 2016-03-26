@@ -1,6 +1,6 @@
 # UI-Router State Visualizer and Transition Visualizer
 
-See: https://github.com/ui-router/visualizer/README.md
+Try the [Demo plunker](http://plnkr.co/edit/MZ7ypavytxD1Ty1UHozo?p=info)
 
 Quickstart:
 Add [FontAwesome](http://fontawesome.github.io/Font-Awesome/) and [D3](https://d3js.org/) libraries
