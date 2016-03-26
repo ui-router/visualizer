@@ -1,5 +1,5 @@
 import {app} from "../statevis.module";
-
+import {TreeChanges, Transition, TransitionService, Node} from "angular-ui-router";
 
 ///////////////////////////////////////////////////////////
 // These two directives make up the Transition Visualizer
@@ -12,20 +12,20 @@ app.value("uirTransitionsViewConfig", { MAX_TRANSITIONS: 15});
  * This outer directive manages the list of all transitions (history), and provides a fixed, scrolling viewport.
  * It attaches hooks for lifecycle events and decorates the transition with a descriptive message.
  */
-app.directive('uirTransitionsView', ($transitions, $timeout, d3ng, easing, uirTransitionsViewConfig) => {
+app.directive('uirTransitionsView', ($transitions: TransitionService, $timeout, d3ng, easing, uirTransitionsViewConfig) => {
   return {
     restrict: "E",
 
     controller: function ($scope, $element) {
       const later = (fn, delay) => () => $timeout(fn, delay);
-      function setMessage($transition$, message) {
-        $transition$._message = message;
+      function setMessage($transition$: Transition, message: string) {
+        $transition$['_message'] = message;
       }
 
       $scope.transitions = [];
       $scope.toggles = [];
 
-      $transitions.onBefore({}, ($transition$) => {
+      $transitions.onBefore({}, ($transition$: Transition) => {
         $scope.transitions.push($transition$);
         $scope.toggles.push({ expand: false, showDetail: false });
         const statename = (state) => state.name || "(root)";
@@ -34,11 +34,12 @@ app.directive('uirTransitionsView', ($transitions, $timeout, d3ng, easing, uirTr
         $transition$.onRetain({}, ($state$) => setMessage($transition$, `Retained ${statename($state$)}`), { priority: 10000 });
         $transition$.onEnter({}, ($state$) => setMessage($transition$, `Entering ${statename($state$)}`), { priority: 10000 });
         $transition$.onFinish({}, () => setMessage($transition$, `Finishing...`));
-        $transition$.promise.finally(() => delete $transition$._message);
+        const cleanup = () => delete $transition$['_message'];
+        $transition$.promise.then(cleanup, cleanup);
       });
 
       this.fullScreen = function(toggle) {
-        $element.toggleClass("fullscreen", toggle);
+        $element.toggleClass("fullScreen", toggle);
       };
 
       let cancelPreviousAnim, duration = 750, el = $element[0].children[0].children[0];
@@ -76,6 +77,19 @@ app.directive('uirTransitionView', () => {
     error: 'fa fa-close'
   };
 
+  interface TransStruct {
+    to: Node;
+    toType: string;
+    from: Node;
+    fromType: string;
+  }
+
+  interface ParamsForNode {
+    state: string;
+    key: string;
+    value: any
+  }
+
   return {
     restrict: "E",
     require: ['^uirTransitionsView', 'uirTransitionDetail'],
@@ -87,46 +101,79 @@ app.directive('uirTransitionView', () => {
 
     bindToController: true,
     controllerAs: "vm",
-    controller: function () {
-      this.status = "running";
+    controller: class UirTransitionView {
+      // Properties
+      trans: Transition;
+      tc: TreeChanges;
+      paths: TransStruct[];
+      params: ParamsForNode[];
+      paramsMap: { [key: string]: any };
 
-      // Makes the widget take up the entire screen, via position: fixed
-      this.fullScreen = toggle => this.toggles.fullscreen = toggle;
-      // Provides the icon class to the view
-      this.iconClass = () => iconClasses[this.status];
 
-      this.tc = this.trans.treeChanges();
-      let paths = angular.extend({}, this.tc);
-      // Ignore the root state when drawing paths.
-      ["entering", "exiting", "retained"].forEach(key => paths[key] = paths[key].filter(node => node.state.name));
-      paths.exiting.reverse();
+      status: string;
+      rejection: string;
+      toggles: {
+        fullscreen: boolean;
+      };
 
-      this.paths = paths.retained
-          .map(node => ({to: node, toType: 'retain', from: node, fromType: 'retain'}));
+      constructor() {
+        this.status = "running";
+        this.tc = this.trans.treeChanges();
+        let paths = <TreeChanges> angular.extend({}, this.tc);
 
-      let count = Math.max(paths.exiting.length, paths.entering.length);
-      for (let i = 0; i < count; i++) {
-        this.paths.push({
-          to: paths.entering[i],
-          toType: paths.entering[i] && 'enter',
-          from: paths.exiting[i],
-          fromType: paths.exiting[i] && 'exit'
-        });
+        // Ignore the root state when drawing paths.
+        ["entering", "exiting", "retained"]
+            .forEach(key => paths[key] = paths[key].filter(node => !!node.state.name));
+        paths.exiting.reverse();
+
+        this.paths = paths.retained
+            .map(node => ({to: node, toType: 'retain', from: node, fromType: 'retain'}));
+
+        let count = Math.max(paths.exiting.length, paths.entering.length);
+        for (let i = 0; i < count; i++) {
+          this.paths.push({
+            to: paths.entering[i],
+            toType: paths.entering[i] && 'enter',
+            from: paths.exiting[i],
+            fromType: paths.exiting[i] && 'exit'
+          });
+        }
+
+        const paramsForNode = (node: Node) =>
+            Object.keys(node.paramValues)
+                .map(key => ({state: node.state.name, key: key, value: node.paramValues[key]}));
+
+        this.params = this.trans.treeChanges().to
+            .map(paramsForNode)
+            .reduce((memo, array) => memo.concat(array), [])
+            .filter(param => param.key !== '#' || !!param.value);
+
+        this.paramsMap = this.params.reduce(((obj, param) => {
+          obj[param.key] = param.value;
+          return obj;
+        }), {});
+
+        this.trans.promise.then(this.success.bind(this), this.reject.bind(this));
       }
 
-      const paramsForNode = node =>
-          Object.keys(node.values).map(key => ({state: node.state.name, key: key, value: node.values[key]}));
 
-      this.params = this.trans.treeChanges().to
-          .map(paramsForNode)
-          .reduce((memo, array) => memo.concat(array), [])
-          .filter(param => param.key !== '#' || !!param.value);
-      this.paramsMap = this.params.reduce(((obj, param) => { obj[param.key] = param.value; return obj; }), {});
+      // Makes the widget take up the entire screen, via position: fixed
+      fullScreen(toggle) {
+        return this.toggles.fullscreen = toggle;
+      }
 
-      const success = () => this.status = "success";
+      // Provides the icon class to the view
+      iconClass() {
+        return iconClasses[this.status];
+      }
 
-      const reject = (rejection) => {
+      success() {
+        return this.status = "success";
+      }
+
+      reject(rejection) {
         this.status = "error";
+
         if (rejection) {
           this.rejection = rejection && rejection.message;
 
@@ -147,27 +194,25 @@ app.directive('uirTransitionView', () => {
           console.log(rejection);
         }
       };
-
-      this.trans.promise.then(success, reject);
     },
 
     template: `
       <div ng-mouseover="vm.toggles.showDetail = true" ng-mouseout="vm.toggles.showDetail = false">
-        <div ng-show="vm.toggles.showDetail || vm.toggles.pin || vm.toggles.fullscreen" ng-class="vm.toggles" class="transitionDetail panel panel-default">
+        <div ng-show="vm.toggles.showDetail || vm.toggles.pin || vm.toggles.fullscreen" ng-class="vm.toggles" class="transitionDetail uir-panel panel-default">
 
-          <div class="panel-heading header">
+          <div class="uir-panel-heading uir-header">
             <button class="btn btn-default btn-xs pinButton" ng-click="vm.toggles.pin = !vm.toggles.pin">
               <i class="fa fa-thumb-tack" ng-class="{ 'fa-rotate-45 text-muted': !vm.toggles.pin }"></i>
             </button>
 
-            <h3 class="panel-title">Transition #{{::vm.trans.$id}}</h3>
+            <h3 class="uir-panel-title">Transition #{{::vm.trans.$id}}</h3>
 
             <div style="cursor: pointer;" ng-click="vm.toggles.expand = !vm.toggles.expand">
               <i class="tooltip-right fa" title="Show Details" ng-class="{ 'fa-toggle-off': !vm.toggles.expand, 'fa-toggle-on': vm.toggles.expand }"></i>
             </div>
           </div>
 
-          <div class="panel-body">
+          <div class="uir-panel-body">
             <table class="summary">
               <tr><td>From State:</td><td>{{::vm.trans.from().name || '(root)'}}</td></tr>
               <tr><td>To State:</td><td>{{::vm.trans.to().name || '(root)'}}</td></tr>
@@ -239,16 +284,17 @@ app.directive('uirTransitionNodeDetail', () => ({
       return name && name.split(".").reverse()[0];
     };
 
-    $scope.$watch(() => this.node, (node, oldval) => {
+    $scope.$watch(() => this.node, (node: Node, oldval) => {
       if (!node) return;
-      this.params = node.schema.reduce((params, param) => {
-        params[param.id] = node.values[param.id];
+      this.params = node.paramSchema.reduce((params, param) => {
+        params[param.id] = node.paramValues[param.id];
         return params;
       }, {});
     });
 
     let getResolveKeys = memoDebounce(500, () =>
-        Object.keys(this.node && this.node.resolves || {}).filter(key => key !== '$stateParams' && key !== '$transition$'));
+        Object.keys(this.node && this.node.resolves || {})
+            .filter(key => key !== '$stateParams' && key !== '$transition$' && key !== '$resolve$'));
 
     this.unwrapResolve = (resolve) => {
       return resolve.data;
@@ -265,7 +311,7 @@ app.directive('uirTransitionNodeDetail', () => ({
   },
   template: `
     <div ng-if="::vm.type">
-      <div class="header">
+      <div class="uir-header">
         <div class="nowrap deemphasize">({{::vm.type}} state)</div>
         <div class="statename">{{::vm.stateName(vm.node)}}</div>
       </div>
@@ -339,16 +385,16 @@ app.directive("keysAndValues", function () {
             <!-- The value is an Object. Allow user to click a link titled [Object] to show a modal containing the object as JSON -->
 
             <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
-              <div class="modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
+              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
                 <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
                 <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
               </div>
 
-              <div class="modal-body" style="max-height: 80%;">
+              <div class="uir-modal-body" style="max-height: 80%;">
                 <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
               </div>
 
-              <div class="modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
+              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
             </simple-modal>
 
             <span>
@@ -380,11 +426,11 @@ app.directive("simpleModal", function ($timeout) {
       scope.$on("$destroy", () => controllers.forEach(ctrl => ctrl.fullScreen(false)))
     },
     template: `
-        <div ng-class="{'modal-backdrop fade': asModal}" style="z-index: 1040;"> </div>
+        <div ng-class="{'uir-modal-backdrop uir-fade': asModal}" style="z-index: 1040;"> </div>
 
-        <div tabindex="-1" ng-class="{'modal fade': asModal}" style="z-index: 1050; display: block;">
-          <div ng-class="{'modal-dialog': asModal}" ng-class="{ 'modal-sm': size == 'sm', 'modal-lg': size == 'lg' }">
-            <div ng-class="{'modal-content': asModal}" ng-transclude></div>
+        <div tabindex="-1" ng-class="{'uir-modal uir-fade': asModal}" style="z-index: 1050; display: block;">
+          <div ng-class="{'uir-modal-dialog': asModal}" ng-class="{ 'modal-sm': size == 'sm', 'modal-lg': size == 'lg' }">
+            <div ng-class="{'uir-modal-content': asModal}" ng-transclude></div>
           </div>
         </div>
       `

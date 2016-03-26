@@ -195,18 +195,18 @@
     font-size: small;
 }
 
-.transitionDetail .header {
+.transitionDetail .uir-header {
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.transitionDetail .panel-heading.header > button {
+.transitionDetail .uir-header > button {
     flex: 0 1 auto;
     transition: transform 0.5s ease;
 }
-.transitionDetail .panel-heading.header > button:hover i {
+.transitionDetail .uir-header > button:hover i {
     flex: 0 1 auto;
     transition: all 0.5s ease;
 }
@@ -382,4 +382,174 @@ span.link {
 
 .fa.tooltip-right:after {
     left: 1.5em;
+}
+
+
+
+
+
+
+/* Bootstrap stuff */
+
+.uir-modal .btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.uir-modal .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.uir-modal .btn-xs, .btn-group-xs > .btn {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+
+.transitionDetail span.link {
+    color: white;
+}
+
+.transitionHistory *:not(.fa):not(pre) {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.transitionDetail .uir-header {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.uir-panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.uir-panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.uir-panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+
+.uir-panel-body {
+    padding: 15px;
+}
+
+
+
+
+
+/* Styles go here */
+.uir-fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.uir-fade.in {
+    opacity: 1;
+}
+
+.uir-modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+}
+
+.uir-modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.uir-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+
+.uir-modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px;
+}
+
+.uir-modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+
+.uir-modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.uir-modal-body {
+    color: black;
+    position: relative;
+    padding: 15px;
+}
+
+.uir-modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
 }

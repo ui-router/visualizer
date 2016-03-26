@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "clean": "rm -rf ./build",
     "compile": "./node_modules/typescript/bin/tsc",
@@ -39,11 +39,16 @@
   "dependencies": {
     "angular": "^1.4"
   },
+  "peerDependencies": {
+    "angular-ui-router": ">=1.0.0-alpha.1",
+    "d3": "^3.5.14"
+  },
   "devDependencies": {
     "angular": "^1.4.9",
-    "angular-ui-router": "^0.2.17",
+    "angular-ui-router": ">=1.0.0-alpha.1",
     "css-loader": "^0.23.1",
     "d3": "^3.5.14",
+    "es6-shim": "^0.35.0",
     "oclazyload": "^1.0.9",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

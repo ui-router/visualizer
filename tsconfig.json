@@ -2,7 +2,8 @@
   "moduleResolution": "node",
 
   "files": [
-    "src/statevis.ts"
+    "src/statevis.ts",
+    "typings/es6-shim/es6-shim.d.ts"
   ],
 
   "compilerOptions": {
