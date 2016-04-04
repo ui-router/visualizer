@@ -16,8 +16,11 @@ fi
 git checkout -b release && \
 npm run all && \
 mkdir release && \
-cp build/*.js release && \
-git add release/* && \
+mv build/*.js release && \
+mv build/src/* build && \
+rmdir build/src && \
+mv build cjs && \
+git add release cjs && \
 git commit -m "release($VER)" && \
 git tag $VER && \
 echo "tag $VER created. Run the following commands:" && echo && echo && \
