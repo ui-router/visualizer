@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link data-require="fontawesome@4.5.0" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+    <script data-require="d3@3.5.3" data-semver="3.5.3" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+    <script src="/bundle.js"></script>    
+    <title>UI-Router State and Transition visualizer</title>
+  </head>
+
+  <body ng-app="vis">
+    <button ui-sref="home">home</button>
+    <button ui-sref="home.foo">home.foo</button>
+    <button ui-sref="home.bar">home.bar</button>
+    
+    <div ui-view="">ui-view not populated</div>
+
+    <uir-transitions-view></uir-transitions-view>
+    <uir-state-vis-container></uir-state-vis-container>
+  </body>
+
+</html>

@@ -9,11 +9,14 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
     "module": "commonjs",
     "rootDir": ".",
     "sourceRoot": "src",
     "target": "es5",
     "outDir": "build",
+    "jsx": "react",
     "declaration": true,
     "sourceMap": true
   }

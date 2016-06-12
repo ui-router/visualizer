@@ -3,6 +3,7 @@
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "1.1.1",
   "scripts": {
+    "example": "webpack-dev-server --config webpack.example.config.js --host 0.0.0.0 --port 8000 --history-api-fallback --content-base example",
     "clean": "rm -rf ./build ./release",
     "compile": "./node_modules/typescript/bin/tsc",
     "bundle-prep": "cp src/*.css build/src/",
@@ -35,12 +36,12 @@
     "angular": "^1.4"
   },
   "peerDependencies": {
-    "angular-ui-router": ">=1.0.0-alpha.1",
+    "angular-ui-router": "next",
     "d3": "^3.5.14"
   },
   "devDependencies": {
     "angular": "^1.4.9",
-    "angular-ui-router": ">=1.0.0-alpha.1",
+    "angular-ui-router": "next",
     "css-loader": "^0.23.1",
     "d3": "^3.5.14",
     "es6-shim": "^0.35.0",
@@ -48,8 +49,10 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "style-loader": "^0.13.0",
+    "ts-loader": "^0.8.2",
     "typescript": "1.8.0",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1"
   },
   "main": "release/visualizer",
   "typings": "cjs/statevis.d.ts"
