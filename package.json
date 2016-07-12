@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "scripts": {
     "clean": "rm -rf ./build ./release",
     "compile": "./node_modules/typescript/bin/tsc",
