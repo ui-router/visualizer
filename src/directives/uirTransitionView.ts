@@ -1,5 +1,5 @@
 import {app} from "../statevis.module";
-import {TreeChanges, Transition, TransitionService, Node} from "angular-ui-router";
+import {TreeChanges, Transition, TransitionService, Node, stringify, maxLength} from "angular-ui-router";
 
 ///////////////////////////////////////////////////////////
 // These two directives make up the Transition Visualizer
@@ -292,18 +292,22 @@ app.directive('uirTransitionNodeDetail', () => ({
       }, {});
     });
 
-    let getResolveKeys = memoDebounce(500, () =>
-        Object.keys(this.node && this.node.resolves || {})
-            .filter(key => key !== '$stateParams' && key !== '$transition$' && key !== '$resolve$'));
+    let getResolvables = memoDebounce(500, () =>
+        this.node && this.node.resolvables
+            .filter(r => r.token !== '$stateParams' && r.token !== '$transition$' && r.token !== '$resolve$'));
 
     this.unwrapResolve = (resolve) => {
       return resolve.data;
     };
 
 
-    $scope.$watchCollection(getResolveKeys, (keys, oldval) => {
-      this.resolves = (keys || []).reduce(((resolves, key) => {
-        resolves[key] = this.node.resolves[key];
+    $scope.$watchCollection(getResolvables, (keys, oldval) => {
+      this.resolves = (keys || []).reduce(((resolves, r) => {
+        let token = r.token;
+        if (typeof token !== 'string') {
+          token = maxLength(30, stringify(token));
+        }
+        resolves[token] = r;
         return resolves;
       }), {});
     });

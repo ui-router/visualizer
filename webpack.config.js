@@ -20,6 +20,7 @@ module.exports = {
     },
 
     externals: {
-        angular: { root: 'angular', commonjs2: 'angular', commonjs: 'angular' }
+        angular: { root: 'angular', amd: 'angular', commonjs2: 'angular', commonjs: 'angular' },
+        "angular-ui-router": { root: 'angular-ui-router', amd: 'angular-ui-router', commonjs2: 'angular-ui-router', commonjs: 'angular-ui-router' },
     }
 };
