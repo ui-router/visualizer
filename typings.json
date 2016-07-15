@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "d3": "registry:npm/d3#3.0.0+20160627165201",
+    "react": "registry:npm/react#15.0.1+20160601175240",
+    "react-dom": "registry:npm/react-dom#15.0.1+20160705210405"
+  },
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160709055139",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "react": "registry:dt/react#0.14.0+20160630100702",
+    "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
+    "react-addons-transition-group": "registry:dt/react-addons-transition-group#0.14.0+20160701001352"
+  }
+}

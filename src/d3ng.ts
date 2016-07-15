@@ -2,6 +2,7 @@
 // http://alexandros.resin.io/angular-d3-svg/
 // MIT License https://opensource.org/licenses/MIT
 
+import * as d3 from "d3";
 import {app} from "./statevis.module";
 
 /** This animation code was taken from trangular.js, and is used to interpolate 2 arrays of values using an easing fn */

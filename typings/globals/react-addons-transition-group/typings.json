@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/925dbd5230a014ae2618e58751235ffdba156b77/react/react-addons-transition-group.d.ts",
+    "raw": "registry:dt/react-addons-transition-group#0.14.0+20160701001352",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/925dbd5230a014ae2618e58751235ffdba156b77/react/react-addons-transition-group.d.ts"
+  }
+}

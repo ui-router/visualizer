@@ -1,4 +1,6 @@
+import * as d3 from "d3";
 import {app} from "../statevis.module";
+
 
 app.filter("lastDottedSegment", () => (word) => word.split(".").slice(-1)[0]);
 

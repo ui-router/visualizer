@@ -1,5 +1,11 @@
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
 import {app} from "../statevis.module";
-import {TreeChanges, Transition, TransitionService, Node, stringify, maxLength} from "angular-ui-router";
+import {TreeChanges, Transition, TransitionService, PathNode, stringify, maxLength} from "angular-ui-router";
+import {Pretty} from "../util/pretty";
+import {Modal} from "../util/modal";
+import {ResolveData} from "../transitions/resolveData";
 
 ///////////////////////////////////////////////////////////
 // These two directives make up the Transition Visualizer
@@ -78,9 +84,9 @@ app.directive('uirTransitionView', () => {
   };
 
   interface TransStruct {
-    to: Node;
+    to: PathNode;
     toType: string;
-    from: Node;
+    from: PathNode;
     fromType: string;
   }
 
@@ -139,7 +145,7 @@ app.directive('uirTransitionView', () => {
           });
         }
 
-        const paramsForNode = (node: Node) =>
+        const paramsForNode = (node: PathNode) =>
             Object.keys(node.paramValues)
                 .map(key => ({state: node.state.name, key: key, value: node.paramValues[key]}));
 
@@ -284,7 +290,7 @@ app.directive('uirTransitionNodeDetail', () => ({
       return name && name.split(".").reverse()[0];
     };
 
-    $scope.$watch(() => this.node, (node: Node, oldval) => {
+    $scope.$watch(() => this.node, (node: PathNode, oldval) => {
       if (!node) return;
       this.params = node.paramSchema.reduce((params, param) => {
         params[param.id] = node.paramValues[param.id];
@@ -333,6 +339,20 @@ app.directive('uirTransitionNodeDetail', () => ({
   `
 }));
 
+var modalstr = `
+            <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
+              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
+                <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
+                <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
+              </div>
+
+              <div class="uir-modal-body" style="max-height: 80%;">
+                <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
+              </div>
+
+              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
+            </simple-modal>
+`
 
 app.directive("keysAndValues", function () {
   return {
@@ -388,18 +408,7 @@ app.directive("keysAndValues", function () {
           <div ng-if="isObject(unwrap(value))" ng-class="::_classes.value">
             <!-- The value is an Object. Allow user to click a link titled [Object] to show a modal containing the object as JSON -->
 
-            <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
-              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
-                <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
-                <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
-              </div>
-
-              <div class="uir-modal-body" style="max-height: 80%;">
-                <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
-              </div>
-
-              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
-            </simple-modal>
+            <resolve-data toggles="toggles" open="toggles.modal == key" labels="labels" id="key">inner content</resolve-data>
 
             <span>
               <span class="link" ng-click="toggles.modal = key">[Object]</span>
@@ -413,6 +422,24 @@ app.directive("keysAndValues", function () {
 });
 
 
+ var old = ` <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
+              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
+                <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
+                <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
+              </div>
+
+              <div class="uir-modal-body" style="max-height: 80%;">
+                <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
+              </div>
+
+              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
+            </simple-modal>`;
+
+app.directive('helloComponent', function(reactDirective) {
+  return reactDirective('HelloComponent');
+});
+
+app.directive('resolveData', reactDirective => reactDirective(ResolveData));
 
 app.directive("simpleModal", function ($timeout) {
   return {
@@ -424,6 +451,7 @@ app.directive("simpleModal", function ($timeout) {
       asModal: '='
     },
     link: function (scope, elem, attrs, controllers: any[]) {
+      var el = elem[0];
       $timeout(() => elem.children().addClass("in"), 10);
       controllers = controllers.filter(x => !!x);
       controllers.forEach(ctrl => ctrl.fullScreen(true));
