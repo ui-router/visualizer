@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script src="//npmcdn.com/angular@latest/angular.js"></script>
+    <script src="//npmcdn.com/angular-ui-router@1.0.0-beta.1/release/angular-ui-router.js"></script>
+    
+    <!--  Hello Galaxy Code -->
+    <script src="hello.js"></script>
+    <script src="services/people.js"></script>
+    <script src="components/hello.js"></script>
+    <script src="components/about.js"></script>
+    <script src="components/people.js"></script>
+    <script src="components/person.js"></script>
+    
+    <!-- Visualizer and url -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="//npmcdn.com/show-current-browser-url"></script>
+    <script src="//npmcdn.com/d3@3"></script>
+    <!--<script src="//npmcdn.com/ui-router-visualizer"></script>-->
+    <script src="../build/visualizer.js"></script>
+  </head>
+  
+  <body ng-app="hello" ng-class="{'debug-sref': debug.uisref, 'debug-view': debug.uiview}">
+    <div>
+      <button onClick="document.location.reload(true)">reload plunker</button>
+      <button ng-click="debug.uiview = !debug.uiview">{{ debug.uiview ? "disable" : "enable"}} ui-view debug</button>
+      <button ng-click="debug.uisref = !debug.uisref">{{ debug.uisref ? "disable" : "enable"}} ui-sref debug</button>
+    </div>
+    <div class="nav">
+      <a ui-sref="hello" ui-sref-active="active">Hello</a>
+      <a ui-sref="about" ui-sref-active="active">About</a>
+      <a ui-sref="people" ui-sref-active="active">People</a>
+    </div>
+    
+    
+    <ui-view></ui-view>
+    
+    <uir-state-vis class="statevis" width="300" height="200"></uir-state-vis>
+    <uir-transitions-view></uir-transitions-view>
+  </body> 
+</html>

@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, helvetica, sans-serif;
+}
+
+.active { color: red; font-weight: bold; }
+
+.statevis {
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  z-index: -1;
+}
+
+.flex-h {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.people {
+  width: 30%;
+  ul {
+    list-style: none;
+    padding: 0.1em 0;
+  }
+}
+
+.nav {
+  border-bottom: 1px solid #FEFEFE;
+  margin-top: 1em;
+  
+  a {
+    background-color: #EEE;
+    text-decoration: none;
+    color: #444;
+    padding: 0.1em 1em;
+    border: 1px solid darkgrey;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    
+    &.active {
+      color: black;
+      background-color: #ccc;
+      font-weight: normal;
+    }
+  }
+}
+
+body.debug-sref {
+  [ui-sref]:after {
+    content: ' ui-sref="' attr(ui-sref) '"';
+    font-family: monospace;
+  }
+  
+  [ui-sref] {
+    padding: 0 0.25em;
+  }
+}
+
+body.debug-view {
+  ui-view {
+    padding: 0 1em 1em 1em;
+    display: block;
+    border: 5px solid darkgrey;
+    ui-view {
+      margin: 1em;
+    }
+    
+    &:before {
+      content: "<ui-view>";
+      display: block;
+      width: 100%;
+      font-size: 1em;
+      font-weight: bold;
+      text-align: center;
+      background-color: darkgrey;
+      margin: 0 -1em;
+      padding: 0 1em;
+    }
+      
+    &:empty:after {
+      display: block;
+      width: 100%;
+      text-align: center;
+      content: "No view is loaded into this ui-view";
+    }
+  }
+}
