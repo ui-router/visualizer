@@ -3,8 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import {app} from "../statevis.module";
 import {TreeChanges, Transition, TransitionService, PathNode, stringify, maxLength} from "angular-ui-router";
-import {Pretty} from "../util/pretty";
-import {Modal} from "../util/modal";
+import "../transitions/resolveData";
 import {ResolveData} from "../transitions/resolveData";
 
 ///////////////////////////////////////////////////////////
@@ -339,21 +338,6 @@ app.directive('uirTransitionNodeDetail', () => ({
   `
 }));
 
-var modalstr = `
-            <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
-              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
-                <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
-                <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
-              </div>
-
-              <div class="uir-modal-body" style="max-height: 80%;">
-                <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
-              </div>
-
-              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
-            </simple-modal>
-`
-
 app.directive("keysAndValues", function () {
   return {
     restrict: 'AE',
@@ -390,6 +374,18 @@ app.directive("keysAndValues", function () {
         if (typeof object.toString === 'function') return truncateTo(100, object.toString());
         return object;
       };
+
+      $scope.close = () => $scope.toggles.modal = null;
+      $scope.modal = (labels, key, value) => {
+        let modal = document.body.querySelector("#uir-modal");
+        if (!modal) {
+          modal = document.createElement("div");
+          modal.id = "uir-modal";
+          document.body.appendChild(modal);
+        }
+        const close = () => ReactDOM.unmountComponentAtNode(modal);
+        ReactDOM.render(React.createElement(ResolveData, { close, labels, key, value }), modal);
+      }
     },
 
     template: `
@@ -408,63 +404,13 @@ app.directive("keysAndValues", function () {
           <div ng-if="isObject(unwrap(value))" ng-class="::_classes.value">
             <!-- The value is an Object. Allow user to click a link titled [Object] to show a modal containing the object as JSON -->
 
-            <resolve-data toggles="toggles" open="toggles.modal == key" labels="labels" id="key">inner content</resolve-data>
-
             <span>
-              <span class="link" ng-click="toggles.modal = key">[Object]</span>
+              <span class="link" ng-click="modal(labels, key, value)">[Object]</span>
             </span>
 
           </div>
         </div>
       </div>
-      `
-  };
-});
-
-
- var old = ` <simple-modal size="lg" as-modal="true" ng-if="toggles.modal == key">
-              <div class="uir-modal-header" style="display: flex; flex-flow: row nowrap; justify-content: space-between; background-color: cornflowerblue">
-                <div style="font-size: 1.5em;">{{::labels.modalTitle}}: {{ ::key }}</div>
-                <button class="btn btn-primary" ng-click="toggles.modal = null"><i class="fa fa-close"></i></button>
-              </div>
-
-              <div class="uir-modal-body" style="max-height: 80%;">
-                <pre style="max-height: 50%">{{ ::unwrap(value) | json }}</pre>
-              </div>
-
-              <div class="uir-modal-footer"><button class="btn btn-primary" ng-click="toggles.modal = null">Close</button></div>
-            </simple-modal>`;
-
-app.directive('helloComponent', function(reactDirective) {
-  return reactDirective('HelloComponent');
-});
-
-app.directive('resolveData', reactDirective => reactDirective(ResolveData));
-
-app.directive("simpleModal", function ($timeout) {
-  return {
-    restrict: 'AE',
-    transclude: true,
-    require: [ "^?uirTransitionsView", "^?uirTransitionView" ],
-    scope: {
-      size: '@',
-      asModal: '='
-    },
-    link: function (scope, elem, attrs, controllers: any[]) {
-      var el = elem[0];
-      $timeout(() => elem.children().addClass("in"), 10);
-      controllers = controllers.filter(x => !!x);
-      controllers.forEach(ctrl => ctrl.fullScreen(true));
-      scope.$on("$destroy", () => controllers.forEach(ctrl => ctrl.fullScreen(false)))
-    },
-    template: `
-        <div ng-class="{'uir-modal-backdrop uir-fade': asModal}" style="z-index: 1040;"> </div>
-
-        <div tabindex="-1" ng-class="{'uir-modal uir-fade': asModal}" style="z-index: 1050; display: block;">
-          <div ng-class="{'uir-modal-dialog': asModal}" ng-class="{ 'modal-sm': size == 'sm', 'modal-lg': size == 'lg' }">
-            <div ng-class="{'uir-modal-content': asModal}" ng-transclude></div>
-          </div>
-        </div>
       `
   };
 });
