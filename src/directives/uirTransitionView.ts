@@ -4,6 +4,7 @@ import * as ReactDOM from "react-dom";
 import {app} from "../statevis.module";
 import {TreeChanges, Transition, TransitionService, PathNode, stringify, maxLength} from "angular-ui-router";
 import "../transitions/resolveData";
+import "../transitions/keysAndValues";
 import {ResolveData} from "../transitions/resolveData";
 
 ///////////////////////////////////////////////////////////
@@ -325,95 +326,19 @@ app.directive('uirTransitionNodeDetail', () => ({
         <div class="statename">{{::vm.stateName(vm.node)}}</div>
       </div>
 
-      <div keys-and-values="vm.params"
+      <keys-and-values data="vm.params || {}"
           classes="{ outerdiv: 'params', section: 'paramslabel deemphasize' }"
           labels="{ section: 'Parameter values', modalTitle: 'Parameter value: ' }">
-      </div>
+      </keys-and-values>
 
-      <div keys-and-values="vm.resolves" getvalue="vm.unwrapResolve(value)"
+      <keys-and-values data="vm.resolves || {}" 
+          unwrapData="vm.unwrapResolve"
           classes="{ outerdiv: 'params resolve', section: 'resolvelabel deemphasize' }"
           labels="{ section: 'Resolved data', modalTitle: 'Resolved value: ' }">
-      </div>
+      </keys-and-values>
     </div>
   `
 }));
-
-app.directive("keysAndValues", function () {
-  return {
-    restrict: 'AE',
-
-    scope: {
-      keysAndValues: '=', // map of keys/values to display
-      getvalue: '&?', // [Optional] a function which unwraps each value
-      classes: '=', // Apply classes to specific elements
-      labels: '=' // Apply labels to specific elements, e.g., { section: 'Param values', modalTitle: 'Parameter value: ' }
-    },
-
-    controller($scope) {
-      // Default CSS class values
-      let _classes = { outerdiv: 'param', keyvaldiv: 'keyvalue', section: 'paramslabel deemphasize', key: 'paramid', value: 'paramvalue' };
-      $scope._classes = angular.extend(_classes, $scope.classes);
-      $scope.toggles = {
-        modal: null // Toggle display of a modal for a particular value
-      };
-
-      // Unwraps the value using the bound unwrapValue function
-      $scope.unwrap = (value) => $scope.getvalue ? $scope.getvalue({ value: value }) : value;
-
-      $scope.empty = () => Object.keys($scope.keysAndValues || {}).length == 0;
-
-      $scope.isObject = (object) => // If it's not a string, not a number, not a boolean, is it an object?
-        object && !angular.isString(object) && !angular.isNumber(object) && object !== true && object !== false;
-
-      // Render various types of objects differently
-      $scope.displayValue = function (object) {
-        if (object === undefined) return "undefined";
-        if (object === null) return "null";
-        if (angular.isString(object)) return '"' + truncateTo(100, object) + '"';
-        if ($scope.isObject(object)) return "[Object]";
-        if (typeof object.toString === 'function') return truncateTo(100, object.toString());
-        return object;
-      };
-
-      $scope.close = () => $scope.toggles.modal = null;
-      $scope.modal = (labels, key, value) => {
-        let modal = document.body.querySelector("#uir-modal");
-        if (!modal) {
-          modal = document.createElement("div");
-          modal.id = "uir-modal";
-          document.body.appendChild(modal);
-        }
-        const close = () => ReactDOM.unmountComponentAtNode(modal);
-        ReactDOM.render(React.createElement(ResolveData, { close, labels, key, value }), modal);
-      }
-    },
-
-    template: `
-      <div ng-class="::_classes.outerdiv" ng-if="!empty()">
-        <div ng-class="::_classes.section">{{::labels.section}}</div>
-
-        <div ng-repeat="(key, value) in keysAndValues" ng-class="::_classes.keyvaldiv">
-
-          <div ng-class="::_classes.key">{{::key}}: </div>
-
-          <div ng-if="!isObject(unwrap(value))" ng-class="::_classes.value">
-            <!-- The value  is a simple string, int, boolean -->
-            {{ displayValue(unwrap(value)) }}
-          </div>
-
-          <div ng-if="isObject(unwrap(value))" ng-class="::_classes.value">
-            <!-- The value is an Object. Allow user to click a link titled [Object] to show a modal containing the object as JSON -->
-
-            <span>
-              <span class="link" ng-click="modal(labels, key, value)">[Object]</span>
-            </span>
-
-          </div>
-        </div>
-      </div>
-      `
-  };
-});
 
 function truncateTo(len, str) {
   return str.length > len ? str.substr(0, len - 3) + "..." : str;

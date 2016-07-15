@@ -1,9 +1,23 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-export interface IProps { }
-export interface IState { }
+export interface IProps {
+}
+export interface IState {
+}
 export class Modal extends React.Component<IProps, IState> {
+
+  static show = (labels, key, value, component) => {
+    let modal = document.body.querySelector("#uir-modal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "uir-modal";
+      document.body.appendChild(modal);
+    }
+    const close = () => ReactDOM.unmountComponentAtNode(modal);
+    ReactDOM.render(React.createElement(component, {close, labels, key, value}), modal);
+  };
+
   componentDidMount() {
     let el = ReactDOM.findDOMNode(this.refs['modal']);
     setTimeout(() => {
