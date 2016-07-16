@@ -22,10 +22,12 @@ myApp.config(function($stateProvider) {
       url: '/{personId}', 
       component: 'person',
       resolve: {
-        person: function(people, $stateParams) {
-          return people.find(function(person) { 
-            return person.id === $stateParams.personId;
-          });
+        person: function(people, $stateParams, $timeout) {
+          return $timeout(function() {
+            return people.find(function(person) {
+              return person.id === $stateParams.personId;
+            });
+          }, 500);
         }
       }
     }
@@ -38,6 +40,7 @@ myApp.config(function($stateProvider) {
 });
 
 
-myApp.run(function($http) {
+myApp.run(function($http, $rootScope, $transitions) {
+  $rootScope.$transitions = $transitions;
   $http.get('data/people.json', { cache: true });
 });

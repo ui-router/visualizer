@@ -1,10 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-export interface IProps {
-}
-export interface IState {
-}
+export interface IProps { }
+export interface IState { }
 export class Modal extends React.Component<IProps, IState> {
 
   static show = (labels, key, value, component) => {

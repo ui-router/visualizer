@@ -1,36 +1,32 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import {app} from "../statevis.module";
 import {Modal} from "../util/modal";
 import {ResolveData} from "./resolveData";
+import {maxLength} from "../util/strings";
 
-const truncateTo = (len, str) =>
-    str.length > len ? str.substr(0, len - 3) + "..." : str;
-
-const isObject = (val) =>
-    typeof val === 'object' && !Array.isArray(val);
+const isObject = (val) => typeof val === 'object';
 
 const displayValue = function (object) {
   if (object === undefined) return "undefined";
   if (object === null) return "null";
-  if (angular.isString(object)) return '"' + truncateTo(100, object) + '"';
+  if (angular.isString(object)) return '"' + maxLength(100, object) + '"';
+  if (Array.isArray(object)) return "[Array]";
   if (isObject(object)) return "[Object]";
-  if (typeof object.toString === 'function') return truncateTo(100, object.toString());
+  if (typeof object.toString === 'function') return maxLength(100, object.toString());
   return object;
 };
 
 export interface IProps {
   data: any;
-  unwrapData: Function;
   labels: {
-    section: string;
+    section?: string;
+    modalTitle?: string;
   }
   classes: {
-    outerdiv: string;
-    section: string;
-    keyvaldiv: string;
-    _key: string;
-    value: string;
+    outerdiv?: string;
+    section?: string;
+    keyvaldiv?: string;
+    _key?: string;
+    value?: string;
   }
 }
 
@@ -50,11 +46,8 @@ export class KeysAndValues extends React.Component<IProps, IState> {
   isEmpty = () =>
       !this.props.data || Object.keys(this.props.data).length === 0;
 
-  unwrapData = (data) =>
-      this.props.unwrapData ? this.props.unwrapData(data) : data;
-
   class = (name) =>
-      (this.props.classes && this.props.classes[name]) || defaultClass[name];
+      this.props.classes !== undefined ? this.props.classes[name] : defaultClass[name];
 
   render() {
     const renderValue = (key, val) => {
@@ -92,5 +85,3 @@ export class KeysAndValues extends React.Component<IProps, IState> {
 
   }
 }
-
-app.directive('keysAndValues', reactDirective => reactDirective(KeysAndValues, ['data', 'unwrapData', 'labels', 'classes']))
