@@ -38,7 +38,7 @@ let defaultClass = {
   outerdiv: 'param',
   keyvaldiv: 'keyvalue',
   section: 'paramslabel deemphasize',
-  key: 'paramid',
+  _key: 'paramid',
   value: 'paramvalue'
 };
 
@@ -47,7 +47,9 @@ export class KeysAndValues extends React.Component<IProps, IState> {
       !this.props.data || Object.keys(this.props.data).length === 0;
 
   class = (name) =>
-      this.props.classes !== undefined ? this.props.classes[name] : defaultClass[name];
+      this.props.classes && this.props.classes[name] !== undefined ?
+          this.props.classes[name] :
+          defaultClass[name];
 
   render() {
     const renderValue = (key, val) => {

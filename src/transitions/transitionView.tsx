@@ -10,13 +10,13 @@ export interface IProps {
 }
 
 export interface IState {
-  status: string;
-  message: string;
-  rejection: string;
-  pinned: boolean,
-  expanded: boolean,
-  open: boolean,
-  deregisterFunctions: Function[],
+  status?: string;
+  message?: string;
+  rejection?: string;
+  pinned?: boolean,
+  expanded?: boolean,
+  open?: boolean,
+  deregisterFunctions?: Function[],
 }
 
 export class TransitionView extends React.Component<IProps, IState> {
@@ -38,7 +38,7 @@ export class TransitionView extends React.Component<IProps, IState> {
     const setMessage = message => {
       // Transition hooks are computed when the trans starts; they can't be removed while the trans is running.
       if (!this.transitionPromise.isCanceled)  {
-        this.mergeState({message});
+        this.setState({message});
       }
     };
     const statename = state => state.name || "(root)";
@@ -50,9 +50,9 @@ export class TransitionView extends React.Component<IProps, IState> {
     fns.push(trans.onEnter({},  (t, state) => setMessage(`Entering ${statename(state)}`), {priority: 10000}));
     fns.push(trans.onFinish({}, ()         => setMessage(`Finishing...`)));
 
-    this.mergeState({ deregisterFunctions: fns });
+    this.setState({ deregisterFunctions: fns });
 
-    const success = () => this.mergeState({status: "success", message: null});
+    const success = () => this.setState({status: "success", message: null});
     const error = (err) => {
       if (err.isCanceled) return;
 
@@ -76,7 +76,7 @@ export class TransitionView extends React.Component<IProps, IState> {
         }
       }
 
-      this.mergeState({status, rejection, message: null});
+      this.setState({status, rejection, message: null});
     };
 
     this.transitionPromise = makeCancelable(trans.promise);
@@ -90,25 +90,21 @@ export class TransitionView extends React.Component<IProps, IState> {
     }
   }
 
-  mergeState(object) {
-    this.setState(Object.assign({}, this.state, object));
-  }
-
   togglePin() {
-    this.mergeState({pinned: !this.state.pinned});
+    this.setState({pinned: !this.state.pinned});
   }
 
   toggleExpand() {
-    this.mergeState({expanded: !this.state.expanded});
+    this.setState({expanded: !this.state.expanded});
   }
 
   toggleOpen() {
-    this.mergeState({open: !this.state.open});
+    this.setState({open: !this.state.open});
   }
 
   render() {
-    const open = () => this.mergeState({open: true});
-    const close = () => this.mergeState({open: false});
+    const open = () => this.setState({open: true});
+    const close = () => this.setState({open: false});
 
     return (
         <div onMouseEnter={ open } onMouseLeave={ close }>
