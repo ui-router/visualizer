@@ -1,8 +1,9 @@
+<!doctype html>
 <html>
   <head>
     <script src="//npmcdn.com/angular@latest/angular.js"></script>
     <script src="//npmcdn.com/angular-ui-router@1.0.0-beta.1/release/angular-ui-router.js"></script>
-    
+
     <!--  Hello Galaxy Code -->
     <script src="hello.js"></script>
     <script src="services/people.js"></script>
@@ -13,10 +14,7 @@
     
     <!-- Visualizer and url -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <script src="//npmcdn.com/show-current-browser-url"></script>
-    <script src="//npmcdn.com/d3@3"></script>
-    <!--<script src="//npmcdn.com/ui-router-visualizer"></script>-->
     <script src="../build/visualizer.js"></script>
   </head>
   
@@ -32,10 +30,7 @@
       <a ui-sref="people" ui-sref-active="active">People</a>
     </div>
     
-    
     <ui-view></ui-view>
-    
-    <uir-state-vis class="statevis" width="300" height="200"></uir-state-vis>
-    <transitions-visualizer $trans="::$transitions"></transitions-visualizer>
-  </body> 
+
+  </body>
 </html>

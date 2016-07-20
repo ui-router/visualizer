@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./src/statevis.ts",
+    entry: "./src/visualizer.ts",
 
     output: {
         path: __dirname + "/build",
@@ -21,12 +21,16 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },
-            { test: /\.tsx?$/, loader: 'awesome-typescript-loader', tsconfig: 'tsconfig.json' }
+            { test: /\.tsx?$/, loader: 'awesome-typescript-loader', tsconfig: 'tsconfig.json' },
+            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+
         ]
     },
 
     externals: {
-        angular: { root: 'angular', amd: 'angular', commonjs2: 'angular', commonjs: 'angular' },
-        "angular-ui-router": { root: 'angular-ui-router', amd: 'angular-ui-router', commonjs2: 'angular-ui-router', commonjs: 'angular-ui-router' },
+        // 'd3': { root: 'd3', amd: 'd3', commonjs2: 'd3', commonjs: 'd3' },
+        // 'react': { root: 'react', amd: 'react', commonjs2: 'react', commonjs: 'react' },
+        // 'react-dom': { root: 'react-dom', amd: 'react-dom', commonjs2: 'react-dom', commonjs: 'react-dom' }
     }
 };

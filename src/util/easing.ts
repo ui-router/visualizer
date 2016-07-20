@@ -1,5 +1,3 @@
-import {app} from "./statevis.module";
-
 /* ============================================================
  * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
  *
@@ -68,7 +66,4 @@ export const easing = {
     return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
   },
 };
-
-/** This is a collection of easing functions taken from jquery easing */
-app.service("easing", () => easing);
 

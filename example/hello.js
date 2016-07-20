@@ -1,4 +1,4 @@
-var myApp = angular.module('hello', ['ui.router', 'ui.router.visualizer']);
+var myApp = angular.module('hello', ['ui.router']);
 
 myApp.config(function($stateProvider) {
   // An array of state definitions
@@ -31,7 +31,7 @@ myApp.config(function($stateProvider) {
         }
       }
     }
-  ]
+  ];
   
   // Loop over the state definitions and register them
   states.forEach(function(state) {
@@ -40,7 +40,13 @@ myApp.config(function($stateProvider) {
 });
 
 
-myApp.run(function($http, $rootScope, $transitions) {
-  $rootScope.$transitions = $transitions;
+myApp.run(function($http, $rootScope, ng1UIRouter) {
+  var visualizer = window['ui-router-visualizer'];
+  var StateVisualizer = visualizer.StateVisualizer;
+  var TransitionVisualizer = visualizer.TransitionVisualizer;
+
+  StateVisualizer.create(ng1UIRouter);
+  TransitionVisualizer.create(ng1UIRouter);
+
   $http.get('data/people.json', { cache: true });
 });

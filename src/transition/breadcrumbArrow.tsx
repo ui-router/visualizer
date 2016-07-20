@@ -1,8 +1,7 @@
 import * as React from "react";
-import {Transition} from "angular-ui-router";
 
 export interface IProps {
-  trans: Transition;
+  transition: any;
   toggleExpand: Function;
   status: string;
   message: string;
@@ -29,16 +28,16 @@ export class BreadcrumbArrow extends React.Component<IProps, IState> {
   }
 
   render() {
-    return !this.props.trans ? null : (
+    return !this.props.transition ? null : (
         <div className={this.props.status + " historyEntry"} onClick={this.handleClick.bind(this)}>
           <div className="summary">
-            <div className="transid">{this.props.trans.$id}</div>
+            <div className="transid">{this.props.transition.$id}</div>
             <div className="status">
               {this.props.status}
               {!this.props.message ? null : <span>: {this.props.message}</span>}
             </div>
             <div className="transname">
-              <i className={this.iconClass()} /> {this.props.trans.to().name}
+              <i className={this.iconClass()} /> {this.props.transition.to().name}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 
 .uirStateVisContainer {
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     right: 2em;
     bottom: 20em;
@@ -10,7 +10,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     transform: scale(1);
     transform-origin: right bottom;
-    transition: right 0.5s ease-in, bottom 0.5s ease-in, transform 0.5s ease-in;
+    transition: right 0.5s ease, bottom 0.5s ease, transform 0.5s ease;
 }
 
 .uirStateVisContainer.minimized {
@@ -18,8 +18,16 @@
     transform: scale(0.25);
 }
 
+.uirStateVisContainer .uirStateVisControls {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
 .statevis {
     transition: all 1s ease;
+    flex: 1 0 auto;
 }
 
 .statevis circle {
@@ -31,6 +39,8 @@
     transition-property: r, fill, stroke, stroke-width;
     transition-duration: 350ms;
     transition-timing-function: ease-in-out;
+
+    cursor: pointer;
 }
 
 .statevis circle.entered {

@@ -5,12 +5,6 @@ body {
   color: red;
   font-weight: bold; }
 
-.statevis {
-  position: fixed;
-  right: 2em;
-  bottom: 2em;
-  z-index: -1; }
-
 .flex-h {
   display: flex;
   flex-flow: row nowrap;

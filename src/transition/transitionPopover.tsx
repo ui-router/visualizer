@@ -1,11 +1,10 @@
 import * as React from "react";
-import {Transition} from "angular-ui-router";
 import {PopoverHeading} from "./popoverHeading";
 import {TransSummary} from "./transSummary";
 import {NodePaths} from "./nodePaths";
 
 export interface IProps {
-  trans: Transition;
+  transition: any;
   status: string;
   rejection: string;
 
@@ -31,15 +30,15 @@ export class TransitionPopover extends React.Component<IProps, IState> {
     return (
       <div className={ classes() }>
         <PopoverHeading
-            trans={this.props.trans}
+            transition={this.props.transition}
             pinned={this.props.pinned} expanded={this.props.expanded}
             togglePinned={this.props.togglePinned} toggleExpand={this.props.toggleExpand}
         />
 
         <div className="uir-panel-body">
-          <TransSummary trans={this.props.trans} status={this.props.status} rejection={this.props.rejection} />
+          <TransSummary trans={this.props.transition} status={this.props.status} rejection={this.props.rejection} />
           <hr/>
-          <NodePaths trans={this.props.trans} />
+          <NodePaths transition={this.props.transition} />
         </div>
 
         <div className="downArrow" />

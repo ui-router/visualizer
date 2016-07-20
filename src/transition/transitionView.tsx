@@ -1,12 +1,11 @@
 import * as React from "react";
-import {TargetState, Transition} from "angular-ui-router";
 import {TransitionPopover} from "./transitionPopover";
 import {BreadcrumbArrow} from "./breadcrumbArrow";
 import {maxLength} from "../util/strings";
 import {makeCancelable} from "../util/cancelablePromise";
 
 export interface IProps {
-  trans: Transition;
+  transition: any;
 }
 
 export interface IState {
@@ -33,7 +32,7 @@ export class TransitionView extends React.Component<IProps, IState> {
   };
 
   componentDidMount() {
-    let trans = this.props.trans;
+    let trans = this.props.transition;
 
     const setMessage = message => {
       // Transition hooks are computed when the trans starts; they can't be removed while the trans is running.
@@ -64,7 +63,7 @@ export class TransitionView extends React.Component<IProps, IState> {
         let type = err && err.type;
         if (type == 2 && err.redirected === true) {
           status = "redirected";
-          let targetState = error['detail'] as TargetState;
+          let targetState = error['detail'];
           let toState = targetState.name();
           let toParams = JSON.stringify(targetState.params());
           rejection = maxLength(100, `${toState}(${toParams}`) + ")";
@@ -110,7 +109,7 @@ export class TransitionView extends React.Component<IProps, IState> {
         <div onMouseEnter={ open } onMouseLeave={ close }>
 
           <TransitionPopover
-              trans={this.props.trans}
+              transition={this.props.transition}
               status={this.state.status}
               rejection={this.state.rejection}
               pinned={this.state.pinned}
@@ -120,7 +119,7 @@ export class TransitionView extends React.Component<IProps, IState> {
               toggleExpand={this.toggleExpand.bind(this)}/>
 
           <BreadcrumbArrow
-              trans={this.props.trans}
+              transition={this.props.transition}
               status={this.state.status}
               message={this.state.message}
               toggleExpand={this.toggleExpand.bind(this)}/>

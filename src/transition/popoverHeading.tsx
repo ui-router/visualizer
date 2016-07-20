@@ -1,8 +1,7 @@
 import * as React from "react";
-import {Transition} from "angular-ui-router";
 
 export interface IProps {
-  trans: Transition;
+  transition: any;
 
   pinned: boolean;
   expanded: boolean;
@@ -24,7 +23,7 @@ export class PopoverHeading extends React.Component<IProps, IState> {
           <i className={ tackClass() } />
         </button>
 
-        <h3 className="uir-panel-title">Transition #{ this.props.trans.$id }</h3>
+        <h3 className="uir-panel-title">Transition #{ this.props.transition.$id }</h3>
 
         <div style={{ cursor: "pointer" }} onClick={this.props.toggleExpand}>
           <i className={ expandClass() } title="Show Details" />

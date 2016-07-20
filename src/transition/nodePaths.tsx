@@ -1,17 +1,16 @@
 import * as React from "react";
 import {NodeDetail} from "./nodeDetail";
-import {PathNode, Transition} from "angular-ui-router";
 
 export interface TransStruct {
   key: string;
-  to: PathNode;
+  to: any;
   toType: string;
-  from: PathNode;
+  from: any;
   fromType: string;
 }
 
 export interface IProps {
-  trans: Transition;
+  transition: any;
 }
 
 export interface IState {
@@ -22,7 +21,7 @@ export class NodePaths extends React.Component<IProps, IState> {
   state = { paths: [] };
 
   componentDidMount() {
-    let trans = this.props.trans;
+    let trans = this.props.transition;
     let tcPaths = Object.assign({}, trans.treeChanges());
 
     // Ignore the root state when drawing paths.
