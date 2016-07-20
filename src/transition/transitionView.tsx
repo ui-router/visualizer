@@ -89,24 +89,14 @@ export class TransitionView extends React.Component<IProps, IState> {
     }
   }
 
-  togglePin() {
-    this.setState({pinned: !this.state.pinned});
-  }
-
-  toggleExpand() {
-    this.setState({expanded: !this.state.expanded});
-  }
-
-  toggleOpen() {
-    this.setState({open: !this.state.open});
-  }
+  togglePin = () => this.setState({pinned: !this.state.pinned});
+  toggleExpand = () => this.setState({expanded: !this.state.expanded});
+  open = () => this.setState({ open: true });
+  close = () => this.setState({ open: false });
 
   render() {
-    const open = () => this.setState({open: true});
-    const close = () => this.setState({open: false});
-
     return (
-        <div onMouseEnter={ open } onMouseLeave={ close }>
+        <div onMouseEnter={ this.open } onMouseLeave={ this.close }>
 
           <TransitionPopover
               transition={this.props.transition}
@@ -115,14 +105,14 @@ export class TransitionView extends React.Component<IProps, IState> {
               pinned={this.state.pinned}
               expanded={this.state.expanded}
               open={this.state.open}
-              togglePinned={this.togglePin.bind(this)}
-              toggleExpand={this.toggleExpand.bind(this)}/>
+              togglePinned={this.togglePin}
+              toggleExpand={this.toggleExpand}/>
 
           <BreadcrumbArrow
               transition={this.props.transition}
               status={this.state.status}
               message={this.state.message}
-              toggleExpand={this.toggleExpand.bind(this)}/>
+              toggleExpand={this.toggleExpand}/>
 
         </div>
     )

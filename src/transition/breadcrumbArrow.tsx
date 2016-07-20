@@ -11,9 +11,8 @@ export interface IState {
 }
 
 export class BreadcrumbArrow extends React.Component<IProps, IState> {
-  handleClick() {
-    this.props.toggleExpand();
-  }
+  handleClick = () =>
+      this.props.toggleExpand();
 
   iconClass() {
     let iconClasses = {
@@ -29,7 +28,7 @@ export class BreadcrumbArrow extends React.Component<IProps, IState> {
 
   render() {
     return !this.props.transition ? null : (
-        <div className={this.props.status + " historyEntry"} onClick={this.handleClick.bind(this)}>
+        <div className={this.props.status + " historyEntry"} onClick={this.handleClick}>
           <div className="summary">
             <div className="transid">{this.props.transition.$id}</div>
             <div className="status">

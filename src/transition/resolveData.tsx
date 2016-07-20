@@ -12,13 +12,15 @@ export interface IProps {
 }
 
 export class ResolveData extends React.Component<IProps,any> {
+  close = () => this.props.close();
+
   render() {
     return (
         <div>
           <Modal>
             <div className="uir-modal-header uir-resolve-header">
               <div style={{"fontSize": "1.5em"}}>{this.props.labels.modalTitle}: {this.props.id}</div>
-              <button className="btn btn-primary" onClick={this.props.close.bind(this.props.close)}>
+              <button className="btn btn-primary" onClick={this.close}>
                 <i className="fa fa-close"/>
               </button>
             </div>
@@ -28,7 +30,7 @@ export class ResolveData extends React.Component<IProps,any> {
             </div>
 
             <div className="uir-modal-footer">
-              <button className="btn btn-primary" onClick={this.props.close.bind(this.props.close)}>Close</button>
+              <button className="btn btn-primary" onClick={this.close}>Close</button>
             </div>
           </Modal>
         </div>
