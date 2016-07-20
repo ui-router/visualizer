@@ -82,8 +82,8 @@ export class StateVisualizer extends React.Component<IProps, IState> {
   }
 
   private el;
-  right: number;
-  bottom: number;
+  right: string;
+  bottom: string;
 
   minimize = (evt?) => {
     evt && evt.preventDefault();
