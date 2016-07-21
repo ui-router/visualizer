@@ -41,12 +41,8 @@ myApp.config(function($stateProvider) {
 
 
 myApp.run(function($http, $rootScope, ng1UIRouter) {
-  var visualizer = window['ui-router-visualizer'];
-  var StateVisualizer = visualizer.StateVisualizer;
-  var TransitionVisualizer = visualizer.TransitionVisualizer;
-
-  StateVisualizer.create(ng1UIRouter);
-  TransitionVisualizer.create(ng1UIRouter);
+  var vis = window['ui-router-visualizer'];
+  vis.visualizer(ng1UIRouter);
 
   $http.get('data/people.json', { cache: true });
 });

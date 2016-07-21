@@ -220,14 +220,16 @@
     transform: rotate(45deg);
 }
 
+.transitionDetail table.paths {
+    min-width: 25em;
+}
+
 .transitionDetail table.paths td {
     color: white;
-    padding: 0.1em 0.5em !important;
     border: 0;
     font-size: small;
     min-width: 10em;
 }
-
 
 .transitionDetail .summary .keyvalue {
     justify-content: flex-start !important;
@@ -258,16 +260,43 @@
     padding-left: 1em;
 }
 
+
+.transitionDetail td {
+    padding: 0;
+}
+
+.transitionDetail td .flowArrowCell {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 1em;
+    transition: width 0.25s ease;
+    height: auto;
+}
+.transitionDetail.expand td .flowArrowCell { width: 2em; }
+
+.transitionDetail .exit  .flowArrowSvg          { right: 0; }
+.transitionDetail .enter .flowArrowSvg          { left: 0; }
+.transitionDetail        .flowArrowSvg.bottom   { bottom: 0 }
+.transitionDetail        .flowArrowSvg.top      { top: 0 }
+.transitionDetail        .flowArrowSvg {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    transition: width 0.25s ease;
+}
+
 /* color code path elements by retained/exited/entered */
-.transitionDetail td.retain {
+.transitionDetail .retain {
     background-color: #737273;
 }
 
-.transitionDetail td.exit {
+.transitionDetail .exit {
     background-color: #7c1010;
 }
 
-.transitionDetail td.enter {
+.transitionDetail .enter {
     background-color: #31592a;
 }
 
@@ -282,7 +311,7 @@
     padding: 0;
     opacity: 0;
     overflow: hidden;
-    transition: padding 0.25s ease, max-height 0.25s ease,max-width 0.25s ease, opacity 1s ease;
+    transition: opacity 1s ease;
     max-height: 0;
     max-width: 150px;
 }
@@ -311,16 +340,45 @@
 
 /* When showing expanded details, put space between path elements */
 .transitionDetail.expand table.paths td {
-    border: 5px solid white;
     max-height: 100px;
     vertical-align: top;
 }
 
+.transitionDetail .uirTransVisRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
 
+.transitionDetail .uirTransVisRow > div {
+    flex: 1 0 50%;
+}
+
+.transitionDetail .uirNodeContent {
+    display: flex;
+    flex-flow: row nowrap;
+    min-height: 1em;
+    transition: min-height 0.25s ease;
+}
+
+.transitionDetail.expand .uirNodeContent {
+    min-height: 5em;
+}
+
+.transitionDetail .uirNodeDetail {
+    flex: 1 0 auto;
+    padding: 0.2em 0.5em;
+}
 
 .transitionDetail .statename {
     font-weight: bolder;
     margin-right: 1em;
+    margin-left: 0;
+}
+.transitionDetail .enter .statename {
+    margin-right: 0;
+    margin-left: 1em;
 }
 
 .transitionDetail .nowrap {
@@ -436,11 +494,18 @@ span.link {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.transitionDetail .enter .uir-header {
+    flex-flow: row nowrap;
+}
 .transitionDetail .uir-header {
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
     align-items: baseline;
+}
+
+.transitionDetail .retain .uir-header {
+    justify-content: center;
 }
 
 .uir-panel {

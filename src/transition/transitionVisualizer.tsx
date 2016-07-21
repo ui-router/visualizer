@@ -80,6 +80,7 @@ export class TransitionVisualizer extends React.Component<IProps, IState> {
   static create(router, element?) {
     if (!element) {
       element = document.createElement("div");
+      element.id = "uirTransitionVisualizer";
       document.body.appendChild(element);
     }
 

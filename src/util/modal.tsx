@@ -21,7 +21,6 @@ export class Modal extends React.Component<IProps, IState> {
     setTimeout(() => {
       let fades = el.getElementsByClassName("uir-fade");
       [].slice.apply(fades).forEach(node => node.className += " in");
-      console.log(fades);
     }, 35)
   }
 

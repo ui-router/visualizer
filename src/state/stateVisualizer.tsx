@@ -72,6 +72,7 @@ export class StateVisualizer extends React.Component<IProps, IState> {
   static create(router, element?) {
     if (!element) {
       element = document.createElement("div");
+      element.id = "uirStateVisualizer";
       document.body.appendChild(element);
     }
 
