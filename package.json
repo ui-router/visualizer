@@ -6,9 +6,8 @@
     "start": "webpack-dev-server --content-base example",
     "clean": "rm -rf ./build ./release",
     "compile": "./node_modules/typescript/bin/tsc",
-    "bundle-prep": "cp src/*.css build/src/",
-    "bundle": "npm run bundle-prep && webpack",
-    "all": "npm run clean && npm run compile && npm run bundle",
+    "bundle": "webpack",
+    "all": "npm run clean && npm run bundle",
     "release": "./release.sh"
   },
   "homepage": "http://ui-router.github.com/visualizer",
