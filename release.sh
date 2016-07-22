@@ -16,7 +16,7 @@ fi
 git checkout -b release && \
 npm run all && \
 mkdir release && \
-mv build/*.js release && \
+mv build/*.* release && \
 mv build/src/* build && \
 rmdir build/src && \
 mv build cjs && \
