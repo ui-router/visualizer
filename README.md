@@ -2,10 +2,29 @@
 
 Try the [Demo plunker](http://plnkr.co/edit/MZ7ypavytxD1Ty1UHozo?p=info)
 
+![Image of Visualizer](https://pbs.twimg.com/media/Cn7epJ_UMAAHWqu.jpg)
+
+## What
+
+Visualizes the state tree and transitions in UI-Router 1.0+.
+
+This script augments your app with two components:
+
+1) State Visualizer: Your UI-Router state tree, showing the active state and its active ancestors (green nodes)
+
+2) Transition Visualizer: A list of each transition (from one state to another)
+
+   - Color coded transition status (success/error/ignored/redirected)
+   - Shows which states were retained during the transition, which were exited, and which were entered.
+   - Shows parameter values
+   - Shows resolve data
+
+## How
+
 This script is distributed as a UMD module.
 There are two ways to add this to your application:
 
-## Using a script tag
+### Using a script tag
 
 -   Add a script tag to your HTML.
     Add the font-awesome stylesheet.
@@ -64,7 +83,7 @@ There are two ways to add this to your application:
     ```
 
 
-## Using a module loader/bundler like webpack
+### Using a module loader/bundler like webpack
 
 -   Configure your bundler to load ui-router-visualizer.
     The visualizer will be available `'ui-router-visualizer'`.
