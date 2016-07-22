@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "scripts": {
     "start": "webpack-dev-server --content-base example",
     "clean": "rm -rf ./build ./release",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "angular": "^1.4.9",
-    "angular-ui-core": ">=1.0.0-beta.1",
+    "ui-router-core": ">=1.0.0-beta.1",
     "css-loader": "^0.23.1",
     "d3": "^3.5.14",
     "es6-shim": "^0.35.0",
