@@ -54,5 +54,5 @@
     "webpack-dev-server": "^1.14.1"
   },
   "main": "release/visualizer.min.js",
-  "typings": "cjs/statevis.d.ts"
+  "typings": "cjs/visualizer.d.ts"
 }
