@@ -43,6 +43,24 @@ let defaultClass = {
 };
 
 export class KeysAndValues extends React.Component<IProps, IState> {
+  valuesCallbacks = {};
+
+  componentDidMount () {
+    this.bindClickHandlers();
+  }
+
+  willReceiveProps (newProps) {
+    this.bindClickHandlers(newProps);
+  }
+
+  bindClickHandlers = (props = this.props) => {
+    Object.keys(props.data).map(key => {
+      let val = props.data[key];
+      this.valuesCallbacks[key] = Modal.show.bind(null, props.labels, key, val, ResolveData);
+    });
+    this.setState({});
+  }
+
   isEmpty = () =>
       !this.props.data || Object.keys(this.props.data).length === 0;
 
@@ -51,19 +69,19 @@ export class KeysAndValues extends React.Component<IProps, IState> {
           this.props.classes[name] :
           defaultClass[name];
 
+  renderValue = (key, val) => {
+    if (isObject(val)) return (
+      <span className="link" onClick={this.valuesCallbacks[key]}>[Object]</span>
+    );
+
+    return (
+      <div className={this.props.classes.value}>
+        {displayValue(val)}
+      </div>
+    );
+  }
+
   render() {
-    const renderValue = (key, val) => {
-      if (isObject(val)) return (
-        <span className="link" onClick={() => Modal.show(this.props.labels, key, val, ResolveData)}>[Object]</span>
-      );
-
-      return (
-        <div className={this.props.classes.value}>
-          {displayValue(val)}
-        </div>
-      );
-    };
-
     return this.isEmpty() ? null : (
       <div className={this.class('outerdiv')}>
         <div className={this.class('section')}>
@@ -77,7 +95,7 @@ export class KeysAndValues extends React.Component<IProps, IState> {
             </div>
 
             <div className={this.class('value')}>
-              {renderValue(key, this.props.data[key])}
+              {this.renderValue(key, this.props.data[key])}
             </div>
           </div>
         ) }
