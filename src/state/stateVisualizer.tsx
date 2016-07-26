@@ -8,6 +8,9 @@ import {toggleClass, addClass} from "../util/toggleClass";
 import {draggable} from "../util/draggable";
 import {StateTree} from "./stateTree";
 
+declare function require(string): string;
+let imgChevron = require('../../images/16/chevron-down.png');
+
 export interface IProps {
   router;
   width?: number;
@@ -127,7 +130,7 @@ export class StateVisualizer extends React.Component<IProps, IState> {
           <div className="uirStateVisControls">
             <div> Current State: <StateSelector router={this.props.router} /></div>
             <button onClick={this.minimize}>
-              <i className="fa fa-chevron-down" style={{ cursor: 'pointer' }} />
+              <img src={imgChevron} style={{ cursor: 'pointer' }} />
             </button>
           </div>
 

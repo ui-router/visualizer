@@ -20,8 +20,8 @@ export class ResolveData extends React.Component<IProps,any> {
           <Modal>
             <div className="uir-modal-header uir-resolve-header">
               <div style={{"fontSize": "1.5em"}}>{this.props.labels.modalTitle}: {this.props.id}</div>
-              <button className="btn btn-primary" onClick={this.close}>
-                <i className="fa fa-close"/>
+              <button className="btn btn-xs btn-primary" onClick={this.close}>
+                <i className="uir-icon uir-iconw-close"/>
               </button>
             </div>
 

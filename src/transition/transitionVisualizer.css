@@ -94,6 +94,10 @@
 }
 .historyEntry .summary .transname {
     font-weight: bold;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center
 }
 
 /* breadcrumb/history entry color coding */
@@ -203,21 +207,12 @@
     align-items: baseline;
 }
 
-.transitionDetail .uir-header > button {
+.transitionDetail .uir-header > *  {
     flex: 0 1 auto;
-    transition: transform 0.5s ease;
-}
-.transitionDetail .uir-header > button:hover i {
-    flex: 0 1 auto;
-    transition: all 0.5s ease;
 }
 
-.fa-thumb-tack.fa-rotate-45 {
-    color: lightgray;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+.transitionDetail .uir-header > * i {
+    transition: all 0.5s ease;
 }
 
 .transitionDetail table.paths {
@@ -439,13 +434,6 @@ span.link {
     font-size: smaller;
 }
 
-.fa.tooltip-right:after {
-    left: 1.5em;
-}
-
-
-
-
 
 
 /* Bootstrap stuff */
@@ -626,3 +614,37 @@ span.link {
     text-align: right;
     border-top: 1px solid #e5e5e5;
 }
+
+.uir-icon {
+    display: inline-block;
+    height: 1em; width: 1em;
+    margin: 0.25em;
+    background-size: cover;
+    background-position: 0 0;
+}
+
+.uir-spin {
+    animation: uirspin 2s infinite;
+    transform: rotate(0deg);
+}
+
+.uir-rotate-35 {
+    transform: rotate(35deg);
+    opacity: 0.5;
+}
+
+@keyframes uirspin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.uir-iconw-spinner       { background-image: url("../../images/w/16/spinner.png"); }
+.uir-iconw-check         { background-image: url("../../images/w/16/check.png"); }
+.uir-iconw-circle-o      { background-image: url("../../images/w/16/circle-o.png"); }
+.uir-iconw-share         { background-image: url("../../images/w/16/share.png"); }
+.uir-iconw-close         { background-image: url("../../images/w/16/close.png"); }
+
+.uir-icon-thumb-tack     { background-image: url("../../images/16/thumb-tack.png"); }
+.uir-icon-toggle-on      { background-image: url("../../images/16/toggle-on.png"); }
+.uir-icon-toggle-off     { background-image: url("../../images/16/toggle-off.png"); }

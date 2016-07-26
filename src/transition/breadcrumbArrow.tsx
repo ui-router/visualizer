@@ -16,11 +16,11 @@ export class BreadcrumbArrow extends React.Component<IProps, IState> {
 
   iconClass() {
     let iconClasses = {
-      running: 'fa fa-spin fa-spinner',
-      success: 'fa fa-check',
-      redirected: 'fa fa-share',
-      ignored: 'fa fa-circle-o',
-      error: 'fa fa-close'
+      running: 'uir-icon uir-spin uir-iconw-spinner',
+      success: 'uir-icon uir-iconw-check',
+      redirected: 'uir-icon uir-iconw-share',
+      ignored: 'uir-icon uir-iconw-circle-o',
+      error: 'uir-icon uir-iconw-close'
     };
 
     return iconClasses[this.props.status];
