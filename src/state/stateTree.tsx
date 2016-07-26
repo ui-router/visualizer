@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import {StateNode} from "./stateNode";
 import {NodeDimensions, VisDimensions, StateVisNode} from "./interface";
 import {animatePath} from "../util/animatepath";
@@ -26,6 +27,21 @@ let resetMetadata = {
 };
 
 export class StateTree extends React.Component<IProps, IState> {
+
+  static create(router, element?, props = {}) {
+    if (!element) {
+      element = document.createElement("div");
+      element.id = "uirStateTree";
+      document.body.appendChild(element);
+    }
+
+    let initialProps = Object.assign({}, props, { router });
+    const render = ReactDOM.render(React.createElement(StateTree, initialProps), element);
+    document.addEventListener('DOMContentLoaded', render as any, false);
+
+    return element;
+  }
+
   state = {
     nodes: [],
     layout: {} as any

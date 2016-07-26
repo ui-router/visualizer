@@ -24,7 +24,7 @@ export class StateVisualizer extends React.Component<IProps, IState> {
    * @param router the UIRouter object
    * @param element (optional) the element where the StateVisualizer should be placed.
    *                If no element is passed, an element will be created in the body.
-   *
+   * @param props height/width properties default: { height: 350, width: 250 }
    *
    * # Angular 1 + UI-Router (1.0.0-beta.2 and higher):
    *
@@ -72,14 +72,15 @@ export class StateVisualizer extends React.Component<IProps, IState> {
    *         You can destroy the component using:
    *         [ReactDOM.unmountComponentAtNode](https://facebook.github.io/react/docs/top-level-api.html#reactdom.unmountcomponentatnode)
    */
-  static create(router, element?) {
+  static create(router, element?, props = {}) {
     if (!element) {
       element = document.createElement("div");
       element.id = "uirStateVisualizer";
       document.body.appendChild(element);
     }
 
-    const render = ReactDOM.render(React.createElement(StateVisualizer, { router }), element);
+    let initialProps = Object.assign({}, props, { router });
+    const render = ReactDOM.render(React.createElement(StateVisualizer, initialProps), element);
     document.addEventListener('DOMContentLoaded', render as any, false);
 
     return element;

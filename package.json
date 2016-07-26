@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "scripts": {
     "start": "webpack-dev-server --content-base example",
     "clean": "rm -rf ./build ./release",
@@ -32,25 +32,19 @@
   },
   "license": "MIT",
   "dependencies": {
-    "file-loader": "^0.9.0",
-    "font-awesome-svg-png": "^1.1.5",
+    "d3": "^3.5.14",
     "react": "^15",
     "react-dom": "^15",
-    "url-loader": "^0.5.7"
-  },
-  "peerDependencies": {
-    "d3": "^3.5.14"
+    "ui-router-core": ">=1.0.0-beta.1"
   },
   "devDependencies": {
-    "angular": "^1.4.9",
     "awesome-typescript-loader": "^2.0.1",
     "css-loader": "^0.23.1",
-    "d3": "^3.5.14",
     "es6-shim": "^0.35.0",
     "file-loader": "^0.9.0",
+    "font-awesome-svg-png": "^1.1.5",
     "style-loader": "^0.13.1",
     "typescript": "^1.8.10",
-    "ui-router-core": ">=1.0.0-beta.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
