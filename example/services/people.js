@@ -5,20 +5,20 @@ angular.module('hello').service('PeopleService', function($http, $timeout) {
         return $http.get('data/people.json', { cache: true }).then(function(resp) {
           return resp.data;
       })}
-      , 1000);
+      , 500);
     },
 
-    getPerson: function(id) {
-      function personMatchesParam(person) {
-        return person.id === id;
-      }
-
-      return $timeout(function () {
-        service.getAllPeople().then(function (people) {
-          return people.find(personMatchesParam)
-        });
-      }, 1300);
-    }
+    // getPerson: function(id) {
+    //   function personMatchesParam(person) {
+    //     return person.id === id;
+    //   }
+    //
+    //   return $timeout(function () {
+    //     service.getAllPeople().then(function (people) {
+    //       return people.find(personMatchesParam)
+    //     });
+    //   }, 3300);
+    // }
   }
 
   return service;

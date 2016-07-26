@@ -27,7 +27,7 @@ myApp.config(function($stateProvider) {
             return people.find(function(person) {
               return person.id === $stateParams.personId;
             });
-          }, 500);
+          }, 2500); // long delay
         }
       }
     }
