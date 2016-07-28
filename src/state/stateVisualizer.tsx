@@ -13,8 +13,9 @@ let imgChevron = require('../../images/16/chevron-down.png');
 
 export interface IProps {
   router;
-  width?: number;
-  height?: number;
+  minimizeAfter?: number; // ms
+  width?: number; // px
+  height?: number; // px
 }
 export interface IState { }
 export class StateVisualizer extends React.Component<IProps, IState> {
@@ -79,7 +80,7 @@ export class StateVisualizer extends React.Component<IProps, IState> {
       document.body.appendChild(element);
     }
 
-    let initialProps = Object.assign({}, props, { router });
+    let initialProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
     const render = ReactDOM.render(React.createElement(StateVisualizer, initialProps), element);
     document.addEventListener('DOMContentLoaded', render as any, false);
 
@@ -123,6 +124,10 @@ export class StateVisualizer extends React.Component<IProps, IState> {
 
   componentDidMount() {
     draggable(this.el);
+
+    if (this.props.minimizeAfter) {
+      setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
+    }
   }
 
   render() {

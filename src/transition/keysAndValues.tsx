@@ -8,7 +8,7 @@ const isObject = (val) => typeof val === 'object';
 const displayValue = function (object) {
   if (object === undefined) return "undefined";
   if (object === null) return "null";
-  if (angular.isString(object)) return '"' + maxLength(100, object) + '"';
+  if (typeof object === 'string') return '"' + maxLength(100, object) + '"';
   if (Array.isArray(object)) return "[Array]";
   if (isObject(object)) return "[Object]";
   if (typeof object.toString === 'function') return maxLength(100, object.toString());
