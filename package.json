@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "scripts": {
     "start": "webpack-dev-server --content-base example",
     "clean": "rm -rf ./build ./release",
