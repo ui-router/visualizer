@@ -63,7 +63,7 @@ export class TransitionView extends React.Component<IProps, IState> {
         let type = err && err.type;
         if (type == 2 && err.redirected === true) {
           status = "redirected";
-          let targetState = error['detail'];
+          let targetState = err['detail'];
           let toState = targetState.name();
           let toParams = JSON.stringify(targetState.params());
           rejection = maxLength(100, `${toState}(${toParams}`) + ")";
