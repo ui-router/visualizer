@@ -48,9 +48,10 @@
     position: absolute;
     background: darkgrey;
     left: 0;
-    height: 50%;
+    height: 50.2%; /* +0.2% so firefox doesn't render a white line down the center */
     width: 100%;
     border: 1px solid black;
+    box-sizing: border-box;
     z-index: -1;
 }
 

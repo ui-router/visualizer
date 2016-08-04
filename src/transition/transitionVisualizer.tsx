@@ -15,6 +15,7 @@ export interface IProps {
 export interface IState {
   transitions?: any[];
   deregisterListener?: Function;
+  pointerEvents?: string;
 }
 
 /**
@@ -93,7 +94,8 @@ export class TransitionVisualizer extends React.Component<IProps, IState> {
 
   state = {
     transitions: [],
-    deregisterListener: null
+    deregisterListener: null,
+    pointerEvents: "auto",
   };
 
   static defaultProps = {
@@ -128,18 +130,39 @@ export class TransitionVisualizer extends React.Component<IProps, IState> {
 
       setTimeout(scrollToRight, 25);
     });
+
+    document.body.addEventListener("mousemove", this.onMouseMove)
   }
+
+  /** 
+   * Disable pointer events when the mouse is above the timeline
+   * 
+   * This allows clicks to pass through the outer div to the user's app components
+   * even when a transitionview details box is open and pinned.
+   * 
+   * Enable pointer events when mouse is inside the timeline to allow horizontal scroll & scroll wheel
+   */
+  onMouseMove = (evt) => {
+    let windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var pointerEvents = (windowHeight - evt.clientY < 65 ? "auto" : "none");
+    if (this.state.pointerEvents != pointerEvents) {
+      this.setState({pointerEvents});
+    }
+  };
 
   componentWillUnmount() {
     if (this.state.deregisterListener) {
       this.state.deregisterListener();
     }
+    document.body.removeEventListener("mousemove", this.onMouseMove)
   }
 
   render() {
+    let pointerEvents = this.state.pointerEvents;
+
     return (
       <div ref={el => this._div = el}>
-        <div className="transitionHistory">
+        <div className="transitionHistory" style={{ pointerEvents }}>
           { this.state.transitions.map(trans =>
             <div key={trans.$id}>
               <TransitionView transition={trans} />
