@@ -1,7 +1,7 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "scripts": {
     "start": "webpack-dev-server --content-base example",
     "clean": "rm -rf ./build ./release",
@@ -35,7 +35,7 @@
     "d3": "^3.5.14",
     "react": "^15",
     "react-dom": "^15",
-    "ui-router-core": ">=1.0.0-beta.1"
+    "ui-router-core": ">=1.0.0-beta.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^2.0.1",

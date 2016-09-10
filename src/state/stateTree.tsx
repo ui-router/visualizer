@@ -49,11 +49,17 @@ export class StateTree extends React.Component<IProps, IState> {
 
   tree: any;
   unmounted: boolean = false;
-  deregisterFn: Function;
+  deregisterHookFn: Function;
+  deregisterStateListenerFn: Function;
 
   componentDidMount() {
+    let registry = this.props.router.stateRegistry;
+    if (registry.onStatesChanged) {
+      this.deregisterStateListenerFn = registry.onStatesChanged(() => this.updateStates());
+    }
+
     // Register onSuccess transition hook to toggle the active state SVG classes
-    this.deregisterFn = this.props.router.transitionService.onSuccess({}, ($transition$) => {
+    this.deregisterHookFn = this.props.router.transitionService.onSuccess({}, ($transition$) => {
       let tc = $transition$.treeChanges();
       const getNode = node => this.nodeForState(this.state.nodes, node.state);
 
@@ -94,7 +100,7 @@ export class StateTree extends React.Component<IProps, IState> {
 
   componentWillUnmount() {
     this.unmounted = true;
-    this.deregisterFn && this.deregisterFn();
+    this.deregisterHookFn && this.deregisterHookFn();
   }
 
   makeLinkPath = (node) => {
@@ -174,7 +180,9 @@ export class StateTree extends React.Component<IProps, IState> {
     if (toAdd.length || toDel.length) {
       let nodes = this.state.nodes.slice();
       toAdd.map(s => Object.create(s)).forEach(n => nodes.push(n));
-      // todo: del.forEach(blah)
+      toDel.map(del => nodes.filter(node => del.isPrototypeOf(node)))
+          .reduce((acc, x) => acc.concat(x), [])
+          .forEach(node => nodes.splice(nodes.indexOf(node), 1));
 
       // Rebuild each node's children array
       nodes.forEach((n: any) => n.children = []);
@@ -189,7 +197,10 @@ export class StateTree extends React.Component<IProps, IState> {
       this.setState({ nodes }, this.doLayoutAnimation);
     }
 
-    if (!this.unmounted) setTimeout(this.updateStates, 1000)
+    if (!this.unmounted && !this.deregisterStateListenerFn) {
+      // poll if ui-router version is 1.0.0-beta.1 or earlier
+      setTimeout(this.updateStates, 1000)
+    }
   };
 
   render() {
