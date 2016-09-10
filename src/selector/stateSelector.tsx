@@ -11,6 +11,8 @@ export interface IState {
 }
 
 export class StateSelector extends React.Component<IProps, IState> {
+  deregisterStateListenerFn: Function;
+
   state = {
     current: null,
     states: [],
@@ -19,17 +21,28 @@ export class StateSelector extends React.Component<IProps, IState> {
 
   componentDidMount() {
     let router = this.props.router;
-    let states = router.stateRegistry.get().map(state => state.name);
+    
+    const updateStates = () => 
+        this.setState({ states: router.stateRegistry.get().map(state => state.name) });
+    const updateCurrent = (trans) =>
+        this.setState({current: trans.to().name});
+    
+    if (router.stateRegistry.onStatesChanged) {
+      this.deregisterStateListenerFn = router.stateRegistry.onStatesChanged(updateStates);
+    }
 
-    var updateCurrent = (trans) => this.setState({current: trans.to().name});
     let deregisterFn = router.transitionService.onSuccess({}, updateCurrent);
 
-    this.setState({ current: router.globals.current.name, states, deregisterFn });
+    this.setState({ current: router.globals.current.name, states: [], deregisterFn });
+    updateStates();
   }
 
   componentWillUnmount() {
     if (this.state.deregisterFn) {
       this.state.deregisterFn();
+    }
+    if (this.deregisterStateListenerFn) {
+      this.deregisterStateListenerFn();
     }
   }
 

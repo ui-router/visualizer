@@ -40,9 +40,9 @@ myApp.config(function($stateProvider) {
 });
 
 
-myApp.run(function($http, $rootScope, ng1UIRouter) {
+myApp.run(function($http, $rootScope, $uiRouter) {
   var vis = window['ui-router-visualizer'];
-  vis.visualizer(ng1UIRouter);
+  vis.visualizer($uiRouter);
 
   $http.get('data/people.json', { cache: true });
 });
