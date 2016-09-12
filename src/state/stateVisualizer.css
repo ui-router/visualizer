@@ -43,6 +43,13 @@
     cursor: pointer;
 }
 
+.statevis circle.future {
+    /*r: 10;*/
+    stroke: grey;
+    stroke-dasharray: 5,5;
+    stroke-width: 1px;
+}
+
 .statevis circle.entered {
     /*r: 10;*/
     stroke: black;

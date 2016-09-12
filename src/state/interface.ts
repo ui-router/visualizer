@@ -10,6 +10,8 @@ export interface StateVisNode {
   inactive:   boolean;
   children:   StateVisNode[];
   parent:     StateVisNode;
+  future:     boolean;
+  lazyLoad:   any;
 
   _classes: string;
   _linkPath: any;

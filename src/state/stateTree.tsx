@@ -20,6 +20,7 @@ let resetMetadata = {
   label: '',
   highlight: false,
   active: false,
+  future: false,
   retained: false,
   entered: false,
   exited: false,
@@ -47,6 +48,7 @@ export class StateTree extends React.Component<IProps, IState> {
     layout: {} as any
   };
 
+  nodes: StateVisNode[] = [];
   tree: any;
   unmounted: boolean = false;
   deregisterHookFn: Function;
@@ -54,33 +56,17 @@ export class StateTree extends React.Component<IProps, IState> {
 
   componentDidMount() {
     let registry = this.props.router.stateRegistry;
+    let $transitions = this.props.router.transitionService;
+
+    // Register states changed listener
     if (registry.onStatesChanged) {
       this.deregisterStateListenerFn = registry.onStatesChanged(() => this.updateStates());
     }
-
-    // Register onSuccess transition hook to toggle the active state SVG classes
-    this.deregisterHookFn = this.props.router.transitionService.onSuccess({}, ($transition$) => {
-      let tc = $transition$.treeChanges();
-      const getNode = node => this.nodeForState(this.state.nodes, node.state);
-
-      let nodes = this.state.nodes.map(node => Object.assign(node, resetMetadata));
-
-      tc.retained.concat(tc.entering).map(getNode).forEach((n: StateVisNode) => n.entered = true);
-      tc.retained.map(getNode).forEach((n: StateVisNode) => n.retained = true);
-      tc.exiting.map(getNode).forEach((n: StateVisNode)=> n.exited = true);
-      tc.to.slice(-1).map(getNode).forEach((n: StateVisNode)=> { n.active = true; n.label = "active"});
-
-      const applyClasses = (node) => {
-        let classes = ["entered", "retained", "exited", "active", "inactive", "highlight"];
-        node._classes = classes.reduce((str, clazz) => (str + (node[clazz] ? ` ${clazz} ` : '')), '');
-      };
-
-      nodes.forEach(applyClasses);
-
-      this.setState({ nodes: nodes });
-    });
-
     this.updateStates();
+
+    // Register onSuccess transition hook to toggle the SVG classes
+    this.deregisterHookFn = $transitions.onSuccess({}, (trans) => this.updateNodes(trans));
+    this.updateNodes();
   }
 
   dimensions() {
@@ -119,7 +105,8 @@ export class StateTree extends React.Component<IProps, IState> {
   doLayoutAnimation = () => {
     this.cancelCurrentAnimation();
 
-    let nodes = this.state.nodes;
+    let nodes = this.nodes;
+    if (!nodes.length) return;
 
     let tree = d3.layout.tree();
     let root = nodes.filter(state => state.name === "")[0];
@@ -173,12 +160,13 @@ export class StateTree extends React.Component<IProps, IState> {
     let router = this.props.router;
 
     let states = router.stateService.get().map(s => s.$$state());
-    let known = this.state.nodes.map(Object.getPrototypeOf);
+    let known = this.nodes.map(Object.getPrototypeOf);
     let toAdd = states.filter(s => known.indexOf(s) === -1);
     let toDel = known.filter(s => states.indexOf(s) === -1);
 
     if (toAdd.length || toDel.length) {
-      let nodes = this.state.nodes.slice();
+      let nodes = this.nodes = this.nodes.slice();
+
       toAdd.map(s => Object.create(s)).forEach(n => nodes.push(n));
       toDel.map(del => nodes.filter(node => del.isPrototypeOf(node)))
           .reduce((acc, x) => acc.concat(x), [])
@@ -193,14 +181,39 @@ export class StateTree extends React.Component<IProps, IState> {
         parentNode.children.push(n);
         n._parent = parentNode;
       });
+      nodes.forEach(n => n.future = !!n.lazyLoad);
 
-      this.setState({ nodes }, this.doLayoutAnimation);
+      this.setState({ nodes: this.nodes }, this.doLayoutAnimation);
     }
 
     if (!this.unmounted && !this.deregisterStateListenerFn) {
       // poll if ui-router version is 1.0.0-beta.1 or earlier
       setTimeout(this.updateStates, 1000)
     }
+  };
+
+  updateNodes = ($transition$?) => {
+    let nodes = this.nodes.map(node => Object.assign(node, resetMetadata));
+    nodes.forEach(n => n.future = !!n.lazyLoad);
+
+    if ($transition$) {
+      let tc = $transition$.treeChanges();
+      const getNode = node =>
+          this.nodeForState(this.nodes, node.state);
+
+      tc.retained.concat(tc.entering).map(getNode).forEach((n: StateVisNode) => n.entered = true);
+      tc.retained.map(getNode).forEach((n: StateVisNode) => n.retained = true);
+      tc.exiting.map(getNode).forEach((n: StateVisNode)=> n.exited = true);
+      tc.to.slice(-1).map(getNode).forEach((n: StateVisNode)=> { n.active = true; n.label = "active"});
+    }
+
+    const applyClasses = (node) => {
+      let classes = ["entered", "retained", "exited", "active", "inactive", "future", "highlight"];
+      node._classes = classes.reduce((str, clazz) => (str + (node[clazz] ? ` ${clazz} ` : '')), '');
+    };
+    nodes.forEach(applyClasses);
+
+    this.setState({ nodes: this.nodes });
   };
 
   render() {
