@@ -1,4 +1,4 @@
-var myApp = angular.module('hello', ['ui.router']);
+var myApp = angular.module('hello', ['ui.router', 'oc.lazyLoad']);
 
 myApp.config(function($stateProvider) {
   // An array of state definitions
@@ -29,6 +29,14 @@ myApp.config(function($stateProvider) {
             });
           }, 2500); // long delay
         }
+      }
+    },
+
+    {
+      name: 'about.lazy',
+      url: '/lazy',
+      lazyLoad: function (trans) {
+          return trans.injector().get('$ocLazyLoad').load('./lazy/index.js');
       }
     }
   ];
