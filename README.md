@@ -32,7 +32,7 @@ There are two ways to add this to your application:
 
     ```
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
-    <script src="//npmcdn.com/ui-router-visualizer@2"></script>
+    <script src="//unpkg.com/ui-router-visualizer@2"></script>
     ```
 
 -   Create the visualizer:
