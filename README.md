@@ -27,11 +27,9 @@ There are two ways to add this to your application:
 ### Using a script tag
 
 -   Add a script tag to your HTML.
-    Add the font-awesome stylesheet.
     The visualizer will be added to the window as `window['ui-router-visualizer']`.
 
     ```
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
     <script src="//unpkg.com/ui-router-visualizer@2"></script>
     ```
 
