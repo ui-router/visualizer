@@ -37,10 +37,10 @@ There are two ways to add this to your application:
 
     ### Angular 1
 
-    Inject the `ng1UIRouter` router instance in a run block.
+    Inject the `$uiRouter` router instance in a run block.
     Get the `ui-router-visualizer` off the window and pass it the router instance.
 
-    Note: in ui-router 1.0.0-beta.2 and above, `ng1UIRouter` is renamed to `$uiRouter`
+    Note: in ui-router 1.0.0-beta.2 and earlier, `$uiRouter` was named `ng1UIRouter`
 
     ```js
     // inject the router instance by name
@@ -97,18 +97,18 @@ There are two ways to add this to your application:
     ### Angular 1
 
     Get the `ui-router-visualizer` using `require` or ES6 `import`.
-    Inject the `ng1UIRouter` router instance in a run block.
+    Inject the `$uiRouter` router instance in a run block.
     Provide the router instance to the visualizer.
 
-    Note: in ui-router 1.0.0-beta.2 and above, `ng1UIRouter` is renamed to `$uiRouter`
+    Note: in ui-router 1.0.0-beta.2 and earlier, `$uiRouter` was named `ng1UIRouter`
 
     ```js
     import * as vis from 'ui-router-visualizer';
     // or: var vis = require('ui-router-visualizer');
 
     // inject the router instance by name
-    app.run(function(ng1UIRouter) {
-     vis.visualizer(ng1UIRouter);
+    app.run(function($uiRouter) {
+     vis.visualizer($uiRouter);
     });
     ```
 
