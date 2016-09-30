@@ -44,9 +44,9 @@ There are two ways to add this to your application:
 
     ```js
     // inject the router instance by name
-    app.run(function(ng1UIRouter) {
+    app.run(function($uiRouter) {
      var vis = window['ui-router-visualizer'];
-     vis.visualizer(ng1UIRouter);
+     vis.visualizer($uiRouter);
     });
     ```
 
@@ -56,12 +56,18 @@ There are two ways to add this to your application:
     Pass the router instance to the visualizer in the `configure` method of your UIRouterConfig.
 
     ```js
-    export class MyUIRouterConfig extends UIRouterConfig {
-      configure(router) {
+    @Injectable()
+    export class MyUIRouterConfig {
+      constructor(router: UIRouter) {
         var vis = window['ui-router-visualizer'];
         vis.visualizer(router);
       }
     }
+    
+    ... 
+    @NgModule({
+      imports: [ UIRouterModule.forRoot({ configClass: MyUIRouterConfig }) ]
+      ...
     ```
 
     ### React
@@ -115,11 +121,17 @@ There are two ways to add this to your application:
     import * as vis from 'ui-router-visualizer';
     // or: var vis = require('ui-router-visualizer');
 
-    export class MyUIRouterConfig extends UIRouterConfig {
-      configure(router) {
+    @Injectable()
+    export class MyUIRouterConfig {
+      constructor(router: UIRouter) {
         vis.visualizer(router);
       }
     }
+    
+    ... 
+    @NgModule({
+      imports: [ UIRouterModule.forRoot({ configClass: MyUIRouterConfig }) ]
+      ...
     ```
 
     ### React
