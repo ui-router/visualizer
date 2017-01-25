@@ -79,7 +79,7 @@ export class NodePaths extends React.Component<IProps, IState> {
           { // Render the retained states
             retained.map(elem =>
                 <tr key={elem.key}>
-                  <td className={elem.fromType} colSpan='2'>
+                  <td className={elem.fromType} colSpan={2}>
                     <NodeDetail node={elem.from} type={elem.fromType}/>
                   </td>
                 </tr>
@@ -88,7 +88,7 @@ export class NodePaths extends React.Component<IProps, IState> {
           { // Render the entered/exited states
             enterExit.map((elem, idx) =>
                 <tr key={elem.key}>
-                  <td colSpan="2">
+                  <td colSpan={2}>
                     <div className="uirTransVisRow">
                       <div className={`${elem.fromType}`}>
                         { !elem.fromType ? null :

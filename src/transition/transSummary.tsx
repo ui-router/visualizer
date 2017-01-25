@@ -17,8 +17,8 @@ export class TransSummary extends React.Component<IProps, IState> {
         <tr><td>From State:</td><td>{ this.props.trans.from().name || '(root)' }</td></tr>
         <tr><td>To State:</td><td>{this.props.trans.to().name || '(root)'}</td></tr>
         <tr>
-          <td colSpan="1">Parameters:</td>
-          <td colSpan="1">
+          <td colSpan={1}>Parameters:</td>
+          <td colSpan={1}>
             <KeysAndValues
                 data={this.props.trans.params()}
                 labels={{ section: '', modalTitle: 'Parameter value: ' }}

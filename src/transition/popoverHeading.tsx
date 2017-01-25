@@ -1,12 +1,14 @@
 import * as React from "react";
+import EventHandler = React.EventHandler;
+import MouseEvent = React.MouseEvent;
 
 export interface IProps {
   transition: any;
 
   pinned: boolean;
   expanded: boolean;
-  togglePinned: Function;
-  toggleExpand: Function;
+  togglePinned: EventHandler<MouseEvent>;
+  toggleExpand: EventHandler<MouseEvent>;
 }
 
 export interface IState {

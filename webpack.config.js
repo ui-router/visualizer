@@ -4,8 +4,8 @@ module.exports = {
   entry: "./src/visualizer.ts",
 
   output: {
-    path: __dirname + "/build",
-    publicPath: "/build/",
+    path: __dirname + "/bundles",
+    publicPath: "/bundles/",
     filename: "visualizer.min.js",
     libraryTarget: "umd",
     library: "ui-router-visualizer",
@@ -36,7 +36,7 @@ module.exports = {
 
   module: {
     loaders: [
-      {test: /\.tsx?$/, loader: 'awesome-typescript-loader', tsconfig: 'tsconfig.json'},
+      {test: /\.tsx?$/, loader: 'awesome-typescript-loader?noEmit=true', tsconfig: 'tsconfig.json'},
       { test: /\.css$/, loader: 'style!css?sourceMap' },
       // inline base64 URLs for <=8k images, direct URLs for the rest
       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }

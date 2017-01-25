@@ -29,7 +29,7 @@ export class Modal extends React.Component<IProps, IState> {
         <div ref="modal">
           <div className="uir-modal-backdrop uir-fade" style={{zIndex: 1040}}></div>
 
-          <div tabIndex="-1" className="uir-modal uir-fade" style={{zIndex: 1050, display: "block"}}>
+          <div tabIndex={-1} className="uir-modal uir-fade" style={{zIndex: 1050, display: "block"}}>
             <div className="uir-modal-dialog modal-lg">
               <div className="uir-modal-content">
                 { this.props.children }

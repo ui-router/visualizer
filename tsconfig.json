@@ -11,10 +11,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
-    "rootDir": ".",
+    "rootDir": "src",
     "sourceRoot": "src",
     "target": "es5",
-    "outDir": "build",
+    "outDir": "lib",
     "declaration": true,
     "sourceMap": true
   }
