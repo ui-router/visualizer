@@ -1,13 +1,14 @@
 {
   "name": "ui-router-visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "scripts": {
-    "start": "webpack-dev-server --content-base example",
+    "start": "webpack-dev-server --port 4039 --content-base example",
     "clean": "rm -rf ./build ./release",
     "compile": "./node_modules/typescript/bin/tsc",
     "bundle": "webpack",
-    "all": "npm run clean && npm run bundle",
+    "all": "npm run clean && npm run compile && npm run bundle",
+    "prepublish": "npm run all",
     "release": "./release.sh"
   },
   "homepage": "http://ui-router.github.com/visualizer",

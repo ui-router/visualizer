@@ -11,6 +11,8 @@
     transform: scale(1);
     transform-origin: right bottom;
     transition: right 0.5s ease, bottom 0.5s ease, transform 0.5s ease;
+    resize: both;
+    overflow: hidden;
 }
 
 .uirStateVisContainer.minimized {
@@ -23,11 +25,12 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    flex: 1 0 auto;
 }
 
-.statevis {
+.uirStateVisContainer .statevis {
+    flex: 1 1 auto;
     transition: all 1s ease;
-    flex: 1 0 auto;
 }
 
 .statevis circle {

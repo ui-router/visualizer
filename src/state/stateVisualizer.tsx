@@ -1,12 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
 import "./stateVisualizer.css";
-
-import {StateSelector} from "../selector/stateSelector";
-import {toggleClass, addClass} from "../util/toggleClass";
-import {draggable} from "../util/draggable";
-import {StateTree} from "./stateTree";
+import { StateSelector } from "../selector/stateSelector";
+import { toggleClass, addClass } from "../util/toggleClass";
+import { draggable, dragActions } from "../util/draggable";
+import { StateTree } from "./stateTree";
 
 declare function require(string): string;
 let imgChevron = require('../../images/16/chevron-down.png');
@@ -17,8 +15,14 @@ export interface IProps {
   width?: number; // px
   height?: number; // px
 }
-export interface IState { }
+export interface IState {
+  height: number,
+  width: number,
+}
 export class StateVisualizer extends React.Component<IProps, IState> {
+  state = { height: null, width: null };
+  private minimizeTimeout: any;
+  private deregisterFns: Function[] = [];
   /**
    * Creates a new StateVisualizer and adds it to the document.
    *
@@ -88,6 +92,8 @@ export class StateVisualizer extends React.Component<IProps, IState> {
   }
 
   private el;
+  top: string;
+  left: string;
   right: string;
   bottom: string;
 
@@ -98,6 +104,8 @@ export class StateVisualizer extends React.Component<IProps, IState> {
     let el = this.el;
     let bounds = el.getBoundingClientRect();
 
+    this.top = (bounds.top) + "px";
+    this.left = (bounds.left) + "px";
     this.right = (window.innerWidth - bounds.right) + "px";
     this.bottom = (window.innerHeight - bounds.bottom) + "px";
 
@@ -114,6 +122,15 @@ export class StateVisualizer extends React.Component<IProps, IState> {
 
       toggleClass('minimized')(el);
       el.removeEventListener("click", unminimize);
+      const animationEndListener = (evt) => {
+        let bounds = el.getBoundingClientRect();
+        el.style.top = bounds.top + "px";
+        el.style.left = bounds.left + "px";
+        el.style.right = "auto";
+        el.style.bottom = "auto";
+        el.removeEventListener("transitionend", animationEndListener);
+      };
+      el.addEventListener("transitionend", animationEndListener);
     };
 
     addClass('minimized')(el);
@@ -122,17 +139,65 @@ export class StateVisualizer extends React.Component<IProps, IState> {
     setTimeout(() => el.style.right = el.style.bottom = "0", 50);
   };
 
-  componentDidMount() {
-    draggable(this.el);
-
-    if (this.props.minimizeAfter) {
-      setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
+  handleClick() {
+    if (this.minimizeTimeout) {
+      clearTimeout(this.minimizeTimeout);
+      this.minimizeTimeout = null;
     }
   }
 
+  componentWillUnmount() {
+    this.deregisterFns.forEach(fn => fn());
+  }
+
+  componentDidMount() {
+    let controls = this.el.querySelector('.uirStateVisControls');
+    const undraggable = draggable(controls, dragActions.move(this.el));
+    this.deregisterFns.push(undraggable);
+
+    let _width = this.el.style.width;
+    let _height = this.el.style.height;
+    
+    let observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName == 'style') {
+          let el = mutation.target,
+              newwidth = el['style'].width,
+              newheight = el['style'].height;
+
+          if (newwidth !== _width || newheight !== _height) {
+            _width = newwidth;
+            _height = newheight;
+            let width = parseInt(newwidth.replace(/px$/, ""));
+            let height = parseInt(newheight.replace(/px$/, ""));
+            this.setState({ width, height })
+          }
+        }
+      });
+    });
+
+    let config = {
+      attributes: true,
+      childList: false,
+      characterData: false,
+      subtree: false,
+      attributeFilter: ['style']
+    };
+
+    observer.observe(this.el, config);
+    this.deregisterFns.push(() => observer.disconnect());
+
+    if (this.props.minimizeAfter) {
+      this.minimizeTimeout = setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
+    }
+  }
+
+  svgWidth = () => this.props.width || this.state.width || 350;
+  svgHeight = () => (this.props.height || this.state.height || 250) - 25;
+
   render() {
     return (
-        <div ref={(el) => this.el = el} className="uirStateVisContainer">
+        <div ref={(el) => this.el = el} className="uirStateVisContainer" onClick={ this.handleClick.bind(this) }>
           <div className="uirStateVisControls">
             <div> Current State: <StateSelector router={this.props.router} /></div>
             <button onClick={this.minimize}>
@@ -142,8 +207,8 @@ export class StateVisualizer extends React.Component<IProps, IState> {
 
           <StateTree
               router={this.props.router}
-              width={this.props.width || 350}
-              height={this.props.height || 250}
+              width={this.svgWidth()}
+              height={this.svgHeight()}
           />
         </div>
     )

@@ -69,6 +69,10 @@ export class StateTree extends React.Component<IProps, IState> {
     this.updateNodes();
   }
 
+  componentWillReceiveProps() {
+    this.doLayoutAnimation()
+  }
+
   dimensions() {
     var newProps = {} as any;
 

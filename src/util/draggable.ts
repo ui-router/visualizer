@@ -1,36 +1,71 @@
 import {addClass} from "./toggleClass";
 
-export function draggable(el) {
+export interface DragDetails {
+  initialClientX: number;
+  initialClientY: number;
+  lastClientX: number;
+  lastClientY: number;
+  newClientX: number;
+  newClientY: number;
+}
+
+export interface DragCallback {
+  (el: Element, event: Event, details: DragDetails): void;
+}
+
+const moveElement = (elementToMove: HTMLElement) =>
+function _moveElement(elementBeingDragged: HTMLElement, event: MouseEvent, details: DragDetails) {
+  let { initialClientX, initialClientY, lastClientX, lastClientY, newClientX, newClientY } = details;
+
+  let el = elementToMove;
+  let bounds = el.getBoundingClientRect();
+  let { left, top } = bounds;
+  let dx = newClientX - lastClientX;
+  let dy = newClientY - lastClientY;
+
+  el.style.right = "auto";
+  el.style.bottom = "auto";
+  el.style.left = (left + dx) + 'px';
+  el.style.top = (top + dy) + 'px';
+};
+
+export const dragActions = {
+  move: moveElement,
+};
+
+export function draggable(el, callback: DragCallback) {
   let enabled = true;
   let isDragging = false;
-  let mx = 0, my = 0;
-  let x = 0, y = 0;
+  let initialClientX = 0, initialClientY = 0;
+  let lastClientX = 0, lastClientY = 0;
 
-  el.addEventListener("mousedown", (e) => {
+  const mouseDownListener = (e: MouseEvent) => {
     if (!enabled) return;
     isDragging = true;
-    mx = e.pageX;
-    my = e.pageY;
-    x = el.offsetLeft;
-    y = el.offsetTop;
-  });
 
-  el.addEventListener("mousemove", (e) => {
-    if (!enabled || !isDragging) return;
-    e.preventDefault();
-    el.style.right = "auto";
-    el.style.bottom = "auto";
-    el.style.left = (x + (e.pageX - mx)) + 'px';
-    el.style.top = (y + (e.pageY - my)) + 'px';
-  });
+    lastClientX = initialClientX = e.clientX;
+    lastClientY = initialClientY = e.clientY;
 
-  el.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+    const dragListener = (e) => {
+      if (!enabled || !isDragging) return;
+      e.preventDefault();
+      let newClientX = e.clientX, newClientY = e.clientY;
+      callback(el, e, { initialClientX, initialClientY, lastClientX, lastClientY, newClientX, newClientY });
+      lastClientX = newClientX;
+      lastClientY = newClientY;
+    };
 
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
+    const doneDragging = (e) => {
+      isDragging = false;
+      document.removeEventListener("mousemove", dragListener);
+      document.removeEventListener("mouseup", doneDragging);
+    };
+
+    document.addEventListener("mousemove", dragListener);
+    document.addEventListener("mouseup", doneDragging)
+  };
 
   addClass("draggable")(el);
+  el.addEventListener("mousedown", mouseDownListener);
+  return () => el.removeEventListener("mousedown", mouseDownListener);
 }
