@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 
 export interface IProps {
   data: any
@@ -7,7 +7,7 @@ export interface IState {
   show: boolean;
 }
 
-export class Pretty extends React.Component<IProps, IState> {
+export class Pretty extends Component<IProps, IState> {
   preStyle = {
     display: 'block',
     padding: '10px 30px',

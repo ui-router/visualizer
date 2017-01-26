@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {stringify, maxLength} from "../util/strings";
 import {KeysAndValues} from "./keysAndValues";
 
@@ -11,7 +11,7 @@ export interface IState {
 
 }
 
-export class NodeDetail extends React.Component<IProps, IState> {
+export class NodeDetail extends Component<IProps, IState> {
   stateName() {
     let node = this.props.node;
     let name = node && node.state && node.state.name;

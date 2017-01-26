@@ -35,8 +35,7 @@
   "dependencies": {
     "d3-hierarchy": "^1.0.3",
     "d3-interpolate": "^1.1.3",
-    "react": "^15",
-    "react-dom": "^15",
+    "preact": "beta",
     "ui-router-core": ">=1.0.0-beta.2"
   },
   "devDependencies": {
@@ -49,7 +48,7 @@
     "font-awesome-svg-png": "^1.1.5",
     "shx": "^0.2.2",
     "style-loader": "^0.13.1",
-    "typescript": "^2.1.0",
+    "typescript": "^2.1.5",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"

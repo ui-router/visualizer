@@ -1,9 +1,9 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { h, render, Component } from "preact";
 
 export interface IProps { }
 export interface IState { }
-export class Modal extends React.Component<IProps, IState> {
+export class Modal extends Component<IProps, IState> {
+  _ref: any;
 
   static show = (labels, key, value, component) => {
     let modal = document.body.querySelector("#uir-modal");
@@ -12,12 +12,14 @@ export class Modal extends React.Component<IProps, IState> {
       modal.id = "uir-modal";
       document.body.appendChild(modal);
     }
-    const close = () => ReactDOM.unmountComponentAtNode(modal);
-    ReactDOM.render(React.createElement(component, {close, labels, key, value}), modal);
+
+    const Nothing = () => null;
+    const close = () => render(<Nothing />, document.body, modal);
+    render(h(component, {close, labels, key, value}), modal);
   };
 
   componentDidMount() {
-    let el = ReactDOM.findDOMNode(this.refs['modal']);
+    let el = this._ref;
     setTimeout(() => {
       let fades = el.getElementsByClassName("uir-fade");
       [].slice.apply(fades).forEach(node => node.className += " in");
@@ -26,17 +28,17 @@ export class Modal extends React.Component<IProps, IState> {
 
   render() {
     return (
-        <div ref="modal">
-          <div className="uir-modal-backdrop uir-fade" style={{zIndex: 1040}}></div>
+      <div ref={ ref => this._ref = ref }>
+        <div className="uir-modal-backdrop uir-fade" style={{zIndex: 1040}}></div>
 
-          <div tabIndex={-1} className="uir-modal uir-fade" style={{zIndex: 1050, display: "block"}}>
-            <div className="uir-modal-dialog modal-lg">
-              <div className="uir-modal-content">
-                { this.props.children }
-              </div>
+        <div tabIndex={-1} className="uir-modal uir-fade" style={{zIndex: 1050, display: "block"}}>
+          <div className="uir-modal-dialog modal-lg">
+            <div className="uir-modal-content">
+              { this.props.children }
             </div>
           </div>
         </div>
+      </div>
     )
   }
 }

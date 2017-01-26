@@ -1,6 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-
+import { h, render, Component } from "preact";
 import "./transitionVisualizer.css";
 
 import {TransitionView} from "./transitionView";
@@ -22,7 +20,7 @@ export interface IState {
  * This outer component manages the list of all transitions (history), and provides a fixed, scrolling viewport.
  * It attaches hooks for lifecycle events and decorates the transition with a descriptive message.
  */
-export class TransitionVisualizer extends React.Component<IProps, IState> {
+export class TransitionVisualizer extends Component<IProps, IState> {
   /**
    * Creates a new TransitionVisualizer and adds it to the document.
    *
@@ -86,8 +84,8 @@ export class TransitionVisualizer extends React.Component<IProps, IState> {
     }
 
     let initialProps = Object.assign({}, props, { router });
-    const render = ReactDOM.render(React.createElement(TransitionVisualizer, initialProps), element);
-    document.addEventListener('DOMContentLoaded', render as any, false);
+    const _render = render(h(TransitionVisualizer, initialProps), element);
+    document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;
   }

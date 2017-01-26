@@ -2,8 +2,6 @@ import {StateSelector} from "./selector/stateSelector";
 import {StateVisualizer} from "./state/stateVisualizer";
 import {StateTree} from "./state/stateTree";
 import {TransitionVisualizer} from "./transition/transitionVisualizer";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 const visualizer = (router) => {
   let stateVisualizerEl = StateVisualizer.create(router);
@@ -19,6 +17,4 @@ export {
     TransitionVisualizer, // TransitionVisualizer.create(router, el?, props?)
 
     StateSelector,        // React State Selector component
-    React,
-    ReactDOM,
 };

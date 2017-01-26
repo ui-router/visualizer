@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 
 export interface IProps {
   transition: any;
@@ -10,7 +10,7 @@ export interface IProps {
 export interface IState {
 }
 
-export class BreadcrumbArrow extends React.Component<IProps, IState> {
+export class BreadcrumbArrow extends Component<IProps, IState> {
   handleClick = () =>
       this.props.toggleExpand();
 

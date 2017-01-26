@@ -1,9 +1,7 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {PopoverHeading} from "./popoverHeading";
 import {TransSummary} from "./transSummary";
 import {NodePaths} from "./nodePaths";
-import EventHandler = React.EventHandler;
-import MouseEvent = React.MouseEvent;
 
 export interface IProps {
   transition: any;
@@ -13,14 +11,14 @@ export interface IProps {
   pinned: boolean;
   expanded: boolean;
   open: boolean;
-  togglePinned: EventHandler<MouseEvent>;
-  toggleExpand: EventHandler<MouseEvent>;
+  togglePinned: Function;
+  toggleExpand: Function;
 }
 
 export interface IState {
 }
 
-export class TransitionPopover extends React.Component<IProps, IState> {
+export class TransitionPopover extends Component<IProps, IState> {
   render() {
     if (!this.props.open && !this.props.pinned) return null;
 

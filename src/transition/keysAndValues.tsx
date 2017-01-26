@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {Modal} from "../util/modal";
 import {ResolveData} from "./resolveData";
 import {maxLength} from "../util/strings";
@@ -42,7 +42,7 @@ let defaultClass = {
   value: 'paramvalue'
 };
 
-export class KeysAndValues extends React.Component<IProps, IState> {
+export class KeysAndValues extends Component<IProps, IState> {
   isEmpty = () =>
       !this.props.data || Object.keys(this.props.data).length === 0;
 

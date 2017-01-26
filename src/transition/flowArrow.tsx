@@ -1,14 +1,14 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 
 export interface IProps {
   top: string;
   bottom: string;
 }
-export class FlowArrow extends React.Component<IProps,any> {
+export class FlowArrow extends Component<IProps,any> {
   height = 1000;
 
   renderCurve = () => (
-      <path stroke="white" strokeWidth="20" fill="none"
+      <path stroke="white" stroke-width="20" fill="none"
             d={`M50 ${this.height} V 70 Q50 20, 100 20 Q150 20, 150 70 V ${this.height}`} />
   );
 
@@ -32,15 +32,15 @@ export class FlowArrow extends React.Component<IProps,any> {
 
   renderArrowU = () => (
       <svg viewBox={`0 0 100 ${this.height}`} className="flowArrowSvg top">
-        <path stroke="white" strokeWidth="20" fill="none" d={`M50 ${this.height} V 20 `} />
-        <polygon fill="white" stroke="white" strokeWidth="20" points="50,20 35,40 65,40"/>
+        <path stroke="white" stroke-width="20" fill="none" d={`M50 ${this.height} V 20 `} />
+        <polygon fill="white" stroke="white" stroke-width="20" points="50,20 35,40 65,40"/>
       </svg>
   );
 
   renderArrowD = () => (
       <svg viewBox={`0 0 100 ${this.height}`} className="flowArrowSvg bottom">
-        <path stroke="white" strokeWidth="20" fill="none" d={`M50 0 V ${this.height - 20}`} />
-        <polygon fill="white" stroke="white" strokeWidth="20" points={`50,${this.height - 20} 35,${this.height - 40} 65,${this.height - 40}`}/>
+        <path stroke="white" stroke-width="20" fill="none" d={`M50 0 V ${this.height - 20}`} />
+        <polygon fill="white" stroke="white" stroke-width="20" points={`50,${this.height - 20} 35,${this.height - 40} 65,${this.height - 40}`}/>
       </svg>
   );
 

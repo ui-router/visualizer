@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 
 export interface IProps {
   router;
@@ -10,7 +10,7 @@ export interface IState {
   deregisterFn?: Function;
 }
 
-export class StateSelector extends React.Component<IProps, IState> {
+export class StateSelector extends Component<IProps, IState> {
   deregisterStateListenerFn: Function;
 
   state = {

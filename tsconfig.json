@@ -2,12 +2,13 @@
   "moduleResolution": "node",
 
   "files": [
-    "src/visualizer.ts",
-    "typings/index.d.ts"
+    "src/visualizer.ts", "src/svg.d.ts"
   ],
 
   "compilerOptions": {
     "jsx": "react",
+    "jsxFactory": "h",
+    "lib": ["es6", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {KeysAndValues} from "./keysAndValues";
 
 export interface IProps {
@@ -9,7 +9,7 @@ export interface IProps {
 
 export interface IState { }
 
-export class TransSummary extends React.Component<IProps, IState> {
+export class TransSummary extends Component<IProps, IState> {
   render() {
     return (
       <table className="summary">

@@ -1,6 +1,5 @@
+import {h, render, Component} from "preact";
 import {hierarchy, tree as d3tree} from "d3-hierarchy";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {StateNode} from "./stateNode";
 import {NodeDimensions, VisDimensions, StateVisNode} from "./interface";
 import {animatePath} from "../util/animatepath";
@@ -27,7 +26,7 @@ let resetMetadata = {
   inactive: true
 };
 
-export class StateTree extends React.Component<IProps, IState> {
+export class StateTree extends Component<IProps, IState> {
 
   static create(router, element?, props = {}) {
     if (!element) {
@@ -37,8 +36,8 @@ export class StateTree extends React.Component<IProps, IState> {
     }
 
     let initialProps = Object.assign({}, props, { router });
-    const render = ReactDOM.render(React.createElement(StateTree, initialProps), element);
-    document.addEventListener('DOMContentLoaded', render as any, false);
+    const _render = render(h(StateTree, initialProps), element);
+    document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;
   }
@@ -232,11 +231,11 @@ export class StateTree extends React.Component<IProps, IState> {
     let radius = this.props.radius || this.dimensions().radius;
 
     return (
-        <div className="statevis" style={{  }} >
+        <div className="statevis">
           <svg width={this.props.width} height={this.props.height}>
 
             { this.state.nodes.filter(node => node._linkPath).map(node =>
-                <path key={node.name} d={node._linkPath} className='link'/>
+                <path d={node._linkPath} className='link'/>
             )}
 
             { this.state.nodes.map((node: StateVisNode) =>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {StateVisNode} from "./interface";
 
 export interface IProps {
@@ -9,7 +9,7 @@ export interface IProps {
   y: number;
 }
 export interface IState { }
-export class StateNode extends React.Component<IProps, IState> {
+export class StateNode extends Component<IProps, IState> {
   selectState = () => {
     this.props.router.stateService.go(this.props.node.name);
   };

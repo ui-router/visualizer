@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {TransitionPopover} from "./transitionPopover";
 import {BreadcrumbArrow} from "./breadcrumbArrow";
 import {maxLength} from "../util/strings";
@@ -18,7 +18,7 @@ export interface IState {
   deregisterFunctions?: Function[],
 }
 
-export class TransitionView extends React.Component<IProps, IState> {
+export class TransitionView extends Component<IProps, IState> {
   transitionPromise = null;
 
   state = {

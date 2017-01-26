@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {Modal} from "../util/modal";
 import {Pretty} from "../util/pretty";
 
@@ -11,7 +11,7 @@ export interface IProps {
   value?: any;
 }
 
-export class ResolveData extends React.Component<IProps,any> {
+export class ResolveData extends Component<IProps,any> {
   close = () => this.props.close();
 
   render() {

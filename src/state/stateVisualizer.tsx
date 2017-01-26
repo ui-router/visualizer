@@ -1,5 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import {h, render, Component} from "preact";
 import "./stateVisualizer.css";
 import { StateSelector } from "../selector/stateSelector";
 import { toggleClass, addClass } from "../util/toggleClass";
@@ -19,7 +18,7 @@ export interface IState {
   height: number,
   width: number,
 }
-export class StateVisualizer extends React.Component<IProps, IState> {
+export class StateVisualizer extends Component<IProps, IState> {
   state = { height: null, width: null };
   private minimizeTimeout: any;
   private deregisterFns: Function[] = [];
@@ -84,9 +83,9 @@ export class StateVisualizer extends React.Component<IProps, IState> {
       document.body.appendChild(element);
     }
 
-    let initialProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
-    const render = ReactDOM.render(React.createElement(StateVisualizer, initialProps), element);
-    document.addEventListener('DOMContentLoaded', render as any, false);
+    let initialProps: IProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
+    const _render = render(h(StateVisualizer, initialProps), element);
+    document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;
   }

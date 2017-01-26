@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, render, Component } from "preact";
 import {NodeDetail} from "./nodeDetail";
 import {FlowArrow} from "./flowArrow";
 
@@ -19,7 +19,7 @@ export interface IState {
   enterExit: TransStruct[];
 }
 
-export class NodePaths extends React.Component<IProps, IState> {
+export class NodePaths extends Component<IProps, IState> {
   state = {
     retained: [],
     enterExit: []
