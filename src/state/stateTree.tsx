@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import {hierarchy, tree as d3tree} from "d3-hierarchy";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {StateNode} from "./stateNode";
@@ -112,9 +112,14 @@ export class StateTree extends React.Component<IProps, IState> {
     let nodes = this.nodes;
     if (!nodes.length) return;
 
-    let tree = d3.layout.tree();
-    let root = nodes.filter(state => state.name === "")[0];
+    let tree = d3tree();
+    let rootNode = nodes.filter(state => state.name === "")[0];
+    let root = hierarchy(rootNode);
     this.tree = tree(root);
+    this.tree.each(node => {
+      node.data.x = node.x;
+      node.data.y = node.y
+    });
 
     let dimensions = this.dimensions();
 
