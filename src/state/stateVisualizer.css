@@ -15,6 +15,11 @@
     overflow: hidden;
 }
 
+
+.uirStateVisContainer:hover {
+    outline: 3px solid rgba(0,0,0,0.35)
+}
+
 .uirStateVisContainer.minimized {
     cursor: pointer;
     transform: scale(0.25);
@@ -37,7 +42,7 @@
     /*r: 10;*/
     fill: #fff;
     stroke: grey;
-    stroke-width: 3px;
+    /*stroke-width: 3px;*/
 
     transition-property: r, fill, stroke, stroke-width;
     transition-duration: 350ms;
@@ -46,17 +51,22 @@
     cursor: pointer;
 }
 
+.statevis text {
+    transition-property: x, y, font-size, stroke, stroke-width;
+    transition-duration: 350ms;
+    transition-timing-function: ease-in-out;
+}
+
 .statevis circle.future {
     /*r: 10;*/
     stroke: grey;
     stroke-dasharray: 5,5;
-    stroke-width: 1px;
+    /*stroke-width: 1px;*/
 }
 
 .statevis circle.entered {
     /*r: 10;*/
     stroke: black;
-    stroke-width: 3px;
     fill: lightgreen;
 }
 
@@ -68,22 +78,21 @@
     /*r: 15;*/
     fill: green;
     stroke: black;
-    stroke-width: 3px;
 }
 
 .statevis text {
-    font: 12px sans-serif;
+    font-family: sans-serif;
 }
 
 .statevis .link {
     fill: none;
     stroke: #ccc;
-    stroke-width: 2px;
+    /*stroke-width: 2px;*/
 }
 
 .statevis text.label {
     fill: grey;
-    font-size: 0.7em;
+    /*font-size: 0.7em;*/
 }
 
 
@@ -91,6 +100,6 @@
     cursor: move;
 }
 
-.draggable:hover {
-    outline: 3px solid rgba(0,0,0,0.15)
-}
+/*.draggable:hover {*/
+    /*outline: 3px solid rgba(0,0,0,0.15)*/
+/*}*/

@@ -1,9 +1,11 @@
-import {h, render, Component} from "preact";
+import { h, render, Component } from "preact";
 import "./stateVisualizer.css";
 import { StateSelector } from "../selector/stateSelector";
 import { toggleClass, addClass } from "../util/toggleClass";
 import { draggable, dragActions } from "../util/draggable";
 import { StateTree } from "./stateTree";
+import { DEFAULT_RENDERER, RENDERER_PRESETS } from "./renderer";
+import { Renderer } from "./interface";
 
 declare function require(string): string;
 let imgChevron = require('../../images/16/chevron-down.png');
@@ -14,12 +16,17 @@ export interface IProps {
   width?: number; // px
   height?: number; // px
 }
+
 export interface IState {
-  height: number,
-  width: number,
+  height?: number,
+  width?: number,
+  renderer?: Renderer,
+  presetName?: string,
 }
+
 export class StateVisualizer extends Component<IProps, IState> {
-  state = { height: null, width: null };
+  state = { height: null, width: null, presetName: 'Tree', renderer: DEFAULT_RENDERER };
+
   private minimizeTimeout: any;
   private deregisterFns: Function[] = [];
   /**
@@ -150,13 +157,22 @@ export class StateVisualizer extends Component<IProps, IState> {
   }
 
   componentDidMount() {
-    let controls = this.el.querySelector('.uirStateVisControls');
-    const undraggable = draggable(controls, dragActions.move(this.el));
-    this.deregisterFns.push(undraggable);
+    let controlsEl = this.el.querySelector('.uirStateVisControls');
+    let visEl = this.el.querySelector('.statevis');
+    this.deregisterFns.push(draggable(controlsEl, dragActions.move(this.el)));
+    this.deregisterFns.push(draggable(visEl, dragActions.move(this.el)));
 
+    this.monitorResizeEvents();
+
+    if (this.props.minimizeAfter) {
+      this.minimizeTimeout = setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
+    }
+  }
+
+  monitorResizeEvents() {
     let _width = this.el.style.width;
     let _height = this.el.style.height;
-    
+
     let observer = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         if (mutation.attributeName == 'style') {
@@ -185,20 +201,49 @@ export class StateVisualizer extends Component<IProps, IState> {
 
     observer.observe(this.el, config);
     this.deregisterFns.push(() => observer.disconnect());
+  }
 
-    if (this.props.minimizeAfter) {
-      this.minimizeTimeout = setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
-    }
+  handleZoom(event: Event) {
+    let el = event.target;
+    let value = parseFloat(el['value']);
+    let renderer = { ...this.state.renderer, zoom: value };
+    this.setState({ renderer });
+  }
+
+  handleLayout(event: Event) {
+    let presetName = event.target['value'];
+    let settings = RENDERER_PRESETS[presetName];
+    let renderer = { ...this.state.renderer, ...settings };
+    this.setState({ renderer, presetName });
   }
 
   svgWidth = () => this.props.width || this.state.width || 350;
   svgHeight = () => (this.props.height || this.state.height || 250) - 25;
 
   render() {
+    const zoomLevels = [2.0, 1.5, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3];
+    
     return (
         <div ref={(el) => this.el = el} className="uirStateVisContainer" onClick={ this.handleClick.bind(this) }>
           <div className="uirStateVisControls">
             <div> Current State: <StateSelector router={this.props.router} /></div>
+
+            <div>
+              
+              <select onChange={this.handleLayout.bind(this)} value={this.state.presetName} style={{ maxWidth: 100 }}>
+                { Object.keys(RENDERER_PRESETS).map(preset =>
+                    <option value={preset}>{preset}</option>
+                )}
+              </select>
+
+              <select onChange={this.handleZoom.bind(this)} value={this.state.renderer.zoom + ''} style={{ maxWidth: 100 }}>
+                { zoomLevels.map(level =>
+                    <option value={level + ""}>{level}x</option>
+                )}
+              </select>
+
+            </div>
+
             <button onClick={this.minimize}>
               <img src={imgChevron} style={{ cursor: 'pointer' }} />
             </button>
@@ -208,6 +253,7 @@ export class StateVisualizer extends Component<IProps, IState> {
               router={this.props.router}
               width={this.svgWidth()}
               height={this.svgHeight()}
+              renderer={this.state.renderer}
           />
         </div>
     )

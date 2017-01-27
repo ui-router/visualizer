@@ -1,45 +1,59 @@
 import { h, render, Component } from "preact";
-import {StateVisNode} from "./interface";
+import { StateVisNode, Renderer } from "./interface";
 
 export interface IProps {
   router: any;
   node: StateVisNode;
-  radius: number;
+  renderer: Renderer;
+  doLayout: Function;
   x: number;
   y: number;
 }
 export interface IState { }
 export class StateNode extends Component<IProps, IState> {
-  selectState = () => {
-    this.props.router.stateService.go(this.props.node.name);
+  handleStateClicked = (event) => {
+    if (event.shiftKey) {
+      this.props.node.collapsed = !this.props.node.collapsed;
+      this.props.doLayout();
+    } else {
+      this.props.router.stateService.go(this.props.node.name);
+    }
   };
 
   render() {
-    let node = this.props.node;
-    let {x, y, radius} = this.props;
+    let renderer = this.props.renderer;
+    let {node, x, y} = this.props;
+
+    let { baseRadius, baseFontSize, baseStrokeWidth, baseNodeStrokeWidth, zoom } = renderer;
+    let r = baseRadius * zoom;
+    let fontSize = baseFontSize * zoom;
+    let nodeStrokeWidth = (baseNodeStrokeWidth * (node.entered ? 1.5 : 1) * zoom);
+
     let classes = node._classes;
 
     return (
-        <g>
-          <path className={classes} r="10" cx={x} cy={y}/>
+        <g transform={`translate(${x}, ${y})`}>
+          <path className={classes} r={r} cx={x} cy={y}/>
 
           <circle
-              onClick={this.selectState}
+              onClick={this.handleStateClicked}
               className={classes}
-              r="10"
-              cx={x}
-              cy={y}/>
+              stroke-width={nodeStrokeWidth}
+              r={r}/>
+
+          { renderer.labelRenderFn(x, y, node, renderer) }
+
+          { this.props.node.collapsed ? <text
+              text-anchor="middle"
+              font-size={fontSize}
+          > + </text> : null }
 
           <text
-              className="name"
-              textAnchor="middle"
-              transform={`rotate(-12 ${x} ${y})`}
-              x={x}
-              y={y - radius}>
-            {node.name}
-          </text>
-
-          <text className="label" textAnchor="middle" x={x} y={y + radius + 10}>
+              className="label"
+              text-anchor="middle"
+              font-size={fontSize}
+              transform={`translate(0, ${r*2})`}
+          >
             {node.label}
           </text>
         </g>
