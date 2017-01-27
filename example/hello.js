@@ -53,4 +53,18 @@ myApp.run(function($http, $rootScope, $uiRouter) {
   vis.visualizer($uiRouter);
 
   $http.get('data/people.json', { cache: true });
+
+  var registry = $uiRouter.stateRegistry;
+  $rootScope.addstate = function() {
+    var states = registry.get();
+    var idx = Math.floor(Math.random() * states.length);
+    var parent = states[idx];
+
+    var newname = VISWORDS[Math.floor(Math.random() * VISWORDS.length)];
+    var newState = {
+      name: (parent.name ? parent.name + "." : "") + newname,
+    };
+
+    registry.register(newState);
+  }
 });

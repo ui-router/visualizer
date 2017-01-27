@@ -5,6 +5,7 @@
     <script src="//unpkg.com/angular-ui-router@1.0.0-beta.2/release/angular-ui-router.js"></script>
     <script src="//unpkg.com/oclazyload"></script>
 
+    <script src="viswords.js"></script>
     <!--  Hello Galaxy Code -->
     <script src="hello.js"></script>
     <script src="services/people.js"></script>
@@ -31,7 +32,8 @@
       <a ui-sref="about" ui-sref-active="active">About</a>
       <a ui-sref="people" ui-sref-active="active">People</a>
     </div>
-    
+
+    <button ng-click="addstate()">Add state</button>
     <ui-view></ui-view>
 
   </body>
