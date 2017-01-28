@@ -10,6 +10,7 @@ export interface IProps {
   x: number;
   y: number;
 }
+
 export interface IState { }
 export class StateNode extends Component<IProps, IState> {
   goTimeout = null;
@@ -23,6 +24,7 @@ export class StateNode extends Component<IProps, IState> {
   handleGoClicked = (event) => {
     clearTimeout(this.goTimeout);
     let stateName = this.props.node.name;
+    stateName = stateName.replace(/\.\*\*$/, "");
     this.goTimeout = setTimeout(() => this.props.router.stateService.go(stateName), 200);
   };
 
