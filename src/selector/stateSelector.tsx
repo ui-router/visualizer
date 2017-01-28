@@ -54,7 +54,7 @@ export class StateSelector extends Component<IProps, IState> {
 
   render() {
     return (
-        <select value={this.state.current || ""} onChange={this.selectState}>
+        <select value={this.state.current || ""} onChange={this.selectState} style={{ maxWidth: 120 }}>
           <option value="">Choose a state</option>
           { this.state.states.map(state =>
               <option key={state} value={state}>{state}</option>
