@@ -1,4 +1,12 @@
 node_modules
+.*
 *.ipr
 *.iml
 *.iws
+
+example
+tsconfig.json
+webpack.config.js
+release.sh
+src
+yarn.lock
