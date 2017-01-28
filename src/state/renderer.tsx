@@ -1,6 +1,7 @@
 import { h } from "preact";
-import { StateVisNode, Renderer } from "./interface";
-import { hierarchy, cluster as d3cluster, tree as d3tree, HierarchyPointNode } from "d3-hierarchy"; // has or is using
+import { Renderer } from "./interface";
+import { hierarchy, cluster as d3cluster, tree as d3tree, HierarchyPointNode } from "d3-hierarchy";
+import { StateVisNode } from "./stateVisNode"; // has or is using
 
 export const RENDERER_PRESETS = {
   "Tree": { layoutFn: TREE_LAYOUT, sortNodesFn: TOP_TO_BOTTOM_SORT, labelRenderFn: SLANTED_TEXT, edgeRenderFn: TREE_EDGE },
@@ -126,7 +127,6 @@ export function RADIAL_TEXT(x, y, node: StateVisNode, renderer: Renderer) {
   if (name == '**') name = segments.pop() + ".**";
 
   let angle = node.layoutX || 0;
-  console.log(angle, node);
 
   let textAnchor: string = (angle < 180 === !!node.children) ? "start" : "end";
   let rotation = (angle < 180 ? angle - 90 : angle + 90);

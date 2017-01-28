@@ -226,7 +226,7 @@ export class StateVisualizer extends Component<IProps, IState> {
     return (
         <div ref={(el) => this.el = el} className="uirStateVisContainer" onClick={ this.handleClick.bind(this) }>
           <div className="uirStateVisControls">
-            <div> Current State: <StateSelector router={this.props.router} /></div>
+            <div> Current State: <StateSelector router={this.props.router}  /></div>
 
             <div>
               

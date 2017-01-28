@@ -1,5 +1,6 @@
 import { h, render, Component } from "preact";
-import { StateVisNode, Renderer } from "./interface";
+import { Renderer } from "./interface";
+import { StateVisNode } from "./stateVisNode";
 
 export interface IProps {
   router: any;
@@ -11,45 +12,52 @@ export interface IProps {
 }
 export interface IState { }
 export class StateNode extends Component<IProps, IState> {
-  handleStateClicked = (event) => {
-    if (event.shiftKey) {
-      this.props.node.collapsed = !this.props.node.collapsed;
-      this.props.doLayout();
-    } else {
-      this.props.router.stateService.go(this.props.node.name);
-    }
+  goTimeout = null;
+
+  handleCollapseClicked = (event) => {
+    clearTimeout(this.goTimeout);
+    this.props.node._collapsed = !this.props.node._collapsed;
+    this.props.doLayout();
+  };
+
+  handleGoClicked = (event) => {
+    clearTimeout(this.goTimeout);
+    let stateName = this.props.node.name;
+    this.goTimeout = setTimeout(() => this.props.router.stateService.go(stateName), 200);
   };
 
   render() {
     let renderer = this.props.renderer;
     let {node, x, y} = this.props;
 
-    let { baseRadius, baseFontSize, baseStrokeWidth, baseNodeStrokeWidth, zoom } = renderer;
+    let { baseRadius, baseFontSize, baseNodeStrokeWidth, zoom } = renderer;
     let r = baseRadius * zoom;
+
     let fontSize = baseFontSize * zoom;
     let nodeStrokeWidth = (baseNodeStrokeWidth * (node.entered ? 1.5 : 1) * zoom);
 
-    let classes = node._classes;
+    let classes = ["entered", "retained", "exited", "active", "inactive", "future", "highlight", "collapsed"];
+    let circleClasses = classes.reduce((str, clazz) => (str + (node[clazz] ? ` ${clazz} ` : '')), '');
+
+    let descendents = node.collapsed ? node.totalDescendents : 0;
 
     return (
-        <g transform={`translate(${x}, ${y})`}>
-          <path className={classes} r={r} cx={x} cy={y}/>
+        <g transform={`translate(${x}, ${y})`} onClick={this.handleGoClicked} onDblClick={this.handleCollapseClicked}>
 
-          <circle
-              onClick={this.handleStateClicked}
-              className={classes}
-              stroke-width={nodeStrokeWidth}
-              r={r}/>
+          <circle className={circleClasses} stroke-width={nodeStrokeWidth} r={r}/>
+
+          { !node.collapsed ? "" :
+            <text className="label"
+                  text-anchor="middle"
+                  font-size={fontSize * (descendents < 10 ? 1.0 : 0.8)}
+            >
+              ({descendents})
+            </text>
+          }
 
           { renderer.labelRenderFn(x, y, node, renderer) }
 
-          { this.props.node.collapsed ? <text
-              text-anchor="middle"
-              font-size={fontSize}
-          > + </text> : null }
-
-          <text
-              className="label"
+          <text className="label"
               text-anchor="middle"
               font-size={fontSize}
               transform={`translate(0, ${r*2})`}

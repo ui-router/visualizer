@@ -1,39 +1,5 @@
 import {State} from "ui-router-core";
-
-export interface StateVisNode {
-  name:       string;
-
-  label:      string;
-  highlight:  boolean;
-  active:     boolean;
-  retained:   boolean;
-  exited:     boolean;
-  entered:    boolean;
-  inactive:   boolean;
-  collapsed:  boolean;
-  parent:     State;
-  _parent:    StateVisNode;
-  children:   StateVisNode[];
-  future:     boolean;
-  lazyLoad:   any;
-
-  _classes: string;
-
-  /** Original x coordinate from d3 layout: tree() or cluster() */
-  layoutX: number;
-  /** Original y coordinate from d3 layout: tree() or cluster() */
-  layoutY: number;
-
-  /** Projected x coordinate (i.e., for radial projection) */
-  x: number;
-  /** Projected y coordinate (i.e., for radial projection) */
-  y: number;
-
-  /** Current animation frame's x coordinate */
-  animX: number;
-  /** Current animation frame's y coordinate */
-  animY: number
-}
+import { StateVisNode } from "./stateVisNode";
 
 export interface NodeDimensions {
   radius?: number;

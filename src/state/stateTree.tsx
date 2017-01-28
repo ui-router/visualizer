@@ -1,10 +1,11 @@
 import { h, render, Component } from "preact";
 import { State } from "ui-router-core";
 import { StateNode } from "./stateNode";
-import { NodeDimensions, VisDimensions, StateVisNode, Renderer } from "./interface";
+import { NodeDimensions, VisDimensions, Renderer } from "./interface";
 import { animatePath } from "../util/animatepath";
 import { easing } from "../util/easing";
 import { DEFAULT_RENDERER } from "./renderer";
+import { createStateVisNode, StateVisNode } from "./stateVisNode";
 
 export interface IProps extends NodeDimensions, VisDimensions {
   router?;
@@ -68,7 +69,7 @@ export class StateTree extends Component<IProps, IState> {
 
   componentWillReceiveProps() {
     let nodes = this.state.nodes;
-    this.setState({ nodes }, this.doLayoutAnimation);
+    this.setState({ nodes }, this.updateStates);
   }
 
   dimensions() {
@@ -142,16 +143,6 @@ export class StateTree extends Component<IProps, IState> {
   nodeForState = (nodes, state) =>
       nodes.filter(node => node.name === state.name)[0];
 
-  isCollapsed = (state: State) => {
-    if (!state.parent) return false;
-    let node = this.nodeForState(this.nodes, state.parent);
-    let parentNode = this.nodeForState(this.nodes, state.parent);
-    if (node && node.entered || parentNode && parentNode.entered) {
-      return false;
-    }
-    return parentNode && parentNode.collapsed || this.isCollapsed(state.parent);
-  };
-
   updateStates = () => {
     let router = this.props.router;
 
@@ -163,18 +154,18 @@ export class StateTree extends Component<IProps, IState> {
     if (toAdd.length || toDel.length) {
       let nodes = this.nodes = this.nodes.slice();
 
-      toAdd.map(s => Object.create(s)).forEach(n => nodes.push(n));
+      toAdd.map(s => createStateVisNode(s)).forEach(n => nodes.push(n));
       toDel.map(del => nodes.filter(node => del.isPrototypeOf(node)))
           .reduce((acc, x) => acc.concat(x), [])
           .forEach(node => nodes.splice(nodes.indexOf(node), 1));
 
       // Rebuild each node's children array
-      nodes.forEach(n => n.children = []);
+      nodes.forEach(n => n._children = []);
       nodes.forEach(n => {
         if (!n || !n.parent) return;
         let parentNode: any = this.nodeForState(nodes, n.parent);
         if (!parentNode) return;
-        parentNode.children.push(n);
+        parentNode._children.push(n);
         n._parent = parentNode;
       });
       nodes.forEach(n => n.future = !!n.lazyLoad);
@@ -203,13 +194,7 @@ export class StateTree extends Component<IProps, IState> {
       tc.to.slice(-1).map(getNode).filter(x=>x).forEach((n: StateVisNode)=> { n.active = true; n.label = "active"});
     }
 
-    const applyClasses = (node) => {
-      let classes = ["entered", "retained", "exited", "active", "inactive", "future", "highlight"];
-      node._classes = classes.reduce((str, clazz) => (str + (node[clazz] ? ` ${clazz} ` : '')), '');
-    };
-    nodes.forEach(applyClasses);
-
-    this.setState({ nodes: this.nodes });
+    this.setState({ nodes: this.nodes }, this.doLayoutAnimation);
   };
 
   getNodes() {
@@ -219,7 +204,7 @@ export class StateTree extends Component<IProps, IState> {
   render() {
     let renderer = this.props.renderer;
     let renderNodes = this.getNodes()
-        .filter(node => node.animX && node.animY);
+        .filter(node => node.visible && node.animX && node.animY);
 
     return (
         <div className="statevis">
