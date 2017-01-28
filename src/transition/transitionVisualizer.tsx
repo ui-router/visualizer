@@ -131,7 +131,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     this.deregisterFns.push(dereg);
 
     document.body.addEventListener("mousemove", this.onMouseMove);
-    this.deregisterFns.push(() => document.body.removeEventListener("mousemove", this.onMouseMove);
+    this.deregisterFns.push(() => document.body.removeEventListener("mousemove", this.onMouseMove));
   }
 
   /** 

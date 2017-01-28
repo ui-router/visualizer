@@ -151,9 +151,9 @@ export class StateTree extends Component<IProps, IState> {
     let toAdd = states.filter(s => known.indexOf(s) === -1);
     let toDel = known.filter(s => states.indexOf(s) === -1);
 
-    if (toAdd.length || toDel.length) {
-      let nodes = this.nodes = this.nodes.slice();
+    let nodes = this.nodes = this.nodes.slice();
 
+    if (toAdd.length || toDel.length) {
       toAdd.map(s => createStateVisNode(s)).forEach(n => nodes.push(n));
       toDel.map(del => nodes.filter(node => del.isPrototypeOf(node)))
           .reduce((acc, x) => acc.concat(x), [])
@@ -169,14 +169,14 @@ export class StateTree extends Component<IProps, IState> {
         n._parent = parentNode;
       });
       nodes.forEach(n => n.future = !!n.lazyLoad);
-
-      this.setState({ nodes: this.nodes }, this.doLayoutAnimation);
     }
 
     if (!this.unmounted && !this.deregisterStateListenerFn) {
       // poll if ui-router version is 1.0.0-beta.1 or earlier
       setTimeout(this.updateStates, 1000)
     }
+
+    this.setState({ nodes }, this.doLayoutAnimation);
   };
 
   updateNodes = ($transition$?) => {
