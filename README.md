@@ -11,146 +11,126 @@ Visualizes the state tree and transitions in UI-Router 1.0+.
 This script augments your app with two components:
 
 1) State Visualizer: Your UI-Router state tree, showing the active state and its active ancestors (green nodes)
+   - Clicking a state will transition to that state.
+   - If your app is large, state trees can be collapsed by double-clicking a state.
+   - Supports different layouts and zoom. 
 
 2) Transition Visualizer: A list of each transition (from one state to another)
 
-   - Color coded transition status (success/error/ignored/redirected)
-   - Shows which states were retained during the transition, which were exited, and which were entered.
-   - Shows parameter values
-   - Shows resolve data
+   - Color coded Transition status (success/error/ignored/redirected)
+   - Hover over a Transition to show which states were entered/exited, or retained during the transition.
+   - Click the Transition to see details (parameter values and resolve data)
 
 ## How
 
-This script is distributed as a UMD module.
-There are two ways to add this to your application:
+The Visualizer is a UI-Router plugin.
+Register the plugin with the `UIRouter` object.
 
-### Using a script tag
+### Locate the Plugin
 
--   Add a script tag to your HTML.
-    The visualizer will be added to the window as `window['ui-router-visualizer']`.
+-  Using a `<script>` tag
 
+    Add the script as a tag in your HTML.
+
+    ```html
+    <script src="//unpkg.com/ui-router-visualizer@3"></script>
     ```
-    <script src="//unpkg.com/ui-router-visualizer@2"></script>
-    ```
-
--   Create the visualizer:
-
-    ### Angular 1
-
-    Inject the `$uiRouter` router instance in a run block.
-    Get the `ui-router-visualizer` off the window and pass it the router instance.
-
-    Note: in ui-router 1.0.0-beta.2 and earlier, `$uiRouter` was named `ng1UIRouter`
-
-    ```js
-    // inject the router instance by name
-    app.run(function($uiRouter) {
-     var vis = window['ui-router-visualizer'];
-     vis.visualizer($uiRouter);
-    });
-    ```
-
-    ### Angular 2
-
-    Get the `ui-router-visualizer` off the window.
-    Pass the router instance to the visualizer in the `configure` method of your UIRouterConfig.
-
-    ```js
-    @Injectable()
-    export class MyUIRouterConfig {
-      constructor(router: UIRouter) {
-        var vis = window['ui-router-visualizer'];
-        vis.visualizer(router);
-      }
-    }
     
-    ... 
-    @NgModule({
-      imports: [ UIRouterModule.forRoot({ configClass: MyUIRouterConfig }) ]
-      ...
-    ```
-
-    ### React
-
-    Bootstrap UI-Router by calling `new UIRouterReact();`
-    Pass the instance to the visualizer.
-
-    ```js
-    var vis = window['ui-router-visualizer'];
-    let router = new UIRouterReact();
-
-    // register states here
-    // ...
-
-    vis.visualizer(router);
-    router.start();
-    ```
-
-
-### Using a module loader/bundler like webpack
-
--   Configure your bundler to load ui-router-visualizer.
-    The visualizer will be available `'ui-router-visualizer'`.
-
--   Create the visualizer:
-
-    ### Angular 1
-
-    Get the `ui-router-visualizer` using `require` or ES6 `import`.
-    Inject the `$uiRouter` router instance in a run block.
-    Provide the router instance to the visualizer.
-
-    Note: in ui-router 1.0.0-beta.2 and earlier, `$uiRouter` was named `ng1UIRouter`
-
-    ```js
-    import * as vis from 'ui-router-visualizer';
-    // or: var vis = require('ui-router-visualizer');
-
-    // inject the router instance by name
-    app.run(function($uiRouter) {
-     vis.visualizer($uiRouter);
-    });
-    ```
-
-    ### Angular 2
-
-    Get the `ui-router-visualizer` using `require` or ES6 `import`.
-    Pass the router instance to the visualizer in the `configure` method of your UIRouterConfig.
-
-    ```js
-    import * as vis from 'ui-router-visualizer';
-    // or: var vis = require('ui-router-visualizer');
-
-    @Injectable()
-    export class MyUIRouterConfig {
-      constructor(router: UIRouter) {
-        vis.visualizer(router);
-      }
-    }
+    The visualizer Plugin can be found (as a global variable) on the window object.
     
-    ... 
-    @NgModule({
-      imports: [ UIRouterModule.forRoot({ configClass: MyUIRouterConfig }) ]
-      ...
-    ```
-
-    ### React
-
-    Get the `ui-router-visualizer` using `require` or ES6 `import`.
-    Bootstrap UI-Router by calling `new UIRouterReact();`
-    Pass the instance to the visualizer.
-
     ```js
-    import * as vis from 'ui-router-visualizer';
-    // or: var vis = require('ui-router-visualizer');
+    var Visualizer = window['ui-router-visualizer'].Visualizer;
+    ```
+    
+-  Using `require` or `import` (SystemJS, Webpack, etc)
 
-    let router = new UIRouterReact();
-
-    // register states here
-    // ...
-
-    vis.visualizer(router);
-    router.start();
+    Add the npm package to your project
+    
+    ```
+    npm install --save ui-router-visualizer
+    ```
+    
+    - Use `require` or ES6 `import`:
+    
+    ```js
+    var Visualizer = require('ui-router-visualizer').Visualizer;
+    ```
+    
+    ```js
+    import { Visualizer } from 'ui-router-visualizer';
     ```
 
+### Register the plugin
 
+First get a reference to the `UIRouter` object instance.
+This differs by framework (AngularJS, Angular, React, etc. See below for details).
+
+After getting a reference to the `UIRouter` object, register the `Visualizer` plugin
+
+```js
+var pluginInstance = uiRouterInstance.plugin(Visualizer);
+```
+
+---
+
+# &nbsp;
+
+---
+
+### Getting a reference to the `UIRouter` object
+
+#### Angular 1
+
+Inject the `$uiRouter` router instance in a run block.
+
+```js
+// inject the router instance into a `run` block by name
+app.run(function($uiRouter) {
+ var pluginInstance = $uiRouter.plugin(Visualizer);
+});
+```
+
+#### Angular 2
+
+Use a config function in your root module's `UIRouterModule.forRoot()`.
+The router instance is passed to the config function.
+
+```js
+import { Visualizer } from "ui-router-visualizer";
+
+...
+
+export function configRouter(router: UIRouter) {  
+  var pluginInstance = router.plugin(Visualizer);
+}
+
+...
+
+@NgModule({
+  imports: [ UIRouterModule.forRoot({ config: configRouter }) ]
+  ...
+```
+
+#### React (Imperative)
+
+    
+Create the UI-Router instance manually by calling `new UIRouterReact();`
+
+```js
+var Visualizer = require('ui-router-visualizer').Visualizer;
+var router = new UIRouterReact();
+var pluginInstance = router.plugin(Visualizer);
+```
+
+#### React (Declarative)
+    
+Add the plugin to your `UIRouter` component
+
+```js
+var Visualizer = require('ui-router-visualizer').Visualizer;
+
+...
+render() {
+  return <UIRouter plugins=[Visualizer]></UIRouter>
+}
+```
