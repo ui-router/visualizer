@@ -14,7 +14,7 @@ if [ "X`git status --porcelain`" != 'X' ] ; then
 fi
 
 git checkout -b release && \
-npm run all && \
+npm run build && \
 git add --force bundles lib && \
 git commit -m "release($VER)" && \
 git tag $VER && \
