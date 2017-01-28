@@ -12,7 +12,6 @@ export interface IProps {
 
 export interface IState {
   transitions?: any[];
-  deregisterListener?: Function;
   pointerEvents?: string;
 }
 
@@ -90,9 +89,10 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     return element;
   }
 
+  deregisterFns = [];
+
   state = {
     transitions: [],
-    deregisterListener: null,
     pointerEvents: "auto",
   };
 
@@ -105,7 +105,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
   cancelPreviousAnim = null;
 
   componentDidMount() {
-    this.props.router.transitionService.onBefore({}, (trans) => {
+    let dereg = this.props.router.transitionService.onBefore({}, (trans) => {
       this.setState({ transitions: this.state.transitions.concat(trans) });
 
       let duration = 750, el = this._div.children[0];
@@ -128,8 +128,10 @@ export class TransitionVisualizer extends Component<IProps, IState> {
 
       setTimeout(scrollToRight, 25);
     });
+    this.deregisterFns.push(dereg);
 
-    document.body.addEventListener("mousemove", this.onMouseMove)
+    document.body.addEventListener("mousemove", this.onMouseMove);
+    this.deregisterFns.push(() => document.body.removeEventListener("mousemove", this.onMouseMove);
   }
 
   /** 
@@ -149,10 +151,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
   };
 
   componentWillUnmount() {
-    if (this.state.deregisterListener) {
-      this.state.deregisterListener();
-    }
-    document.body.removeEventListener("mousemove", this.onMouseMove)
+    while (this.deregisterFns.length) this.deregisterFns.pop()();
   }
 
   render() {

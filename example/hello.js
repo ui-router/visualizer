@@ -33,7 +33,7 @@ myApp.config(function($stateProvider) {
     },
 
     {
-      name: 'about.lazy',
+      name: 'about.lazy.**',
       url: '/lazy',
       lazyLoad: function (trans) {
           return trans.injector().get('$ocLazyLoad').load('./lazy/index.js');
@@ -49,12 +49,13 @@ myApp.config(function($stateProvider) {
 
 
 myApp.run(function($http, $rootScope, $uiRouter) {
-  var vis = window['ui-router-visualizer'];
-  vis.visualizer($uiRouter);
+  var Visualizer = window['ui-router-visualizer'].Visualizer;
+  var visPlugin = $uiRouter.plugin(Visualizer);
 
   $http.get('data/people.json', { cache: true });
 
   var registry = $uiRouter.stateRegistry;
+
   $rootScope.addstate = function() {
     var states = registry.get();
     var idx = Math.floor(Math.random() * states.length);
@@ -66,5 +67,9 @@ myApp.run(function($http, $rootScope, $uiRouter) {
     };
 
     registry.register(newState);
-  }
+  };
+
+  $rootScope.dispose = function() {
+    visPlugin.dispose($uiRouter);
+  };
 });

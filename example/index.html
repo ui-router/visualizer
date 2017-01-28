@@ -2,7 +2,7 @@
 <html>
   <head>
     <script src="//unpkg.com/angular@latest/angular.js"></script>
-    <script src="//unpkg.com/angular-ui-router@1.0.0-beta.2/release/angular-ui-router.js"></script>
+    <script src="//unpkg.com/angular-ui-router@1.0.0-rc.1/release/angular-ui-router.js"></script>
     <script src="//unpkg.com/oclazyload"></script>
 
     <script src="viswords.js"></script>
@@ -34,6 +34,7 @@
     </div>
 
     <button ng-click="addstate()">Add state</button>
+    <button style="float: right" ng-click="dispose()">Dispose visualizer</button>
     <ui-view></ui-view>
 
   </body>
