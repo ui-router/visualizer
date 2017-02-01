@@ -113,6 +113,16 @@ export class StateTree extends Component<IProps, IState> {
     let rootNode = nodes.filter(state => state.name === "")[0];
     this.props.renderer.layoutFn(rootNode);
 
+    // Move all non-visible nodes to same x/y coords as the nearest visible parent
+    nodes.filter(node => !node.visible).forEach(node => {
+      let visibleAncestor = node._parent;
+      while (visibleAncestor && !visibleAncestor.visible) visibleAncestor = visibleAncestor._parent;
+      if (visibleAncestor) {
+        node.x = visibleAncestor.x;
+        node.y = visibleAncestor.y;
+      }
+    });
+
     let dimensions = this.dimensions();
 
     // Transforms x coord from the tree layout to fit the viewport using scale/offset values
