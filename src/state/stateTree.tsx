@@ -65,6 +65,16 @@ export class StateTree extends Component<IProps, IState> {
     // Register onSuccess transition hook to toggle the SVG classes
     this.deregisterHookFn = $transitions.onSuccess({}, (trans) => this.updateNodes(trans));
     this.updateNodes();
+
+    let lastSuccessful = this.props.router.globals.successfulTransitions.peekTail();
+    if (lastSuccessful) {
+      this.updateNodes(lastSuccessful);
+    }
+
+    let pending = this.props.router.globals.transition;
+    if (pending) {
+      pending.promise.then(() => this.updateNodes(pending));
+    }
   }
 
   componentWillReceiveProps() {
