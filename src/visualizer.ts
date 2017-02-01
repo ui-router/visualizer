@@ -5,7 +5,7 @@ import { StateVisualizer } from "./state/stateVisualizer";
 import { StateTree } from "./state/stateTree";
 import { TransitionVisualizer } from "./transition/transitionVisualizer";
 
-const visualizer = (router: UIRouter) => router.plugin(Visualizer);
+const visualizer = (router: UIRouter) => new Visualizer(router, {});
 
 export interface Options {
   state?: boolean;
