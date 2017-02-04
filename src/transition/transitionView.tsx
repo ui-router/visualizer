@@ -53,7 +53,7 @@ export class TransitionView extends Component<IProps, IState> {
 
     const success = () => this.setState({status: "success", message: null});
     const error = (err) => {
-      if (err.isCanceled) return;
+      if (err && err.isCanceled) return;
 
       let status = "error", rejection = null;
 
