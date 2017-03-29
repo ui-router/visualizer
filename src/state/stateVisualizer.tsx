@@ -87,11 +87,13 @@ export class StateVisualizer extends Component<IProps, IState> {
     if (!element) {
       element = document.createElement("div");
       element.id = "uirStateVisualizer";
-      document.body.appendChild(element);
     }
 
     let initialProps: IProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
-    const _render = render(h(StateVisualizer, initialProps), element);
+    const _render = () =>  {
+      document.body.appendChild(element);
+      render(h(StateVisualizer, initialProps), element);
+    };
     document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;

@@ -32,11 +32,13 @@ export class StateTree extends Component<IProps, IState> {
     if (!element) {
       element = document.createElement("div");
       element.id = "uirStateTree";
-      document.body.appendChild(element);
     }
 
     let initialProps = Object.assign({} as IProps, props, { router, sizes: DEFAULT_RENDERER });
-    const _render = render(h(StateTree, initialProps), element);
+    const _render = () => {
+      document.body.appendChild(element);
+      render(h(StateTree, initialProps), element);
+    };
     document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;

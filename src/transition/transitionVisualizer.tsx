@@ -79,11 +79,13 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     if (!element) {
       element = document.createElement("div");
       element.id = "uirTransitionVisualizer";
-      document.body.appendChild(element);
     }
 
     let initialProps = Object.assign({}, props, { router });
-    const _render = render(h(TransitionVisualizer, initialProps), element);
+    const _render = () => {
+      document.body.appendChild(element);
+      render(h(TransitionVisualizer, initialProps), element);
+    };
     document.addEventListener('DOMContentLoaded', _render as any, false);
 
     return element;
