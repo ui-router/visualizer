@@ -86,7 +86,12 @@ export class TransitionVisualizer extends Component<IProps, IState> {
       document.body.appendChild(element);
       render(h(TransitionVisualizer, initialProps), element);
     };
-    document.addEventListener('DOMContentLoaded', _render as any, false);
+
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      _render();
+    } else {
+      document.addEventListener('DOMContentLoaded', _render as any, false);
+    }
 
     return element;
   }

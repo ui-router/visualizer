@@ -1,4 +1,4 @@
-import { State } from "ui-router-core";
+import { StateObject } from '@uirouter/core';
 
 export interface StateVisNode {
   name:       string;
@@ -13,7 +13,7 @@ export interface StateVisNode {
   _collapsed: boolean;
   readonly collapsed: boolean;
   readonly visible: boolean;
-  parent:     State;
+  parent:     StateObject;
   _parent:    StateVisNode;
   _children:  StateVisNode[];
   readonly children: StateVisNode[];
@@ -40,7 +40,7 @@ export interface StateVisNode {
 }
 
 
-export function createStateVisNode(state: State): StateVisNode {
+export function createStateVisNode(state: StateObject): StateVisNode {
   let node: StateVisNode = Object.create(state) as any;
 
   Object.defineProperty(node, "visible", {

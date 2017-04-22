@@ -1,5 +1,4 @@
-import {State} from "ui-router-core";
-import { StateVisNode } from "./stateVisNode";
+import { StateVisNode } from './stateVisNode';
 
 export interface NodeDimensions {
   radius?: number;

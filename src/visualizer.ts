@@ -1,5 +1,5 @@
 import { render, h } from "preact";
-import { UIRouter, UIRouterPlugin } from "ui-router-core";
+import { UIRouter, UIRouterPlugin } from "@uirouter/core";
 import { StateSelector } from "./selector/stateSelector";
 import { StateVisualizer } from "./state/stateVisualizer";
 import { StateTree } from "./state/stateTree";

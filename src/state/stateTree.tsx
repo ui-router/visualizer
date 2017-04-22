@@ -1,5 +1,4 @@
 import { h, render, Component } from "preact";
-import { State } from "ui-router-core";
 import { StateNode } from "./stateNode";
 import { NodeDimensions, VisDimensions, Renderer } from "./interface";
 import { animatePath } from "../util/animatepath";
