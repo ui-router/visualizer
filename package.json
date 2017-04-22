@@ -1,5 +1,5 @@
 {
-  "name": "ui-router-visualizer",
+  "name": "@uirouter/visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "4.0.0",
   "scripts": {
