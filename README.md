@@ -33,13 +33,13 @@ Register the plugin with the `UIRouter` object.
     Add the script as a tag in your HTML.
 
     ```html
-    <script src="//unpkg.com/ui-router-visualizer@3"></script>
+    <script src="//unpkg.com/@uirouter/visualizer@4"></script>
     ```
     
     The visualizer Plugin can be found (as a global variable) on the window object.
     
     ```js
-    var Visualizer = window['ui-router-visualizer'].Visualizer;
+    var Visualizer = window['@uirouter/visualizer'].Visualizer;
     ```
     
 -  Using `require` or `import` (SystemJS, Webpack, etc)
@@ -47,17 +47,17 @@ Register the plugin with the `UIRouter` object.
     Add the npm package to your project
     
     ```
-    npm install --save ui-router-visualizer
+    npm install --save @uirouter/visualizer
     ```
     
     - Use `require` or ES6 `import`:
     
     ```js
-    var Visualizer = require('ui-router-visualizer').Visualizer;
+    var Visualizer = require('@uirouter/visualizer').Visualizer;
     ```
     
     ```js
-    import { Visualizer } from 'ui-router-visualizer';
+    import { Visualizer } from '@uirouter/visualizer';
     ```
 
 ### Register the plugin
@@ -96,7 +96,7 @@ Use a config function in your root module's `UIRouterModule.forRoot()`.
 The router instance is passed to the config function.
 
 ```js
-import { Visualizer } from "ui-router-visualizer";
+import { Visualizer } from "@uirouter/visualizer";
 
 ...
 
@@ -117,7 +117,7 @@ export function configRouter(router: UIRouter) {
 Create the UI-Router instance manually by calling `new UIRouterReact();`
 
 ```js
-var Visualizer = require('ui-router-visualizer').Visualizer;
+var Visualizer = require('@uirouter/visualizer').Visualizer;
 var router = new UIRouterReact();
 var pluginInstance = router.plugin(Visualizer);
 ```
@@ -127,7 +127,7 @@ var pluginInstance = router.plugin(Visualizer);
 Add the plugin to your `UIRouter` component
 
 ```js
-var Visualizer = require('ui-router-visualizer').Visualizer;
+var Visualizer = require('@uirouter/visualizer').Visualizer;
 
 ...
 render() {
