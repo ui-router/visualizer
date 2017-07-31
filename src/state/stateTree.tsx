@@ -7,7 +7,7 @@ import { DEFAULT_RENDERER } from "./renderer";
 import { createStateVisNode, StateVisNode } from "./stateVisNode";
 
 export interface IProps extends NodeDimensions, VisDimensions {
-  router?;
+  router?: any;
   renderer?: Renderer;
 }
 
@@ -33,7 +33,7 @@ export class StateTree extends Component<IProps, IState> {
       element.id = "uirStateTree";
     }
 
-    let initialProps = Object.assign({} as IProps, props, { router, sizes: DEFAULT_RENDERER });
+    let initialProps = { ...props, router } as IProps;
     const _render = () => {
       document.body.appendChild(element);
       render(h(StateTree, initialProps), element);
@@ -47,6 +47,12 @@ export class StateTree extends Component<IProps, IState> {
 
     return element;
   }
+
+  public static defaultProps = {
+    height: 350,
+    width: 250,
+    renderer: DEFAULT_RENDERER,
+  };
 
   state = {
     nodes: [],
