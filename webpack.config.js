@@ -1,6 +1,8 @@
 var webpack = require('webpack');
+var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
+  context: __dirname,
   entry: "./src/visualizer.ts",
 
   output: {
@@ -16,7 +18,9 @@ module.exports = {
   devtool: 'source-map',
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+    new ForkTsCheckerWebpackPlugin(),
+
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, compress: { warnings: false } }),
 
     new webpack.DefinePlugin({
       'process.env': {
@@ -26,14 +30,13 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
-    modulesDirectories: ['node_modules']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 
   module: {
     loaders: [
-      {test: /\.tsx?$/, loader: 'awesome-typescript-loader?noEmit=true', tsconfig: 'tsconfig.json'},
-      { test: /\.css$/, loader: 'style!css?sourceMap' },
+      { test: /\.tsx?$/, loader: 'ts-loader', options: { transpileOnly: true } },
+      { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap-loader' },
       // inline base64 URLs for <=8k images, direct URLs for the rest
       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
 
