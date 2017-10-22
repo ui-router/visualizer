@@ -8,7 +8,6 @@
     "compile": "tsc && tsc -m es6 --outdir lib-esm",
     "bundle": "webpack",
     "build": "npm run clean && npm run compile && npm run bundle",
-    "install": "node ./migrate/migratewarn.js",
     "prepublishOnly": "npm run build",
     "release": "release"
   },
