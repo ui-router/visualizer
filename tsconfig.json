@@ -1,6 +1,4 @@
 {
-  "moduleResolution": "node",
-
   "files": [
     "src/visualizer.ts", "src/svg.d.ts"
   ],
@@ -11,12 +9,14 @@
     "lib": ["es6", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
     "rootDir": "src",
     "sourceRoot": "src",
+    "moduleResolution": "node",
+    "module": "commonjs",
     "target": "es5",
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true
   }
 }
+

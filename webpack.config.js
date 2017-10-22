@@ -1,14 +1,19 @@
 var webpack = require('webpack');
+var path = require('path');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   context: __dirname,
   entry: "./src/visualizer.ts",
+  entry: {
+    "ui-router-visualizer": ["./src/visualizer.ts"],
+    "ui-router-visualizer.min": ["./src/visualizer.ts"]
+  },
 
   output: {
-    path: __dirname + "/bundles",
-    publicPath: "/bundles/",
-    filename: "visualizer.min.js",
+    path: path.resolve(__dirname, "_bundles"),
+    publicPath: "/_bundles/",
+    filename: "[name].js",
     libraryTarget: "umd",
     library: "ui-router-visualizer",
     umdNamedDefine: true
@@ -20,7 +25,12 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
 
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true, compress: { warnings: false } }),
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      minify: true,
+      sourceMap: true,
+      compress: { warnings: false },
+    }),
 
     new webpack.DefinePlugin({
       'process.env': {
@@ -38,8 +48,7 @@ module.exports = {
       { test: /\.tsx?$/, loader: 'ts-loader', options: { transpileOnly: true } },
       { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap-loader' },
       // inline base64 URLs for <=8k images, direct URLs for the rest
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
-
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
     ]
   },
 
