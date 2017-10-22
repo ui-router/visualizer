@@ -41,7 +41,7 @@
     "@types/d3-hierarchy": "^1.0.4",
     "@types/d3-interpolate": "^1.1.6",
     "@uirouter/core": ">=5.0.0",
-    "@uirouter/publish-scripts": "^2.0.5",
+    "@uirouter/publish-scripts": "2.0.6",
     "css-loader": "^0.28.7",
     "es6-shim": "^0.35.0",
     "file-loader": "^0.11.2",
