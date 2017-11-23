@@ -169,7 +169,9 @@ export class StateVisualizer extends Component<IProps, IState> {
     this.deregisterFns.push(draggable(controlsEl, dragActions.move(this.el)));
     this.deregisterFns.push(draggable(visEl, dragActions.move(this.el)));
 
-    this.monitorResizeEvents();
+    if (typeof MutationObserver === 'function') {
+      this.monitorResizeEvents();
+    } 
 
     if (this.props.minimizeAfter) {
       this.minimizeTimeout = setTimeout(this.minimize.bind(this), this.props.minimizeAfter);
