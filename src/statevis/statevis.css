@@ -11,8 +11,8 @@
     transform: scale(1);
     transform-origin: right bottom;
     transition: right 0.5s ease, bottom 0.5s ease, transform 0.5s ease;
-    resize: both;
     overflow: hidden;
+    resize: both;
 }
 
 
@@ -38,6 +38,20 @@
     transition: all 1s ease;
 }
 
+.uirStateVisWindowOverlay {
+    display: none;
+}
+
+.minimized .uirStateVisWindowOverlay {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0; 
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+}
+  
 .statevis circle {
     /*r: 10;*/
     fill: #fff;

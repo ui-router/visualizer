@@ -1,5 +1,5 @@
 import { h, render, Component } from "preact";
-import { Renderer } from "./interface";
+import { Renderer } from "../interface";
 import { StateVisNode } from "./stateVisNode";
 
 export interface IProps {

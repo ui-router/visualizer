@@ -1,9 +1,9 @@
 import { h, render, Component } from "preact";
-import { StateNode } from "./stateNode";
-import { NodeDimensions, VisDimensions, Renderer } from "./interface";
-import { animatePath } from "../util/animatepath";
-import { easing } from "../util/easing";
-import { DEFAULT_RENDERER } from "./renderer";
+import { StateNode } from "./StateNode";
+import { NodeDimensions, VisDimensions, Renderer } from "../interface";
+import { animatePath } from "../../util/animatepath";
+import { easing } from "../../util/easing";
+import { DEFAULT_RENDERER } from "../renderers";
 import { createStateVisNode, StateVisNode } from "./stateVisNode";
 
 export interface IProps extends NodeDimensions, VisDimensions {

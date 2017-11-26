@@ -1,4 +1,4 @@
-import { StateVisNode } from './stateVisNode';
+import { StateVisNode } from './tree/stateVisNode';
 
 export interface NodeDimensions {
   radius?: number;

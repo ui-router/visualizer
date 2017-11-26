@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { Renderer } from "./interface";
 import { hierarchy, cluster as d3cluster, tree as d3tree, HierarchyPointNode } from "d3-hierarchy";
-import { StateVisNode } from "./stateVisNode"; // has or is using
+import { StateVisNode } from "./tree/stateVisNode"; // has or is using
 
 export const RENDERER_PRESETS = {
   "Tree": { layoutFn: TREE_LAYOUT, sortNodesFn: TOP_TO_BOTTOM_SORT, labelRenderFn: SLANTED_TEXT, edgeRenderFn: TREE_EDGE },
