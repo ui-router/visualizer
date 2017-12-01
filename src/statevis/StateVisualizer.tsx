@@ -107,18 +107,21 @@ export class StateVisualizer extends Component<IProps, IState> {
     return element;
   }
 
+  el: HTMLElement;
+  windowEl: HTMLElement;
+
   dispose() {
     let Nothing = () => null;
-    render(h(Nothing as any, null), document.body, this.window.el);
+    render(h(Nothing as any, null), document.body, this.el);
   }
-
 
   handleRendererChange(renderer: Renderer) {
     this.setState({ renderer });
   }
 
-  handleMouseDown(ev) {
+  cancelAutoMinimize(ev) {
     if (this.minimizeTimeout) {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaay')
       clearTimeout(this.minimizeTimeout);
       this.minimizeTimeout = null;
     }
@@ -129,10 +132,10 @@ export class StateVisualizer extends Component<IProps, IState> {
   }
 
   draggable(enaabled: boolean) {
-    let controlsEl = this.window.el.querySelector('.uirStateVisControls');
-    let visEl = this.window.el.querySelector('.statevis');
-    this.deregisterFns.push(draggable(controlsEl, dragActions.move(this.window.el)));
-    this.deregisterFns.push(draggable(visEl, dragActions.move(this.window.el)));
+    let controlsEl = this.windowEl.querySelector('.uirStateVisControls');
+    let visEl = this.windowEl.querySelector('.statevis');
+    this.deregisterFns.push(draggable(controlsEl, dragActions.move(this.windowEl)));
+    this.deregisterFns.push(draggable(visEl, dragActions.move(this.windowEl)));
   }
 
   componentDidMount() {
@@ -141,6 +144,7 @@ export class StateVisualizer extends Component<IProps, IState> {
     if (this.props.minimizeAfter) {
       const doMinimize = () => this.setState({ minimized: true });
       this.minimizeTimeout = setTimeout(doMinimize, this.props.minimizeAfter);
+      console.log("timeout:", this.minimizeTimeout)
     }
   }
 
@@ -150,28 +154,32 @@ export class StateVisualizer extends Component<IProps, IState> {
   render() {
     const { minimized } = this.state;
     return (
-      <StateVisWindow minimized={this.state.minimized}
-                      ref={(window) => this.window = window}
-                      onResize={({ width, height }) => this.setState({ width, height })}>
+      <div ref={(el) => this.el = el as HTMLElement}
+           onMouseDown={this.cancelAutoMinimize.bind(this)}
+           onMouseEnter={this.cancelAutoMinimize.bind(this)}>
+        <StateVisWindow minimized={this.state.minimized}
+                        ref={(windowRef) => this.windowEl = windowRef.el}
+                        onResize={({ width, height }) => this.setState({ width, height })}>
 
-        <div onClick={() => this.setState({ minimized: false })} 
-             className={ `uirStateVisWindowOverlay ${minimized ? "minimized" : "" }`}
-        ></div>
+          <div onClick={() => this.setState({ minimized: false })} 
+              className={ `uirStateVisWindowOverlay ${minimized ? "minimized" : "" }`}
+          ></div>
 
-        <Controls
-          router={this.props.router}
-          onRendererChange={this.handleRendererChange.bind(this)}
-          onMinimize={() => this.setState({ minimized: true })}
-          onClose={() => this.dispose()}
-        />
+          <Controls
+            router={this.props.router}
+            onRendererChange={this.handleRendererChange.bind(this)}
+            onMinimize={() => this.setState({ minimized: true })}
+            onClose={() => this.dispose()}
+          />
 
-        <StateTree
-          router={this.props.router}
-          width={this.svgWidth()}
-          height={this.svgHeight()}
-          renderer={this.state.renderer}
-        />
-      </StateVisWindow>
+          <StateTree
+            router={this.props.router}
+            width={this.svgWidth()}
+            height={this.svgHeight()}
+            renderer={this.state.renderer}
+          />
+        </StateVisWindow>
+      </div>
     )
   }
 }
