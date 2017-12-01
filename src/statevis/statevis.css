@@ -15,22 +15,71 @@
     resize: both;
 }
 
-
-.uirStateVisContainer:hover {
-    outline: 3px solid rgba(0,0,0,0.35)
-}
-
 .uirStateVisContainer.minimized {
     cursor: pointer;
     transform: scale(0.25);
 }
 
+.uirStateVisContainer:hover {
+    outline: 3px solid rgba(0,0,0,0.35)
+}
+
+.uirStateVisContainer:hover .uirStateVisControls {
+    visibility: visible;
+}
+
 .uirStateVisContainer .uirStateVisControls {
-    width: 100%;
+    visibility: hidden;
     display: flex;
+    width: 100%;
     flex-flow: row nowrap;
     justify-content: space-between;
     flex: 1 0 auto;
+    z-index: 1;
+}
+
+.uirStateVisContainer .uirStateVisControls .uirStateVisIcons span svg {
+    padding: 0.25em;
+    fill: #777777;
+}
+
+.uirStateVisContainer .uirStateVisControls .uirStateVisIcons span:hover svg {
+    fill: black;
+}
+
+.uirStateVisHover > div {
+    transition: opacity 500ms ease;
+    opacity: 0;
+    height: 0px;
+    padding: 0;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+
+    margin-top: 1.5em;
+    font-size: 0.8em;
+}
+
+.uirStateVisHover > div.hoverBlock {
+    left: 0;
+    border-bottom: none;
+    background: white;
+}
+
+.uirStateVisHover:hover > div.hoverBlock {
+    border-bottom: 2px solid lightgrey;
+}
+
+
+.uirStateVisHover:hover > div {
+    opacity: 1;
+    height: auto;
+}
+
+.uirStateVisHover .uirStateVisLayoutPrefs {
+    padding: 0.75em 1.5em;
 }
 
 .uirStateVisContainer .statevis {

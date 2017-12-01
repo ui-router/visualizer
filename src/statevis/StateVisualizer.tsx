@@ -107,6 +107,11 @@ export class StateVisualizer extends Component<IProps, IState> {
     return element;
   }
 
+  dispose() {
+    let Nothing = () => null;
+    render(h(Nothing as any, null), document.body, this.window.el);
+  }
+
 
   handleRendererChange(renderer: Renderer) {
     this.setState({ renderer });
@@ -154,6 +159,7 @@ export class StateVisualizer extends Component<IProps, IState> {
           router={this.props.router}
           onRendererChange={this.handleRendererChange.bind(this)}
           onMinimize={() => this.setState({ minimized: true })}
+          onClose={() => this.dispose()}
         />
 
         <StateTree

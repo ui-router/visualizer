@@ -1,18 +1,24 @@
 import { h, Component } from 'preact';
 import { StateSelector } from '../selector/StateSelector';
 import { RENDERER_PRESETS, DEFAULT_RENDERER } from './renderers';
+import { LayoutPrefs } from './LayoutPrefs';
 import { Renderer } from './interface';
 import { UIRouter } from '@uirouter/core';
+
+import { ChevronDown } from './icons/ChevronDown';
+import { Close} from './icons/Close';
+import { Gear } from './icons/Gear';
+import { Help } from './icons/Help';
 
 export interface IControlsProps {
     router: UIRouter;
     onRendererChange: (renderer: Renderer) => void;
     onMinimize: () => void;
+    onClose: () => void;
 }
 
-export interface IControlsState {
-  renderer: Renderer;
-  presetName: string;
+export interface IControlsState { 
+    showRendererPrefs: boolean;
 }
 
 declare function require(string): string;
@@ -20,54 +26,46 @@ const imgChevron = require('../../images/16/chevron-down.png');
 
 export class Controls extends Component<IControlsProps, IControlsState> {
     state = {
-        renderer: DEFAULT_RENDERER,
-        presetName: 'Tree',
-    }
-
-    componentDidMount() {
-        this.props.onRendererChange(this.state.renderer);
-    }
-    
-    handleZoom(event: Event) {
-        let el = event.target;
-        let value = parseFloat(el['value']);
-        let renderer = { ...this.state.renderer, zoom: value };
-        this.setState({ renderer });
-        this.props.onRendererChange(renderer);
-    }
-
-    handleLayout(event: Event) {
-        let presetName = event.target['value'];
-        let settings = RENDERER_PRESETS[presetName];
-        let renderer = { ...this.state.renderer, ...settings };
-        this.setState({ renderer, presetName });
-        this.props.onRendererChange(renderer);
+        showRendererPrefs: false,
     }
 
     render() {
-        const zoomLevels = [2.0, 1.5, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3];
-        
         return (
+            <div style={{ width: '100%' }}>
             <div className="uirStateVisControls">
-                <div>Current State: <StateSelector router={this.props.router} /></div>
-                <div>
-                    <select onChange={this.handleLayout.bind(this)} value={this.state.presetName} style={{ maxWidth: 100 }}>
-                        {Object.keys(RENDERER_PRESETS).map(preset =>
-                            <option value={preset}>{preset}</option>
-                        )}
-                    </select>
+                <StateSelector router={this.props.router} />
+                <div style={{ marginLeft: 'auto', cursor: 'pointer' }} className="uirStateVisIcons">
+                    <span className="uirStateVisHover">
+                        <Help/>
+                        <div className="hoverBlock">
+                            <ul>
+                                <li>Click a node to activate that state.</li>
+                                <li>Select a state from the dropdown to activate that state.</li>
+                                <li>Double click a node to auto-collapse that section of the tree when inactive.
+                                    Collapsed nodes are displayed with a dotted outline and the count of collapsed children.</li>
+                                <li>Lazy loaded states (including future states) are displayed with a dashed outline.</li>
+                            </ul>
+                        </div>
+                    </span>
 
-                    <select onChange={this.handleZoom.bind(this)} value={this.state.renderer.zoom + ''} style={{ maxWidth: 100 }}>
-                        {zoomLevels.map(level =>
-                            <option value={level + ""}>{level}x</option>
-                        )}
-                    </select>
+                    <span className="uirStateVisHover">
+                        <Gear/>
+                        <div className="hoverBlock"><LayoutPrefs onRendererChange={this.props.onRendererChange}/></div>
+                    </span>
 
+                    <span className="uirStateVisHover" onClick={this.props.onMinimize}>
+                        <ChevronDown/>
+                        <div><span style={{float: 'right'}}>Minimize</span></div>
+                        <div>Minimize</div>
+                    </span>
+                    
+                    <span className="uirStateVisHover" onClick={this.props.onClose}>
+                        <Close/>
+                        <div><span style={{float: 'right'}}>Close</span></div>
+                    </span>
                 </div>
 
-                <button onClick={this.props.onMinimize}>
-                    <img src={imgChevron} style={{ cursor: 'pointer' }} />
-                </button>
+            </div>
             </div>
         )
     }

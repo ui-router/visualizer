@@ -1,5 +1,5 @@
 import { h, render, Component } from "preact";
-import "./stateVisualizer.css";
+import "./statevis.css";
 import { StateSelector } from "../selector/StateSelector";
 import { toggleClass, addClass } from "../util/toggleClass";
 import { draggable, dragActions } from "../util/draggable";
