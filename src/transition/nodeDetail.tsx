@@ -1,6 +1,7 @@
 import { h, render, Component } from "preact";
 import {stringify, maxLength} from "../util/strings";
 import {KeysAndValues} from "./keysAndValues";
+import {Transition} from '@uirouter/core';
 
 export interface IProps {
   node: any;
@@ -32,7 +33,7 @@ export class NodeDetail extends Component<IProps, IState> {
         typeof val === 'string' ? val : maxLength(30, stringify(val));
 
     let node = this.props.node;
-    let ignoredTokens = ['$stateParams', '$transition$'];
+    let ignoredTokens = ['$stateParams', '$transition$', '$state$', Transition];
 
     return node && node.resolvables
             .filter(r => ignoredTokens.indexOf(r.token) === -1)

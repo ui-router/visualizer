@@ -64,13 +64,15 @@ export class KeysAndValues extends Component<IProps, IState> {
       );
     };
 
-    return this.isEmpty() ? null : (
-      <div className={this.class('outerdiv')}>
-        <div className={this.class('section')}>
-          {this.props.labels.section}
-        </div>
+    if (this.isEmpty()) return null;
 
-        { Object.keys(this.props.data).map(key =>
+    const keys = Object.keys(this.props.data);
+
+    const defineds = keys.filter(key => this.props.data[key] !== undefined);
+    const undefineds = keys.filter(key => this.props.data[key] === undefined);
+
+    const renderKeyValues = (keys) => 
+        keys.map(key =>
           <div key={key} className={this.class('keyvaldiv')}>
             <div className={this.class('_key')}>
               {key}:
@@ -80,7 +82,20 @@ export class KeysAndValues extends Component<IProps, IState> {
               {renderValue(key, this.props.data[key])}
             </div>
           </div>
-        ) }
+        )
+
+    const renderUndefineds = (keys) => renderKeyValues([keys.join(', ')]);
+
+    return (
+      <div className={this.class('outerdiv')}>
+        <div className={this.class('section')}>
+          {this.props.labels.section}
+        </div>
+
+        {renderKeyValues(defineds)}
+
+        {/* { undefineds.length <= 2 && <KeyValues keys={undefineds} /> } */}
+        { undefineds.length > 2 && renderUndefineds(undefineds) }
 
       </div>
     )
