@@ -10,13 +10,10 @@ import { Renderer } from "./interface";
 
 export interface IProps {
   minimized?: boolean; // ms
-  width?: number; // px
-  height?: number; // px
+  onResize?: (dimensions: { width: number, height: number }) => void;
 }
 
 export interface IState {
-  height?: number;
-  width?: number;
   unminimize: Function;
 }
 
@@ -34,8 +31,6 @@ export class StateVisWindow extends Component<IProps, IState> {
     super(props);
     
     this.state = {
-      height: this.props.height,
-      width: this.props.width,
       unminimize: null,
     }
   }
@@ -121,7 +116,7 @@ export class StateVisWindow extends Component<IProps, IState> {
             _height = newheight;
             let width = parseInt(newwidth.replace(/px$/, ""));
             let height = parseInt(newheight.replace(/px$/, ""));
-            this.setState({ width, height })
+            this.props.onResize({ width, height })
           }
         }
       });

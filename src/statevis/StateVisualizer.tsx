@@ -150,7 +150,10 @@ export class StateVisualizer extends Component<IProps, IState> {
   render() {
     const { minimized } = this.state;
     return (
-      <StateVisWindow minimized={this.state.minimized} ref={(window) => this.window = window}>
+      <StateVisWindow minimized={this.state.minimized}
+                      ref={(window) => this.window = window}
+                      onResize={({ width, height }) => this.setState({ width, height })}>
+
         <div onClick={() => this.setState({ minimized: false })} 
              className={ `uirStateVisWindowOverlay ${minimized ? "minimized" : "" }`}
         ></div>
