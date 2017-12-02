@@ -1,3 +1,15 @@
+## 5.0.2 (2017-12-02)
+[Compare `@uirouter/visualizer` versions 5.0.1 and 5.0.2](https://github.com/ui-router/visualizer/compare/5.0.1...5.0.2)
+
+### Bug Fixes
+
+* **bundle:** externalize uirouter/core ([7732b81](https://github.com/ui-router/visualizer/commit/7732b81))
+* **bundle:** fix bundling of css for lib-esm (stackblitz) ([39c641d](https://github.com/ui-router/visualizer/commit/39c641d))
+* **example:** fix 'npm start' bundle reference ([0a798a9](https://github.com/ui-router/visualizer/commit/0a798a9))
+
+
+
+
 ## 5.0.1 (2017-12-02)
 [Compare `@uirouter/visualizer` versions 5.0.0 and 5.0.1](https://github.com/ui-router/visualizer/compare/5.0.0...5.0.1)
 
