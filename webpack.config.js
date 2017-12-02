@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
@@ -38,8 +37,6 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-
-    new CopyWebpackPlugin([{ from: 'src/**/*.css', flatten: true }]),
   ],
 
   resolve: {
@@ -49,7 +46,10 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: { transpileOnly: true } },
-      { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap-loader' },
+      { test: /\.css$/, loader: [
+        { loader: 'style-loader', options: { hmr: false } },
+        { loader: 'css-loader?sourceMap-loader' },
+      ] },
       // inline base64 URLs for <=8k images, direct URLs for the rest
       { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
     ]
