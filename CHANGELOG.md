@@ -1,3 +1,13 @@
+## 5.0.4 (2017-12-02)
+[Compare `@uirouter/visualizer` versions 5.0.3 and 5.0.4](https://github.com/ui-router/visualizer/compare/5.0.3...5.0.4)
+
+### Bug Fixes
+
+* **bundle:** fix bundling of css for lib-esm (stackblitz try 3) ([9fe1988](https://github.com/ui-router/visualizer/commit/9fe1988))
+
+
+
+
 ## 5.0.3 (2017-12-02)
 [Compare `@uirouter/visualizer` versions 5.0.2 and 5.0.3](https://github.com/ui-router/visualizer/compare/5.0.2...5.0.3)
 
