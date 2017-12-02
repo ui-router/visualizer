@@ -1,7 +1,7 @@
 {
   "name": "@uirouter/visualizer",
   "description": "UI-Router State Visualizer and Transition Visualizer",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "scripts": {
     "start": "webpack-dev-server --port 4039 --content-base example",
     "clean": "shx rm -rf lib lib-esm _bundles",
