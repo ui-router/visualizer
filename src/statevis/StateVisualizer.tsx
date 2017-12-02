@@ -1,5 +1,5 @@
+
 import { h, render, Component } from "preact";
-import "./statevis.css";
 import { StateSelector } from "../selector/StateSelector";
 import { toggleClass, addClass } from "../util/toggleClass";
 import { draggable, dragActions } from "../util/draggable";
@@ -10,6 +10,7 @@ import { DEFAULT_RENDERER, RENDERER_PRESETS } from "./renderers";
 import { Renderer } from "./interface";
 
 declare function require(string): string;
+require("./statevis.css");
 
 export interface IProps {
   router;
@@ -121,7 +122,6 @@ export class StateVisualizer extends Component<IProps, IState> {
 
   cancelAutoMinimize(ev) {
     if (this.minimizeTimeout) {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaay')
       clearTimeout(this.minimizeTimeout);
       this.minimizeTimeout = null;
     }

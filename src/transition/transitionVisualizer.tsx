@@ -1,9 +1,11 @@
 import { h, render, Component } from "preact";
-import "./transitionVisualizer.css";
 
 import {TransitionView} from "./transitionView";
 import {easing} from "../util/easing";
 import {animatePath} from "../util/animatepath";
+
+declare var require;
+require("./transitionVisualizer.css");
 
 export interface IProps {
   router: any;
