@@ -52,9 +52,5 @@ module.exports = {
     ]
   },
 
-  externals: {
-    // 'd3': { root: 'd3', amd: 'd3', commonjs2: 'd3', commonjs: 'd3' },
-    // 'react': { root: 'react', amd: 'react', commonjs2: 'react', commonjs: 'react' },
-    // 'react-dom': { root: 'react-dom', amd: 'react-dom', commonjs2: 'react-dom', commonjs: 'react-dom' }
-  }
+  externals: ['@uirouter/core'],
 };
