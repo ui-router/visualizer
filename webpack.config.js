@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
@@ -37,6 +38,8 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+
+    new CopyWebpackPlugin([{ from: 'src/**/*.css', flatten: true }]),
   ],
 
   resolve: {
