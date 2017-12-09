@@ -1,9 +1,29 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+#uirStateVisualizer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: normal;
+    vertical-align: baseline;
+    line-height: 1;
+    display: block;
+    box-sizing: content-box;
+}
+#uirStateVisualizer svg {
+    box-sizing: content-box;
+}
 
 .uirStateVisContainer {
     z-index: 3;
     position: fixed;
-    right: 2em;
-    bottom: 4em;
+    right: 32px;
+    bottom: 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +41,7 @@
 }
 
 .uirStateVisContainer:hover {
-    outline: 3px solid rgba(0,0,0,0.35)
+    outline: 2px solid rgba(0,0,0,0.35)
 }
 
 .uirStateVisContainer:hover .uirStateVisControls {
@@ -39,7 +59,7 @@
 }
 
 .uirStateVisContainer .uirStateVisControls .uirStateVisIcons span svg {
-    padding: 0.25em;
+    padding: 3px;
     fill: #777777;
 }
 
@@ -50,7 +70,7 @@
 .uirStateVisHover > div {
     transition: opacity 500ms ease;
     opacity: 0;
-    height: 0px;
+    height: 0;
     padding: 0;
 
     position: absolute;
@@ -58,8 +78,8 @@
     right: 0;
     overflow: hidden;
 
-    margin-top: 1.5em;
-    font-size: 0.8em;
+    margin-top: 26px;
+    font-size: 14px;
 }
 
 .uirStateVisHover > div.hoverBlock {
@@ -79,7 +99,7 @@
 }
 
 .uirStateVisHover .uirStateVisLayoutPrefs {
-    padding: 0.75em 1.5em;
+    padding: 12px 24px;
 }
 
 .uirStateVisContainer .statevis {

@@ -36,7 +36,7 @@ export class Controls extends Component<IControlsProps, IControlsState> {
                 <StateSelector router={this.props.router} />
                 <div style={{ marginLeft: 'auto', cursor: 'pointer' }} className="uirStateVisIcons">
                     <span className="uirStateVisHover">
-                        <Help/>
+                        <Help size="16px"/>
                         <div className="hoverBlock">
                             <ul>
                                 <li>Click a node to activate that state.</li>
@@ -49,18 +49,18 @@ export class Controls extends Component<IControlsProps, IControlsState> {
                     </span>
 
                     <span className="uirStateVisHover">
-                        <Gear/>
+                        <Gear size="16px"/>
                         <div className="hoverBlock"><LayoutPrefs onRendererChange={this.props.onRendererChange}/></div>
                     </span>
 
                     <span className="uirStateVisHover" onClick={this.props.onMinimize}>
-                        <ChevronDown/>
+                        <ChevronDown size="16px"/>
                         <div><span style={{float: 'right'}}>Minimize</span></div>
                         <div>Minimize</div>
                     </span>
                     
                     <span className="uirStateVisHover" onClick={this.props.onClose}>
-                        <Close/>
+                        <Close size="16px"/>
                         <div><span style={{float: 'right'}}>Close</span></div>
                     </span>
                 </div>
