@@ -1,10 +1,10 @@
 /*
-    .transitionHistory is the breadcrumbs and transition details block.
+    .uirTranVis_history is the breadcrumbs and transition details block.
     It fills the footer of the screen, and scrolls horizontally.
     Mouse clicks should pass through to the elements underneath.
 */
 
-.transitionHistory {
+.uirTranVis_history {
     display: flex;
     align-items: flex-end;
     position: fixed;
@@ -18,20 +18,20 @@
     pointer-events: none;
 }
 
-.transitionHistory * {
+.uirTranVis_history * {
     /* Enable mouse for any sub-elements (the breadcrumb elemetns and detail elements) */
     pointer-events: all;
     flex: 0 0 auto;
 }
 
 /*  workaround for modal screen, and chrome and safari not allowing it to be
-    visible outside the .transitionHistory overflow while the .transitionHistory div is scrolled */
-.fullScreen .transitionHistory {
+    visible outside the .uirTranVis_history overflow while the .uirTranVis_history div is scrolled */
+.fullScreen .uirTranVis_history {
     top: 0;
 }
 
 /* A single history entry (breadcrumb) arrow looking thing */
-.transitionHistory .historyEntry {
+.uirTranVis_history .uirTranVis_historyEntry {
     position: relative;
     text-align: center;
     padding: 12px 30px;
@@ -43,7 +43,7 @@
 
 
 /* History entry arrow CSS */
-.transitionHistory .historyEntry:before,.historyEntry:after {
+.uirTranVis_history .uirTranVis_historyEntry:before,.uirTranVis_historyEntry:after {
     content: '';
     position: absolute;
     background: darkgrey;
@@ -55,7 +55,7 @@
     z-index: -1;
 }
 
-.transitionHistory .historyEntry:before {
+.uirTranVis_history .uirTranVis_historyEntry:before {
     top: 0;
     border-bottom: 0;
     -webkit-transform: skew(40deg, 0deg);
@@ -63,7 +63,7 @@
     transform: skew(40deg, 0deg);
 }
 
-.transitionHistory .historyEntry:after {
+.uirTranVis_history .uirTranVis_historyEntry:after {
     bottom: 0;
     border-top: 0;
     -webkit-transform: skew(-40deg, 0deg);
@@ -71,29 +71,29 @@
     transform: skew(-40deg, 0deg);
 }
 
-/*.historyEntry::before height: 51% (|| ::after) */
+/*.uirTranVis_historyEntry::before height: 51% (|| ::after) */
 
 /* Styling for breadcrumb contents */
-.historyEntry .summary {
+.uirTranVis_historyEntry .uirTranVis_transSummary {
     color: white;
     white-space: nowrap;
     font-size: small;
 }
 
-.historyEntry .summary .transid {
+.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_transId {
     position: absolute;
     top: 0.1em;
     left: 0.85em;
     font-size: smaller;
 }
 
-.historyEntry .summary .status {
+.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_status {
     position: absolute;
     bottom: 0.1em;
     left: 0.85em;
     font-size: smaller;
 }
-.historyEntry .summary .transname {
+.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_transName {
     font-weight: bold;
     display: flex;
     flex-flow: row nowrap;
@@ -102,44 +102,44 @@
 }
 
 /* breadcrumb/history entry color coding */
-.transitionHistory .historyEntry:before,.historyEntry:after {
+.uirTranVis_history .uirTranVis_historyEntry:before,.uirTranVis_historyEntry:after {
     background: #737373;
 }
-.transitionHistory .historyEntry:hover:before,.historyEntry:hover:after {
+.uirTranVis_history .uirTranVis_historyEntry:hover:before,.uirTranVis_historyEntry:hover:after {
     background: #a6a6a6;
 }
 
-.transitionHistory .historyEntry.success:before,.historyEntry.success:after {
+.uirTranVis_history .uirTranVis_historyEntry.success:before,.uirTranVis_historyEntry.success:after {
     background: #45803b;
 }
-.transitionHistory .historyEntry.success:hover:before,.historyEntry.success:hover:after {
+.uirTranVis_history .uirTranVis_historyEntry.success:hover:before,.uirTranVis_historyEntry.success:hover:after {
     background: #19a600;
 }
 
 
-.transitionHistory .historyEntry.error:before,.historyEntry.error:after {
+.uirTranVis_history .uirTranVis_historyEntry.error:before,.uirTranVis_historyEntry.error:after {
     background: #bf1f1d;
 }
-.transitionHistory .historyEntry.error:hover:before,.historyEntry.error:hover:after {
+.uirTranVis_history .uirTranVis_historyEntry.error:hover:before,.uirTranVis_historyEntry.error:hover:after {
     background: #e62622;
 }
 
 
-.transitionHistory .historyEntry.ignored:before,.historyEntry.ignored:after {
+.uirTranVis_history .uirTranVis_historyEntry.ignored:before,.uirTranVis_historyEntry.ignored:after {
     background: #e68b05;
 }
-.transitionHistory .historyEntry.ignored:hover:before,.historyEntry.ignored:hover:after {
+.uirTranVis_history .uirTranVis_historyEntry.ignored:hover:before,.uirTranVis_historyEntry.ignored:hover:after {
     background: #ff9808;
 }
 
-.transitionHistory .historyEntry.redirected:before,.historyEntry.redirected:after {
+.uirTranVis_history .uirTranVis_historyEntry.redirected:before,.uirTranVis_historyEntry.redirected:after {
     background: #e68b05;
 }
-.transitionHistory .historyEntry.redirected:hover:before,.historyEntry.redirected:hover:after {
+.uirTranVis_history .uirTranVis_historyEntry.redirected:hover:before,.uirTranVis_historyEntry.redirected:hover:after {
     background: #ff9808;
 }
 
-.transitionHistory .keyvalue {
+.uirTranVis_history .uirTranVis_keyValue {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -152,21 +152,21 @@
 
 
 /* The transition detail popover (when hovering over a breadcrumb) */
-.transitionDetail {
+.uirTranVis_transitionDetail {
     border: 1px solid lightgrey;
     font-size: small;
     transition: box-shadow 0.5s ease,  border 1.0s ease
 }
 
-/* Pointer element points from the transitionDetail to the breadcrumb */
-.transitionDetail .downArrow {
+/* Pointer element points from the uirTranVis_transitionDetail to the breadcrumb */
+.uirTranVis_transitionDetail .uirTranVis_downArrow {
     position: relative;
     width: 100%;
     bottom: -10px;
     margin-bottom: 10px;
 }
 
-.transitionDetail .downArrow:before, .transitionDetail .downArrow:after {
+.uirTranVis_transitionDetail .uirTranVis_downArrow:before, .uirTranVis_transitionDetail .uirTranVis_downArrow:after {
     content: "";
     position: absolute;
     border-left: 10px solid transparent;
@@ -176,11 +176,11 @@
     margin-left: -10px;
 }
 
-.transitionDetail .downArrow:before {
+.uirTranVis_transitionDetail .uirTranVis_downArrow:before {
     border-top: 10px solid lightgray;
 }
 
-.transitionDetail .downArrow:after{
+.uirTranVis_transitionDetail .uirTranVis_downArrow:after{
     border-top: 10px solid white;
     margin-top: -1px;
     z-index: 1;
@@ -188,80 +188,80 @@
 
 
 /* The layout and styling of the transition detail popover */
-.transitionDetail .panel-heading {
-    text-align: center;
-}
+/*.uirTranVis_transitionDetail .panel-heading {*/
+    /*text-align: center;*/
+/*}*/
 
-.transitionDetail table {
+.uirTranVis_transitionDetail table {
     border-collapse: collapse;
 }
 
-.transitionDetail th {
+.uirTranVis_transitionDetail th {
     text-align: center;
     font-size: small;
 }
 
-.transitionDetail .uir-header {
+.uirTranVis_transitionDetail .uirTranVis_heading {
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.transitionDetail .uir-header > *  {
+.uirTranVis_transitionDetail .uirTranVis_heading > *  {
     flex: 0 1 auto;
 }
 
-.transitionDetail .uir-header > * i {
+.uirTranVis_transitionDetail .uirTranVis_heading > * i {
     transition: all 0.5s ease;
 }
 
-.transitionDetail table.paths {
+.uirTranVis_transitionDetail table.uirTranVis_paths {
     min-width: 25em;
 }
 
-.transitionDetail table.paths td {
+.uirTranVis_transitionDetail table.uirTranVis_paths td {
     color: white;
     border: 0;
     font-size: small;
     min-width: 10em;
 }
 
-.transitionDetail .summary .keyvalue {
+.uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue {
     justify-content: flex-start !important;
     align-items: baseline;
 }
 
-.transitionDetail .summary .keyvalue > div:nth-child(2){
+.uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue > div:nth-child(2){
     padding-left: 0.5em;
     font-weight: normal;
 }
 
 
-.transitionDetail table.summary {
+.uirTranVis_transitionDetail table.uirTranVis_transSummary {
     max-width: 400px;
 }
 
-.transitionDetail table.summary td {
+.uirTranVis_transitionDetail table.uirTranVis_transSummary td {
     font-size: small;
     vertical-align: top;
 }
 
-.transitionDetail table.summary td:nth-child(1) {
+.uirTranVis_transitionDetail table.uirTranVis_transSummary td:nth-child(1) {
     white-space: nowrap;
 }
 
-.transitionDetail table.summary td:nth-child(2) {
+.uirTranVis_transitionDetail table.uirTranVis_transSummary td:nth-child(2) {
     font-weight: bold;
     padding-left: 1em;
 }
 
 
-.transitionDetail td {
+.uirTranVis_transitionDetail td {
     padding: 0;
 }
 
-.transitionDetail td .flowArrowCell {
+.uirTranVis_transitionDetail td .flowArrowCell {
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
@@ -270,13 +270,13 @@
     transition: width 0.25s ease;
     height: auto;
 }
-.transitionDetail.expand td .flowArrowCell { width: 2em; }
+.uirTranVis_transitionDetail.expand td .flowArrowCell { width: 2em; }
 
-.transitionDetail .exit  .flowArrowSvg          { right: 0; }
-.transitionDetail .enter .flowArrowSvg          { left: 0; }
-.transitionDetail        .flowArrowSvg.bottom   { bottom: 0 }
-.transitionDetail        .flowArrowSvg.top      { top: 0 }
-.transitionDetail        .flowArrowSvg {
+.uirTranVis_transitionDetail .exit  .flowArrowSvg          { right: 0; }
+.uirTranVis_transitionDetail .enter .flowArrowSvg          { left: 0; }
+.uirTranVis_transitionDetail        .flowArrowSvg.bottom   { bottom: 0 }
+.uirTranVis_transitionDetail        .flowArrowSvg.top      { top: 0 }
+.uirTranVis_transitionDetail        .flowArrowSvg {
     position: absolute;
     width: 100%;
     height: auto;
@@ -284,25 +284,25 @@
 }
 
 /* color code path elements by retained/exited/entered */
-.transitionDetail .retain {
+.uirTranVis_transitionDetail .retain {
     background-color: #737273;
 }
 
-.transitionDetail .exit {
+.uirTranVis_transitionDetail .exit {
     background-color: #7c1010;
 }
 
-.transitionDetail .enter {
+.uirTranVis_transitionDetail .enter {
     background-color: #31592a;
 }
 
-.transitionDetail .deemphasize {
+.uirTranVis_transitionDetail .uirTranVis_deemphasize {
     color: #eaeaea;
     font-size: x-small;
 }
 
 /* Styling for parameter values and resolve values */
-.transitionDetail .params {
+.uirTranVis_transitionDetail .params {
     background-color: rgba(255,255,255,0.15);
     padding: 0;
     opacity: 0;
@@ -312,7 +312,7 @@
     max-width: 150px;
 }
 
-.transitionDetail.expand .params {
+.uirTranVis_transitionDetail.expand .params {
     display: block;
     border-radius: 4px;
     box-shadow: 1px 1px 2px black;
@@ -324,84 +324,84 @@
     margin: 0.5em 0;
 }
 
-.transitionDetail.pin {
+.uirTranVis_transitionDetail.pin {
     box-shadow: 4px 4px 12px rgba(0,0,0,0.3);
     border: 1px solid black;
 }
 
-.transitionDetail.pin .downArrow:before {
+.uirTranVis_transitionDetail.pin .uirTranVis_downArrow:before {
     border-top-color: black;
 }
 
 
 /* When showing expanded details, put space between path elements */
-.transitionDetail.expand table.paths td {
+.uirTranVis_transitionDetail.expand table.uirTranVis_paths td {
     max-height: 100px;
     vertical-align: top;
 }
 
-.transitionDetail .uirTransVisRow {
+.uirTranVis_transitionDetail .uirTranVis_Row {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: stretch;
 }
 
-.transitionDetail .uirTransVisRow > div {
+.uirTranVis_transitionDetail .uirTranVis_Row > div {
     flex: 1 0 50%;
 }
 
-.transitionDetail .uirNodeContent {
+.uirTranVis_transitionDetail .uirTranVis_nodeContent {
     display: flex;
     flex-flow: row nowrap;
     min-height: 1em;
     transition: min-height 0.25s ease;
 }
 
-.transitionDetail.expand .uirNodeContent {
+.uirTranVis_transitionDetail.expand .uirTranVis_nodeContent {
     min-height: 5em;
 }
 
-.transitionDetail .uirNodeDetail {
+.uirTranVis_transitionDetail .uirTranVis_nodeDetail {
     flex: 1 0 auto;
     padding: 0.2em 0.5em;
 }
 
-.transitionDetail .statename {
+.uirTranVis_transitionDetail .uirTranVis_stateName {
     font-weight: bolder;
     margin-right: 1em;
     margin-left: 0;
 }
-.transitionDetail .enter .statename {
+.uirTranVis_transitionDetail .enter .uirTranVis_stateName {
     margin-right: 0;
     margin-left: 1em;
 }
 
-.transitionDetail .nowrap {
+.uirTranVis_transitionDetail .uirTranVis_nowrap {
     white-space: nowrap;
 }
 
-.transitionHistory .paramid {
+.uirTranVis_history .uirTranVis_paramId {
     font-weight: bolder;
     color: #eaeaea;
     margin-right: 0.5em;
 }
 
-.transitionHistory .paramslabel {
+.uirTranVis_history .uirTranVis_paramsLabel {
     color: white;
     margin-top: -0.5em;
     text-align: center;
     font-weight: bold;
 }
 
-.transitionHistory .resolvelabel {
+.uirTranVis_history .uirTranVis_resolveLabel {
     color: white;
     margin-top: -0.5em;
     text-align: center;
     font-weight: bold;
 }
 
-.transitionHistory .paramvalue {
+.uirTranVis_history .uirTranVis_paramValue {
     color: #e6e6e6;
 }
 
@@ -413,19 +413,19 @@ span.link {
 }
 
 
-.tooltip-right {
+.uirTranVis_tooltipRight {
     display: inline;
     position: relative;
     transition: all 1.5s ease;
 }
 
-.tooltip-right:after {
+.uirTranVis_tooltipRight:after {
     color: rgba(0,0,0,0);
     text-decoration: none;
     transition: all 1.5s ease;
 }
 
-.tooltip-right:hover:after {
+.uirTranVis_tooltipRight:hover:after {
     bottom: 0;
     color: rgba(0,0,0,0.5);
     content: attr(title);
@@ -439,13 +439,13 @@ span.link {
 
 /* Bootstrap stuff */
 
-.uir-modal .btn-primary {
+.uirTranVis_modal .uirTranVis_btnPrimary {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
 }
 
-.uir-modal .btn {
+.uirTranVis_modal .uirTranVis_btn {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -467,7 +467,7 @@ span.link {
     border-radius: 4px;
 }
 
-.uir-modal .btn-xs, .btn-group-xs > .btn {
+.uirTranVis_modal .uirTranVis_btnXs, .uirTranVis_btnGroupXs > .uirTranVis_btn {
     padding: 1px 5px;
     font-size: 12px;
     line-height: 1.5;
@@ -475,29 +475,29 @@ span.link {
 }
 
 
-.transitionDetail span.link {
+.uirTranVis_transitionDetail span.link {
     color: white;
 }
 
-.transitionHistory *:not(.fa):not(pre) {
+.uirTranVis_history *:not(.fa):not(pre) {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.transitionDetail .enter .uir-header {
+.uirTranVis_transitionDetail .enter .uirTranVis_heading {
     flex-flow: row nowrap;
 }
-.transitionDetail .uir-header {
+.uirTranVis_transitionDetail .uirTranVis_heading {
     display: flex;
     flex-flow: row-reverse nowrap;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.transitionDetail .retain .uir-header {
+.uirTranVis_transitionDetail .retain .uirTranVis_heading {
     justify-content: center;
 }
 
-.uir-panel {
+.uirTranVis_panel {
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid lightgrey;
@@ -506,7 +506,7 @@ span.link {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-.uir-panel-heading {
+.uirTranVis_panelHeading {
     color: #333;
     background-color: #f5f5f5;
     border-color: #ddd;
@@ -517,14 +517,14 @@ span.link {
     border-top-right-radius: 3px;
 }
 
-.uir-panel-title {
+.uirTranVis_panelTitle {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
     color: inherit;
 }
 
-.uir-panel-body {
+.uirTranVis_panelBody {
     padding: 15px;
 }
 
@@ -544,7 +544,7 @@ span.link {
     opacity: 1;
 }
 
-.uir-modal-backdrop {
+.uirTranVis_modal-backdrop {
     position: fixed;
     top: 0;
     right: 0;
@@ -554,12 +554,12 @@ span.link {
     background-color: #000;
 }
 
-.uir-modal-backdrop.in {
+.uirTranVis_modal-backdrop.in {
     filter: alpha(opacity=50);
     opacity: .5;
 }
 
-.uir-modal {
+.uirTranVis_modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -573,13 +573,13 @@ span.link {
 }
 
 
-.uir-modal-dialog {
+.uirTranVis_modal-dialog {
     position: relative;
     width: auto;
     margin: 10px;
 }
 
-.uir-modal-content {
+.uirTranVis_modal-content {
     position: relative;
     background-color: #fff;
     -webkit-background-clip: padding-box;
@@ -592,7 +592,7 @@ span.link {
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 
-.uir-modal-header {
+.uirTranVis_modal-header {
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -604,13 +604,13 @@ span.link {
     background-color: cornflowerblue;
 }
 
-.uir-modal-body {
+.uirTranVis_modalBody {
     color: black;
     position: relative;
     padding: 15px;
 }
 
-.uir-modal-footer {
+.uirTranVis_modalFooter {
     padding: 15px;
     text-align: right;
     border-top: 1px solid #e5e5e5;

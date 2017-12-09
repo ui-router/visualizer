@@ -1,9 +1,10 @@
 import { h, render, Component } from "preact";
 import {stringify, maxLength} from "../util/strings";
-import {KeysAndValues} from "./keysAndValues";
-import {Transition} from '@uirouter/core';
+import {KeysAndValues} from "./KeysAndValues";
+import { Transition } from '@uirouter/core';
 
 export interface IProps {
+  trans: Transition;
   node: any;
   type: string;
 }
@@ -33,7 +34,7 @@ export class NodeDetail extends Component<IProps, IState> {
         typeof val === 'string' ? val : maxLength(30, stringify(val));
 
     let node = this.props.node;
-    let ignoredTokens = ['$stateParams', '$transition$', '$state$', Transition];
+    let ignoredTokens = ['$stateParams', '$transition$', '$state$', this.props.trans.constructor];
 
     return node && node.resolvables
             .filter(r => ignoredTokens.indexOf(r.token) === -1)
@@ -42,19 +43,19 @@ export class NodeDetail extends Component<IProps, IState> {
 
   render() {
     return !this.props.node ? null : (
-        <div className="uirNodeDetail">
-          <div className="uir-header">
-            <div className="nowrap deemphasize">({ this.props.type } state)</div>
-            <div className="statename">{ this.stateName() }</div>
+        <div className="uirTranVis_nodeDetail">
+          <div className="uirTranVis_heading">
+            <div className="uirTranVis_nowrap uirTranVis_deemphasize">({ this.props.type } state)</div>
+            <div className="uirTranVis_stateName">{ this.stateName() }</div>
           </div>
 
           <KeysAndValues data={this.params()}
-                         classes={{ outerdiv: 'params', section: 'paramslabel deemphasize' }}
+                         classes={{ outerdiv: 'params', section: 'uirTranVis_paramsLabel uirTranVis_deemphasize' }}
                          labels={{ section: 'Parameter values', modalTitle: 'Parameter value: ' }}
           />
 
           <KeysAndValues data={this.resolves()}
-                         classes={{ outerdiv: 'params resolve', section: 'resolvelabel deemphasize' }}
+                         classes={{ outerdiv: 'params resolve', section: 'uirTranVis_resolveLabel uirTranVis_deemphasize' }}
                          labels={{ section: 'Resolved data', modalTitle: 'Resolved value: ' }}
           />
         </div>

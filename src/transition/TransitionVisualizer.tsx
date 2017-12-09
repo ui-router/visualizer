@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
 
-import {TransitionView} from "./transitionView";
+import {TransitionView} from "./TransitionView";
 import {easing} from "../util/easing";
 import {animatePath} from "../util/animatepath";
 
@@ -168,7 +168,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
 
     return (
       <div ref={el => this._div = el}>
-        <div className="transitionHistory" style={{ pointerEvents }}>
+        <div className="uirTranVis_history" style={{ pointerEvents }}>
           { this.state.transitions.map(trans =>
             <div key={trans.$id}>
               <TransitionView transition={trans} />

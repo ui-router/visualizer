@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
-import {NodeDetail} from "./nodeDetail";
-import {FlowArrow} from "./flowArrow";
+import {NodeDetail} from "./NodeDetail";
+import {FlowArrow} from "./FlowArrow";
 
 export interface TransStruct {
   key: string;
@@ -66,7 +66,7 @@ export class NodePaths extends Component<IProps, IState> {
     var lastEnterIdx = enterExit.filter(x => !!x.toType).length - 1;
 
     return (
-        <table className="paths">
+        <table className="uirTranVis_paths">
           <thead>
           <tr>
             <th>From Path</th>
@@ -80,7 +80,7 @@ export class NodePaths extends Component<IProps, IState> {
             retained.map(elem =>
                 <tr key={elem.key}>
                   <td className={elem.fromType} colSpan={2}>
-                    <NodeDetail node={elem.from} type={elem.fromType}/>
+                    <NodeDetail trans={this.props.transition} node={elem.from} type={elem.fromType}/>
                   </td>
                 </tr>
             ) }
@@ -89,12 +89,12 @@ export class NodePaths extends Component<IProps, IState> {
             enterExit.map((elem, idx) =>
                 <tr key={elem.key}>
                   <td colSpan={2}>
-                    <div className="uirTransVisRow">
+                    <div className="uirTranVis_Row">
                       <div className={`${elem.fromType}`}>
                         { !elem.fromType ? null :
                             <div>
-                              <div className="uirNodeContent">
-                                <NodeDetail node={elem.from} type={elem.fromType}/>
+                              <div className="uirTranVis_nodeContent">
+                                <NodeDetail trans={this.props.transition} node={elem.from} type={elem.fromType}/>
                                 <FlowArrow
                                     bottom='V'
                                     top={idx ? 'V' : elem.toType ? 'RU' : 'AU'}
@@ -107,12 +107,12 @@ export class NodePaths extends Component<IProps, IState> {
                       <div className={`${elem.toType}`}>
                         { !elem.toType ? null :
                             <div>
-                              <div className="uirNodeContent">
+                              <div className="uirTranVis_nodeContent">
                                 <FlowArrow
                                     top={idx ? 'V' : elem.fromType ? 'RD' : 'V'}
                                     bottom={idx == lastEnterIdx ? 'AD' : 'V'}
                                 />
-                                <NodeDetail node={elem.to} type={elem.toType}/>
+                                <NodeDetail trans={this.props.transition} node={elem.to} type={elem.toType}/>
                               </div>
                             </div>
                         }

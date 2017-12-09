@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
 import {Modal} from "../util/modal";
-import {ResolveData} from "./resolveData";
+import {ResolveData} from "./ResolveData";
 import {maxLength} from "../util/strings";
 
 const isObject = (val) => typeof val === 'object';
@@ -36,10 +36,10 @@ export interface IState {
 
 let defaultClass = {
   outerdiv: 'param',
-  keyvaldiv: 'keyvalue',
-  section: 'paramslabel deemphasize',
-  _key: 'paramid',
-  value: 'paramvalue'
+  keyvaldiv: 'uirTranVis_keyValue',
+  section: 'uirTranVis_paramsLabel uirTranVis_deemphasize',
+  _key: 'uirTranVis_paramId',
+  value: 'uirTranVis_paramValue'
 };
 
 export class KeysAndValues extends Component<IProps, IState> {

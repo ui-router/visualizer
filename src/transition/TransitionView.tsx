@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
-import {TransitionPopover} from "./transitionPopover";
-import {BreadcrumbArrow} from "./breadcrumbArrow";
+import {TransitionPopover} from "./TransitionPopover";
+import {BreadcrumbArrow} from "./BreadcrumbArrow";
 import {maxLength} from "../util/strings";
 import {makeCancelable} from "../util/cancelablePromise";
 

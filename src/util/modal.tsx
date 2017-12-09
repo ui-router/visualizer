@@ -6,10 +6,10 @@ export class Modal extends Component<IProps, IState> {
   _ref: any;
 
   static show = (labels, key, value, component) => {
-    let modal = document.body.querySelector("#uir-modal");
+    let modal = document.body.querySelector("#uirTranVis_modal");
     if (!modal) {
       modal = document.createElement("div");
-      modal.id = "uir-modal";
+      modal.id = "uirTranVis_modal";
       document.body.appendChild(modal);
     }
 
@@ -29,11 +29,11 @@ export class Modal extends Component<IProps, IState> {
   render() {
     return (
       <div ref={ ref => this._ref = ref }>
-        <div className="uir-modal-backdrop uir-fade" style={{zIndex: 1040}}></div>
+        <div className="uirTranVis_modal-backdrop uir-fade" style={{zIndex: 1040}}></div>
 
-        <div tabIndex={-1} className="uir-modal uir-fade" style={{zIndex: 1050, display: "block"}}>
-          <div className="uir-modal-dialog modal-lg">
-            <div className="uir-modal-content">
+        <div tabIndex={-1} className="uirTranVis_modal uir-fade" style={{zIndex: 1050, display: "block"}}>
+          <div className="uirTranVis_modal-dialog modal-lg">
+            <div className="uirTranVis_modal-content">
               { this.props.children }
             </div>
           </div>

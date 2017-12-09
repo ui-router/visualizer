@@ -18,19 +18,19 @@ export class ResolveData extends Component<IProps,any> {
     return (
         <div>
           <Modal>
-            <div className="uir-modal-header uir-resolve-header">
+            <div className="uirTranVis_modal-header uir-resolve-header">
               <div style={{"fontSize": "1.5em"}}>{this.props.labels.modalTitle}: {this.props.id}</div>
-              <button className="btn btn-xs btn-primary" onClick={this.close}>
+              <button className="uirTranVis_btn uirTranVis_btnXs uirTranVis_btnPrimary" onClick={this.close}>
                 <i className="uir-icon uir-iconw-close"/>
               </button>
             </div>
 
-            <div className="uir-modal-body">
+            <div className="uirTranVis_modalBody">
               <Pretty data={this.props.value} />
             </div>
 
-            <div className="uir-modal-footer">
-              <button className="btn btn-primary" onClick={this.close}>Close</button>
+            <div className="uirTranVis_modalFooter">
+              <button className="uirTranVis_btn uirTranVis_btnPrimary" onClick={this.close}>Close</button>
             </div>
           </Modal>
         </div>

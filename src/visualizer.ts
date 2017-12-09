@@ -3,7 +3,7 @@ import { UIRouter, UIRouterPlugin } from "@uirouter/core";
 import { StateSelector } from "./selector/StateSelector";
 import { StateVisualizer } from "./statevis/StateVisualizer";
 import { StateTree } from "./statevis/tree/StateTree";
-import { TransitionVisualizer } from "./transition/transitionVisualizer";
+import { TransitionVisualizer } from "./transition/TransitionVisualizer";
 
 const visualizer = (router: UIRouter) => new Visualizer(router, {});
 

@@ -28,14 +28,14 @@ export class BreadcrumbArrow extends Component<IProps, IState> {
 
   render() {
     return !this.props.transition ? null : (
-        <div className={this.props.status + " historyEntry"} onClick={this.handleClick}>
-          <div className="summary">
-            <div className="transid">{this.props.transition.$id}</div>
-            <div className="status">
+        <div className={this.props.status + " uirTranVis_historyEntry"} onClick={this.handleClick}>
+          <div className="uirTranVis_transSummary">
+            <div className="uirTranVis_transId">{this.props.transition.$id}</div>
+            <div className="uirTranVis_status">
               {this.props.status}
               {!this.props.message ? null : <span>: {this.props.message}</span>}
             </div>
-            <div className="transname">
+            <div className="uirTranVis_transName">
               <i className={this.iconClass()} /> {this.props.transition.to().name}
             </div>
           </div>
