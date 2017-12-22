@@ -1,5 +1,7 @@
 # UI-Router State Visualizer and Transition Visualizer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ui-router/visualizer.svg)](https://greenkeeper.io/)
+
 Try the [Demo plunker](http://plnkr.co/edit/MZ7ypavytxD1Ty1UHozo?p=info)
 
 ![Image of Visualizer](https://pbs.twimg.com/media/Cn7epJ_UMAAHWqu.jpg)
