@@ -144,7 +144,6 @@ export class StateVisualizer extends Component<IProps, IState> {
     if (this.props.minimizeAfter) {
       const doMinimize = () => this.setState({ minimized: true });
       this.minimizeTimeout = setTimeout(doMinimize, this.props.minimizeAfter);
-      console.log("timeout:", this.minimizeTimeout)
     }
   }
 
