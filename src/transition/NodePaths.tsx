@@ -92,28 +92,24 @@ export class NodePaths extends Component<IProps, IState> {
                     <div className="uirTranVis_Row">
                       <div className={`${elem.fromType}`}>
                         { !elem.fromType ? null :
-                            <div>
-                              <div className="uirTranVis_nodeContent">
-                                <NodeDetail trans={this.props.transition} node={elem.from} type={elem.fromType}/>
-                                <FlowArrow
-                                    bottom='V'
-                                    top={idx ? 'V' : elem.toType ? 'RU' : 'AU'}
-                                />
-                              </div>
+                            <div className="uirTranVis_nodeContent">
+                              <NodeDetail trans={this.props.transition} node={elem.from} type={elem.fromType}/>
+                              <FlowArrow
+                                  bottom='V'
+                                  top={idx ? 'V' : elem.toType ? 'RU' : 'AU'}
+                              />
                             </div>
                         }
                       </div>
 
                       <div className={`${elem.toType}`}>
                         { !elem.toType ? null :
-                            <div>
-                              <div className="uirTranVis_nodeContent">
-                                <FlowArrow
-                                    top={idx ? 'V' : elem.fromType ? 'RD' : 'V'}
-                                    bottom={idx == lastEnterIdx ? 'AD' : 'V'}
-                                />
-                                <NodeDetail trans={this.props.transition} node={elem.to} type={elem.toType}/>
-                              </div>
+                            <div className="uirTranVis_nodeContent">
+                              <FlowArrow
+                                  top={idx ? 'V' : elem.fromType ? 'RD' : 'V'}
+                                  bottom={idx == lastEnterIdx ? 'AD' : 'V'}
+                              />
+                              <NodeDetail trans={this.props.transition} node={elem.to} type={elem.toType}/>
                             </div>
                         }
                       </div>

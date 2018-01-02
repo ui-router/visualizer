@@ -11,14 +11,14 @@
     left: 0;
     bottom: 0;
     right: 0;
-    padding: 0 1em;
+    padding: 0 16px;
     overflow-x: scroll;
-    z-index: 2;
+    z-index: 50;
     /* disable mouse clicks, hover, etc, for the overall div */
     pointer-events: none;
 }
 
-.uirTranVis_history * {
+.uirTranVis_history > * {
     /* Enable mouse for any sub-elements (the breadcrumb elemetns and detail elements) */
     pointer-events: all;
     flex: 0 0 auto;
@@ -74,31 +74,56 @@
 /*.uirTranVis_historyEntry::before height: 51% (|| ::after) */
 
 /* Styling for breadcrumb contents */
-.uirTranVis_historyEntry .uirTranVis_transSummary {
+.uirTranVis_historyEntry .uirTranVis_historyEntrySummary {
     color: white;
     white-space: nowrap;
     font-size: small;
 }
-
-.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_transId {
+.uirTranVis_historyEntry .uirTranVis_historyEntrySummary .uirTranVis_transId {
     position: absolute;
-    top: 0.1em;
-    left: 0.85em;
+    top: 3px;
+    left: 10px;
     font-size: smaller;
 }
-
-.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_status {
+.uirTranVis_historyEntry .uirTranVis_historyEntrySummary .uirTranVis_status {
     position: absolute;
-    bottom: 0.1em;
-    left: 0.85em;
+    bottom: 3px;
+    left: 10px;
     font-size: smaller;
 }
-.uirTranVis_historyEntry .uirTranVis_transSummary .uirTranVis_transName {
+.uirTranVis_historyEntry .uirTranVis_historyEntrySummary .uirTranVis_transName {
     font-weight: bold;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center
+}
+
+.uirTranVis_transSummary {
+    margin: 8px 0;
+}
+.uirTranVis_transSummary .uirTranVis_summaryHeading {
+    background-color: #f5f5f5;
+    margin: 8px -16px;
+    padding: 4px 16px;
+}
+.uirTranVis_transSummary .uirTranVis_summaryData {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+}
+.uirTranVis_transSummary .uirTranVis_summaryData span {
+    min-width: 60px;
+    text-align: right;
+    padding-right: 6px;
+}
+
+.uirTranVis_history .uirTranVis_code {
+    padding: 0px 2px;
+    color: black;
+    background: #e6e6e6;
+    margin: 0;
+    font-family: monospace;
 }
 
 /* breadcrumb/history entry color coding */
@@ -144,8 +169,6 @@
     flex-flow: row nowrap;
     justify-content: space-between;
 }
-
-
 
 
 
@@ -217,14 +240,15 @@
 }
 
 .uirTranVis_transitionDetail table.uirTranVis_paths {
-    min-width: 25em;
+    min-width: 325px;
+    max-width: 650px;
+    width: 100%;
 }
 
 .uirTranVis_transitionDetail table.uirTranVis_paths td {
     color: white;
     border: 0;
     font-size: small;
-    min-width: 10em;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue {
@@ -233,27 +257,8 @@
 }
 
 .uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue > div:nth-child(2){
-    padding-left: 0.5em;
+    padding-left: 8px;
     font-weight: normal;
-}
-
-
-.uirTranVis_transitionDetail table.uirTranVis_transSummary {
-    max-width: 400px;
-}
-
-.uirTranVis_transitionDetail table.uirTranVis_transSummary td {
-    font-size: small;
-    vertical-align: top;
-}
-
-.uirTranVis_transitionDetail table.uirTranVis_transSummary td:nth-child(1) {
-    white-space: nowrap;
-}
-
-.uirTranVis_transitionDetail table.uirTranVis_transSummary td:nth-child(2) {
-    font-weight: bold;
-    padding-left: 1em;
 }
 
 
@@ -266,11 +271,12 @@
     flex-flow: column nowrap;
     align-items: stretch;
     justify-content: space-between;
-    width: 1em;
+    width: 12px;
     transition: width 0.25s ease;
     height: auto;
+    flex: 0 0 auto;
 }
-.uirTranVis_transitionDetail.expand td .flowArrowCell { width: 2em; }
+.uirTranVis_transitionDetail.expand td .flowArrowCell { width: 24px; }
 
 .uirTranVis_transitionDetail .exit  .flowArrowSvg          { right: 0; }
 .uirTranVis_transitionDetail .enter .flowArrowSvg          { left: 0; }
@@ -316,12 +322,12 @@
     display: block;
     border-radius: 4px;
     box-shadow: 1px 1px 2px black;
-    padding: 0.5em;
+    padding: 8px;
     max-height: 250px;
     max-width: 300px;
     overflow-y: auto;
     opacity: 1;
-    margin: 0.5em 0;
+    margin: 8px 0;
 }
 
 .uirTranVis_transitionDetail.pin {
@@ -349,32 +355,34 @@
 
 .uirTranVis_transitionDetail .uirTranVis_Row > div {
     flex: 1 0 50%;
+    min-width: 0;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_nodeContent {
     display: flex;
     flex-flow: row nowrap;
-    min-height: 1em;
+    min-height: 16px;
     transition: min-height 0.25s ease;
 }
 
 .uirTranVis_transitionDetail.expand .uirTranVis_nodeContent {
-    min-height: 5em;
+    min-height: 65px;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_nodeDetail {
-    flex: 1 0 auto;
-    padding: 0.2em 0.5em;
+    flex: 1 1 auto;
+    padding: 3px 7px;
+    min-width: 0;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_stateName {
     font-weight: bolder;
-    margin-right: 1em;
+    margin-right: 16px;
     margin-left: 0;
 }
 .uirTranVis_transitionDetail .enter .uirTranVis_stateName {
     margin-right: 0;
-    margin-left: 1em;
+    margin-left: 16px;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_nowrap {
@@ -384,25 +392,26 @@
 .uirTranVis_history .uirTranVis_paramId {
     font-weight: bolder;
     color: #eaeaea;
-    margin-right: 0.5em;
+    margin-right: 8px;
 }
 
 .uirTranVis_history .uirTranVis_paramsLabel {
     color: white;
-    margin-top: -0.5em;
+    margin-top: -8px;
     text-align: center;
     font-weight: bold;
 }
 
 .uirTranVis_history .uirTranVis_resolveLabel {
     color: white;
-    margin-top: -0.5em;
+    margin-top: -8px;
     text-align: center;
     font-weight: bold;
 }
 
 .uirTranVis_history .uirTranVis_paramValue {
     color: #e6e6e6;
+    padding-left: 8px;
 }
 
 
@@ -479,7 +488,7 @@ span.link {
     color: white;
 }
 
-.uirTranVis_history *:not(.fa):not(pre) {
+.uirTranVis_history *:not(.fa):not(pre):not(.uirTranVis_code) {
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -511,7 +520,7 @@ span.link {
     background-color: #f5f5f5;
     border-color: #ddd;
 
-    padding: 10px 15px;
+    padding: 10px 16px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -525,7 +534,7 @@ span.link {
 }
 
 .uirTranVis_panelBody {
-    padding: 15px;
+    padding: 0 16px;
 }
 
 
@@ -593,7 +602,7 @@ span.link {
 }
 
 .uirTranVis_modal-header {
-    padding: 15px;
+    padding: 16px;
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -607,19 +616,19 @@ span.link {
 .uirTranVis_modalBody {
     color: black;
     position: relative;
-    padding: 15px;
+    padding: 16px;
 }
 
 .uirTranVis_modalFooter {
-    padding: 15px;
+    padding: 16px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
 }
 
 .uir-icon {
     display: inline-block;
-    height: 1em; width: 1em;
-    margin: 0.25em;
+    height: 16px; width: 16px;
+    margin: 4px;
     background-size: cover;
     background-position: 0 0;
 }
