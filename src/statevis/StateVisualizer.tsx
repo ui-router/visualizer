@@ -157,7 +157,7 @@ export class StateVisualizer extends Component<IProps, IState> {
            onMouseDown={this.cancelAutoMinimize.bind(this)}
            onMouseEnter={this.cancelAutoMinimize.bind(this)}>
         <StateVisWindow minimized={this.state.minimized}
-                        ref={(windowRef) => this.windowEl = windowRef.el}
+                        ref={(windowRef) => this.windowEl = windowRef && windowRef.el || this.windowEl}
                         onResize={({ width, height }) => this.setState({ width, height })}>
 
           <div onClick={() => this.setState({ minimized: false })} 
