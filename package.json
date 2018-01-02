@@ -11,7 +11,7 @@
     "prepublishOnly": "npm run build",
     "release": "release"
   },
-  "homepage": "http://ui-router.github.com/visualizer",
+  "homepage": "https://github.com/ui-router/visualizer",
   "contributors": [
     {
       "name": "Chris Thielen",
