@@ -8,7 +8,7 @@ myApp.config(function($stateProvider) {
     
     { 
       name: 'people', 
-      url: '/people', 
+      url: '/people?' + ([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(function(x) { return 'param'+x}).join('&')),
       component: 'people',
       resolve: {
         people: function(PeopleService) {
