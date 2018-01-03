@@ -10,6 +10,16 @@ myApp.config(function($stateProvider) {
       name: 'people', 
       url: '/people?' + ([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(function(x) { return 'param'+x}).join('&')),
       component: 'people',
+      params: {
+        param5: { value: 123, type: 'int' },
+        param6: { value: "abc" },
+        param7: { value: true, type: 'bool' },
+        param8: { value: null },
+        param9: { value: null },
+        param10: { value: null },
+        param11: { value: "" },
+        param12: { value: "" },
+      },
       resolve: {
         people: function(PeopleService) {
           return PeopleService.getAllPeople();
