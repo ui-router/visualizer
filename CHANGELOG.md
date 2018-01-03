@@ -1,3 +1,21 @@
+# 5.1.0 (2018-01-03)
+[Compare `@uirouter/visualizer` versions 5.0.6 and 5.1.0](https://github.com/ui-router/visualizer/compare/5.0.6...5.1.0)
+
+### Bug Fixes
+
+* **css:** Switch to using px instead of em. Pass sizes to svg icons. ([fc38027](https://github.com/ui-router/visualizer/commit/fc38027))
+* **statevis:** Fix null dereference in ref callback ([1711525](https://github.com/ui-router/visualizer/commit/1711525))
+* **statevis:** Remove console.log leftover ([#41](https://github.com/ui-router/visualizer/issues/41)) ([a0f54a9](https://github.com/ui-router/visualizer/commit/a0f54a9))
+
+
+### Features
+
+* **transitionvis:** Collapse multiple null/undefined/empty string parameter values, add show/hide toggle.  Improve styling and flexbox layouts.  Refactor key/value components. ([d0af65a](https://github.com/ui-router/visualizer/commit/d0af65a))
+* **transitionvis:** switch all styles to px, add preformatted param values, fix some flexbox issues. ([6b5e04f](https://github.com/ui-router/visualizer/commit/6b5e04f))
+
+
+
+
 ## 5.0.6 (2017-12-03)
 [Compare `@uirouter/visualizer` versions 5.0.5 and 5.0.6](https://github.com/ui-router/visualizer/compare/5.0.5...5.0.6)
 
