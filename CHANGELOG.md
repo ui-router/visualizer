@@ -1,3 +1,13 @@
+## 5.1.1 (2018-01-03)
+[Compare `@uirouter/visualizer` versions 5.1.0 and 5.1.1](https://github.com/ui-router/visualizer/compare/5.1.0...5.1.1)
+
+### Bug Fixes
+
+* **transitionvis:** Fix style on arrow so it takes up entire vertical space of its state block ([9863eda](https://github.com/ui-router/visualizer/commit/9863eda))
+
+
+
+
 # 5.1.0 (2018-01-03)
 [Compare `@uirouter/visualizer` versions 5.0.6 and 5.1.0](https://github.com/ui-router/visualizer/compare/5.0.6...5.1.0)
 
