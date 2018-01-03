@@ -36,7 +36,8 @@ export class BreadcrumbArrow extends Component<IProps, IState> {
               {!this.props.message ? null : <span>: {this.props.message}</span>}
             </div>
             <div className="uirTranVis_transName">
-              <i className={this.iconClass()}/> {this.props.transition.to().name}
+              <i className={this.iconClass()}/>
+              <span>{this.props.transition.to().name}</span>
             </div>
           </div>
         </div>

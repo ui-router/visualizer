@@ -1,104 +1,151 @@
-import { h, render, Component } from "preact";
-import {Modal} from "../util/modal";
-import {ResolveData} from "./ResolveData";
-import {maxLength} from "../util/strings";
+import { h, Component } from "preact";
+import { Modal } from "../util/modal";
+import { ResolveData } from "./ResolveData";
+import { maxLength } from "../util/strings";
 
-const isObject = (val) => typeof val === 'object';
-
-const displayValue = function (object) {
-  if (object === undefined) return "undefined";
-  if (object === null) return "null";
-  if (typeof object === 'string') return <span className="uirTranVis_code">"{maxLength(100, object)}"</span>;
-  if (Array.isArray(object)) return "[Array]";
-  if (isObject(object)) return "[Object]";
-  if (typeof object.toString === 'function') return maxLength(100, object.toString());
-  return object;
-};
-
-export interface IProps {
-  data: any;
-  labels: {
-    section?: string;
-    modalTitle?: string;
-  }
-  classes: {
-    outerdiv?: string;
-    section?: string;
-    keyvaldiv?: string;
-    _key?: string;
-    value?: string;
-  }
+export interface KeyValueClasses {
+  div?: string;
+  key?: string;
+  val?: string;
 }
 
-export interface IState {
-
+export interface IKeyValueRowProps {
+  classes: KeyValueClasses;
+  modalTitle: string;
+  tuple: { key: string, val: any };
 }
 
-let defaultClass = {
-  outerdiv: 'param',
-  keyvaldiv: 'uirTranVis_keyValue',
-  section: 'uirTranVis_paramsLabel uirTranVis_deemphasize',
-  _key: 'uirTranVis_paramId',
-  value: 'uirTranVis_paramValue'
-};
+export class KeyValueRow extends Component<IKeyValueRowProps, {}> {
+  render() {
+    const { tuple: { key, val }, classes, modalTitle } = this.props;
+    const showModal = () =>
+        Modal.show(modalTitle, key, val, ResolveData);
 
-export class KeysAndValues extends Component<IProps, IState> {
-  isEmpty = () =>
-      !this.props.data || Object.keys(this.props.data).length === 0;
-
-  classFor = (name) =>
-      this.props.classes && this.props.classes[name] !== undefined ?
-          this.props.classes[name] :
-          defaultClass[name];
-
-  renderValue = (key: string, val: any) => {
-    if (isObject(val)) return (
-        <span className="link" onClick={() => Modal.show(this.props.labels, key, val, ResolveData)}>[Object]</span>
-    );
+    const renderValue = () => {
+      if (val === undefined)                  return <span className="uirTranVis_code">undefined</span>;
+      if (val === null)                       return <span className="uirTranVis_code">null</span>;
+      if (typeof val === 'string')            return <span className="uirTranVis_code">"{maxLength(100, val)}"</span>;
+      if (typeof val === 'number')            return <span className="uirTranVis_code">{val.toString()}</span>;
+      if (typeof val === 'boolean')           return <span className="uirTranVis_code">{val.toString()}</span>;
+      if (Array.isArray(val))                 return <span className="link" onClick={showModal}>[Array]</span>;
+      if (typeof val === 'object')            return <span className="link" onClick={showModal}>[Object]</span>;
+      if (typeof val.toString === 'function') return <span>{maxLength(100, val.toString())}</span>;
+    };
 
     return (
-        <div className={this.props.classes.value}>
-          {displayValue(val)}
+        <div className={classes.div}>
+          <div className={classes.key}>{key}:</div>
+          <div className={classes.val}>{renderValue()}</div>
         </div>
-    );
-  };
+    )
+  }
+}
+
+interface Bucket {
+  label: string;
+  is: (val) => boolean;
+  value?: any;
+  count: number;
+  data: { [key: string]: any };
+}
+
+export interface IGroupDefinition {
+  value: any;
+  label: string;
+}
+
+export interface IKeysAndValuesProps {
+  data: any;
+  classes: KeyValueClasses;
+  modalTitle?: string;
+  groupedValues?: IGroupDefinition[];
+  enableGroupToggle?: boolean;
+}
+
+export interface IKeysAndValuesState {
+  collapseFalsy: boolean;
+}
+
+export class KeysAndValues extends Component<IKeysAndValuesProps, IKeysAndValuesState> {
+  public static falsyGroupDefinitions: IGroupDefinition[] = [
+    { value: undefined, label: 'undefined' },
+    { value: null, label: 'null' },
+    { value: '', label: 'empty string' },
+  ];
+  state = { collapseFalsy: true };
+
+  private makeBuckets(definitions: IGroupDefinition[], data: { [key: string]: any }): Bucket[] {
+    const makeBucket = (def: IGroupDefinition): Bucket => ({
+      label: def.label,
+      is: (val) => val === def.value,
+      value: def.value,
+      count: 0,
+      data: {},
+    });
+
+    let defaultBucket = {
+      label: 'default',
+      is: () => true,
+      count: 0,
+      data: {},
+    };
+
+    const buckets = definitions.map(makeBucket).concat(defaultBucket);
+
+    Object.keys(data).forEach(key => {
+      const bucket = buckets.find(bucket => bucket.is(data[key]));
+      bucket.data[key] = data[key];
+      bucket.value = data[key];
+      bucket.count++;
+    });
+
+    return buckets;
+  }
 
   render() {
-    if (this.isEmpty()) return null;
+    const { data, classes, modalTitle } = this.props;
 
-    const keys = Object.keys(this.props.data);
+    const groupedValues = this.props.groupedValues || KeysAndValues.falsyGroupDefinitions;
+    const enableGroupToggle = this.props.enableGroupToggle || false;
 
-    const defineds = keys.filter(key => this.props.data[key] !== undefined);
-    const undefineds = keys.filter(key => this.props.data[key] === undefined);
+    const isCollapsed = this.state.collapseFalsy;
 
-    const renderKeyValues = (keys) => 
-        keys.map(key =>
-          <div key={key} className={this.classFor('keyvaldiv')}>
-            <div className={this.classFor('_key')}>
-              {key}:
-            </div>
+    const buckets: Bucket[] = this.makeBuckets(groupedValues, data);
+    const defaultBucket = buckets.find(bucket => bucket.label === 'default');
+    const groupedBuckets = buckets.filter(bucket => !!bucket.count && bucket !== defaultBucket);
+    const groupedCount = groupedBuckets.reduce((total, bucket) => total += bucket.count, 0);
 
-            <div className={this.classFor('value')}>
-              {this.renderValue(key, this.props.data[key])}
-            </div>
-          </div>
-        );
+    const tuples = Object.keys(defaultBucket.data).map(key => ({ key, val: defaultBucket.data[key] }));
+    const groupedTuples = groupedBuckets.map(bucket => {
+      const key = Object.keys(bucket.data).join(', ');
+      const val = bucket.value;
+      return { key, val };
+    });
 
-    const renderUndefineds = (keys) => renderKeyValues([keys.join(', ')]);
+    const showGroupToggle = enableGroupToggle && groupedCount > 1;
 
     return (
-      <div className={this.classFor('outerdiv')}>
-        <div className={this.classFor('section')}>
-          {this.props.labels.section}
+        <div className="uirTranVis_keysAndValues">
+          {tuples.map(tuple => (
+              <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle} />
+          ))}
+
+          {showGroupToggle && !!groupedTuples.length && (
+              <a
+                  href="javascript:void(0)"
+                  onClick={() => this.setState({ collapseFalsy: !isCollapsed })}
+                  className="uirTranVis_keyValue"
+              >
+                {isCollapsed ? 'show' : 'hide'} {groupedCount} {groupedBuckets.map(bucket => bucket.label).join(' or ')} parameter values
+              </a>
+          )}
+
+          {(!showGroupToggle || !this.state.collapseFalsy) && (
+              groupedTuples.map(tuple => (
+                  <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle}/>
+              ))
+          )}
         </div>
-
-        {renderKeyValues(defineds)}
-
-        {/* { undefineds.length <= 2 && <KeyValues keys={undefineds} /> } */}
-        { undefineds.length > 2 && renderUndefineds(undefineds) }
-
-      </div>
-    )
-
+    );
   }
 }

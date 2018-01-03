@@ -4,9 +4,9 @@ import {Pretty} from "../util/pretty";
 
 export interface IProps {
   toggles?: any;
-  labels?: any;
   open?: boolean;
   close?: Function;
+  modalTitle?: string;
   id?: string;
   value?: any;
 }
@@ -19,7 +19,7 @@ export class ResolveData extends Component<IProps,any> {
         <div>
           <Modal>
             <div className="uirTranVis_modal-header uir-resolve-header">
-              <div style={{"fontSize": "1.5em"}}>{this.props.labels.modalTitle}: {this.props.id}</div>
+              <div style={{"fontSize": "20px"}}>{this.props.modalTitle}: {this.props.id}</div>
               <button className="uirTranVis_btn uirTranVis_btnXs uirTranVis_btnPrimary" onClick={this.close}>
                 <i className="uir-icon uir-iconw-close"/>
               </button>

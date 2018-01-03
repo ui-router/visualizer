@@ -5,7 +5,7 @@ export interface IState { }
 export class Modal extends Component<IProps, IState> {
   _ref: any;
 
-  static show = (labels, key, value, component) => {
+  static show = (modalTitle: string, id: string, value: any, component) => {
     let modal = document.body.querySelector("#uirTranVis_modal");
     if (!modal) {
       modal = document.createElement("div");
@@ -15,7 +15,7 @@ export class Modal extends Component<IProps, IState> {
 
     const Nothing = () => null;
     const close = () => render(<Nothing />, document.body, modal);
-    render(h(component, {close, labels, key, value}), modal);
+    render(h(component, {close, modalTitle, id, value}), modal);
   };
 
   componentDidMount() {

@@ -170,7 +170,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
       <div ref={el => this._div = el}>
         <div className="uirTranVis_history" style={{ pointerEvents }}>
           { this.state.transitions.map(trans =>
-            <div key={trans.$id}>
+            <div key={trans.$id} className="uirTranVis_transition">
               <TransitionView transition={trans} />
               <div style={{minWidth: "18em", border: "1px solid transparent"}}></div>
             </div>

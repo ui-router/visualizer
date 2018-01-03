@@ -1,5 +1,5 @@
-import { h, render, Component } from "preact";
-import {KeysAndValues} from "./KeysAndValues";
+import { h, Component } from "preact";
+import { KeysAndValues } from './KeysAndValues';
 
 export interface IProps {
   trans: any;
@@ -7,54 +7,8 @@ export interface IProps {
   rejection: string;
 }
 
-export interface IState {
-  collapseFalsy: boolean;
-}
+export class TransSummary extends Component<IProps, {}> {
 
-export class TransSummary extends Component<IProps, IState> {
-  state = { collapseFalsy: true };
-
-  renderParameterValues() {
-    const params = this.props.trans.params();
-    const paramsByType = Object.keys(params).reduce((buckets, key) => {
-      const val = params[key];
-      const bucket = val === undefined ? 'undefined' : val === null ? 'null' : val === '' ? 'empty string' : 'other';
-      buckets[bucket][key] = val;
-      return buckets;
-    }, { undefined: {}, null: {}, 'empty string': {}, other: {} });
-
-    const falsyBuckets = Object.keys(paramsByType)
-        .filter(key => key !== 'other')
-        .map(key => ({ key, count: Object.keys(paramsByType[key]).length}))
-        .filter(bucket => !!bucket.count);
-    const falsyTotal = falsyBuckets.reduce((acc, bucket) => acc + bucket.count, 0);
-
-    const collapse = this.state.collapseFalsy;
-
-    return (
-        <div className="uirTranVis_keysAndValues">
-          <KeysAndValues
-              data={paramsByType.other}
-              labels={{ section: '', modalTitle: 'Parameter value: ' }}
-              classes={{ outerdiv: '', keyvaldiv: 'uirTranVis_keyValue', section: '', _key: '', value: '' }}/>
-
-          { !!falsyTotal && (
-              <a href="" onClick={() => this.setState({ collapseFalsy: !collapse})}>
-                {collapse ? 'show' : 'hide'} {falsyTotal} {falsyBuckets.map(bucket => bucket.key).join(' or ')} parameter values
-              </a>
-          )}
-
-          { !this.state.collapseFalsy && (
-            falsyBuckets.map(bucket => (
-                <KeysAndValues key={bucket.key}
-                    data={paramsByType[bucket.key]}
-                    labels={{ section: '', modalTitle: 'Parameter value: ' }}
-                    classes={{ outerdiv: '', keyvaldiv: 'uirTranVis_keyValue', section: '', _key: '', value: '' }}/>
-            ))
-          )}
-        </div>
-    )
-  }
 
   render() {
     return (
@@ -75,9 +29,17 @@ export class TransSummary extends Component<IProps, IState> {
           </div>
         </div>
 
-        <div className="uirTranVis_summaryHeading">Parameter Values: </div>
+        <div className="uirTranVis_summaryHeading">Parameter Values:</div>
 
-        {this.renderParameterValues()}
+        <div>
+          <KeysAndValues
+              groupedValues={KeysAndValues.falsyGroupDefinitions}
+              enableGroupToggle={true}
+              data={this.props.trans.params()}
+              modalTitle="Parameter value"
+              classes={{ div: 'uirTranVis_keyValue', key: '', val: '' }}>
+          </KeysAndValues>
+        </div>
       </div>
     )
   }

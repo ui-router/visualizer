@@ -1,6 +1,6 @@
 import { h, render, Component } from "preact";
-import {stringify, maxLength} from "../util/strings";
-import {KeysAndValues} from "./KeysAndValues";
+import { stringify, maxLength } from "../util/strings";
+import { KeysAndValues } from "./KeysAndValues";
 import { Transition } from '@uirouter/core';
 
 export interface IProps {
@@ -9,11 +9,7 @@ export interface IProps {
   type: string;
 }
 
-export interface IState {
-
-}
-
-export class NodeDetail extends Component<IProps, IState> {
+export class NodeDetail extends Component<IProps, {}> {
   stateName() {
     let node = this.props.node;
     let name = node && node.state && node.state.name;
@@ -42,6 +38,10 @@ export class NodeDetail extends Component<IProps, IState> {
   }
 
   render() {
+    if (!this.props.node) return null;
+    const params = this.params();
+    const resolves = this.resolves();
+
     return !this.props.node ? null : (
         <div className="uirTranVis_nodeDetail">
           <div className="uirTranVis_heading">
@@ -49,15 +49,25 @@ export class NodeDetail extends Component<IProps, IState> {
             <div className="uirTranVis_stateName">{ this.stateName() }</div>
           </div>
 
-          <KeysAndValues data={this.params()}
-                         classes={{ outerdiv: 'params', section: 'uirTranVis_paramsLabel uirTranVis_deemphasize' }}
-                         labels={{ section: 'Parameter values', modalTitle: 'Parameter value: ' }}
-          />
+          {!!Object.keys(params).length && (
+              <div className="params">
+                <div className="uirTranVis_paramsLabel uirTranVis_deemphasize">
+                  Parameter values
+                </div>
 
-          <KeysAndValues data={this.resolves()}
-                         classes={{ outerdiv: 'params resolve', section: 'uirTranVis_resolveLabel uirTranVis_deemphasize' }}
-                         labels={{ section: 'Resolved data', modalTitle: 'Resolved value: ' }}
-          />
+                <KeysAndValues data={this.params()} classes={{ div: 'uirTranVis_keyValue' }} modalTitle="Parameter value"/>
+              </div>
+          )}
+
+          {!!Object.keys(resolves).length && (
+              <div className="params resolve">
+                <div className="uirTranVis_resolveLabel uirTranVis_deemphasize">
+                  Resolved data
+                </div>
+
+                <KeysAndValues data={this.resolves()} classes={{ div: 'uirTranVis_keyValue' }} modalTitle="Resolved value"/>
+              </div>
+          )}
         </div>
     )
   }

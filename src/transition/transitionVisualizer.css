@@ -98,6 +98,11 @@
     align-items: center;
     justify-content: center
 }
+.uirTranVis_historyEntry .uirTranVis_historyEntrySummary .uirTranVis_transName span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+}
 
 .uirTranVis_transSummary {
     margin: 8px 0;
@@ -116,6 +121,11 @@
     min-width: 60px;
     text-align: right;
     padding-right: 6px;
+}
+.uirTranVis_transSummary .uirTranVis_summaryData strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
 }
 
 .uirTranVis_history .uirTranVis_code {
@@ -168,8 +178,12 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: baseline;
 }
 
+.uirTranVis_history .uirTranVis_keyValue + .uirTranVis_keyValue {
+    margin-top: 3px;
+}
 
 
 
@@ -240,8 +254,6 @@
 }
 
 .uirTranVis_transitionDetail table.uirTranVis_paths {
-    min-width: 325px;
-    max-width: 650px;
     width: 100%;
 }
 
@@ -249,11 +261,6 @@
     color: white;
     border: 0;
     font-size: small;
-}
-
-.uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue {
-    justify-content: flex-start !important;
-    align-items: baseline;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_transSummary .uirTranVis_keyValue > div:nth-child(2){
@@ -315,7 +322,6 @@
     overflow: hidden;
     transition: opacity 1s ease;
     max-height: 0;
-    max-width: 150px;
 }
 
 .uirTranVis_transitionDetail.expand .params {
@@ -324,7 +330,6 @@
     box-shadow: 1px 1px 2px black;
     padding: 8px;
     max-height: 250px;
-    max-width: 300px;
     overflow-y: auto;
     opacity: 1;
     margin: 8px 0;
@@ -351,6 +356,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: stretch;
+    min-width: 400px;
 }
 
 .uirTranVis_transitionDetail .uirTranVis_Row > div {
@@ -389,31 +395,13 @@
     white-space: nowrap;
 }
 
-.uirTranVis_history .uirTranVis_paramId {
-    font-weight: bolder;
-    color: #eaeaea;
-    margin-right: 8px;
-}
-
-.uirTranVis_history .uirTranVis_paramsLabel {
-    color: white;
-    margin-top: -8px;
-    text-align: center;
-    font-weight: bold;
-}
-
+.uirTranVis_history .uirTranVis_paramsLabel,
 .uirTranVis_history .uirTranVis_resolveLabel {
     color: white;
     margin-top: -8px;
     text-align: center;
     font-weight: bold;
 }
-
-.uirTranVis_history .uirTranVis_paramValue {
-    color: #e6e6e6;
-    padding-left: 8px;
-}
-
 
 
 span.link {
@@ -483,6 +471,9 @@ span.link {
     border-radius: 3px;
 }
 
+.uirTranVis_transition {
+    max-width: 550px;
+}
 
 .uirTranVis_transitionDetail span.link {
     color: white;
