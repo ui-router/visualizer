@@ -1,3 +1,13 @@
+## 5.1.2 (2018-01-03)
+[Compare `@uirouter/visualizer` versions 5.1.1 and 5.1.2](https://github.com/ui-router/visualizer/compare/5.1.1...5.1.2)
+
+### Features
+
+* **transitionvis:** sort parameter names when grouping identical valued parameters together ([ff124d9](https://github.com/ui-router/visualizer/commit/ff124d9))
+
+
+
+
 ## 5.1.1 (2018-01-03)
 [Compare `@uirouter/visualizer` versions 5.1.0 and 5.1.1](https://github.com/ui-router/visualizer/compare/5.1.0...5.1.1)
 
