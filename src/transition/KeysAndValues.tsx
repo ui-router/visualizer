@@ -117,7 +117,7 @@ export class KeysAndValues extends Component<IKeysAndValuesProps, IKeysAndValues
 
     const tuples = Object.keys(defaultBucket.data).map(key => ({ key, val: defaultBucket.data[key] }));
     const groupedTuples = groupedBuckets.map(bucket => {
-      const key = Object.keys(bucket.data).join(', ');
+      const key = Object.keys(bucket.data).sort().join(', ');
       const val = bucket.value;
       return { key, val };
     });
