@@ -372,6 +372,7 @@
 }
 
 .uirTranVis_transitionDetail.expand .uirTranVis_nodeContent {
+    height: 100%;
     min-height: 65px;
 }
 
