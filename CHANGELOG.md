@@ -1,3 +1,13 @@
+## 5.1.3 (2018-01-04)
+[Compare `@uirouter/visualizer` versions 5.1.2 and 5.1.3](https://github.com/ui-router/visualizer/compare/5.1.2...5.1.3)
+
+### Bug Fixes
+
+* **statevis:** Make minimized statevis z-index higher than transition vis so it can be clicked. ([ebef40b](https://github.com/ui-router/visualizer/commit/ebef40b))
+
+
+
+
 ## 5.1.2 (2018-01-03)
 [Compare `@uirouter/visualizer` versions 5.1.1 and 5.1.2](https://github.com/ui-router/visualizer/compare/5.1.1...5.1.2)
 
