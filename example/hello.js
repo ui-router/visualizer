@@ -81,5 +81,11 @@ myApp.run(function($http, $rootScope, $uiRouter) {
 
   $rootScope.dispose = function() {
     visPlugin.dispose($uiRouter);
+    $rootScope.disposed = true;
+  };
+
+  $rootScope.create = function() {
+    visPlugin = $uiRouter.plugin(Visualizer);
+    $rootScope.disposed = false;
   };
 });

@@ -34,7 +34,8 @@
     </div>
 
     <button ng-click="addstate()">Add state</button>
-    <button style="float: right" ng-click="dispose()">Dispose visualizer</button>
+    <button ng-if="disposed" style="float: right" ng-click="create()">Create visualizer</button>
+    <button ng-if="!disposed" style="float: right" ng-click="dispose()">Dispose visualizer</button>
     <ui-view></ui-view>
 
   </body>
