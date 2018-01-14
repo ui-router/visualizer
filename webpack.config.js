@@ -16,7 +16,7 @@ module.exports = {
     publicPath: "/_bundles/",
     filename: "[name].js",
     libraryTarget: "umd",
-    library: "ui-router-visualizer",
+    library: "@uirouter/visualizer",
     umdNamedDefine: true
   },
 
