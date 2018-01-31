@@ -42,7 +42,7 @@
     "@types/d3-hierarchy": "^1.0.4",
     "@types/d3-interpolate": "^1.1.6",
     "@uirouter/core": ">=5.0.0",
-    "@uirouter/publish-scripts": "2.2.9",
+    "@uirouter/publish-scripts": "2.2.10",
     "copy-webpack-plugin": "^4.2.3",
     "css-loader": "^0.28.7",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
