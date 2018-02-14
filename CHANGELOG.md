@@ -1,3 +1,30 @@
+# 6.0.0 (2018-02-14)
+[Compare `@uirouter/visualizer` versions 5.1.3 and 6.0.0](https://github.com/ui-router/visualizer/compare/5.1.3...6.0.0)
+
+### Bug Fixes
+
+* **css:** Add 'nonce' attribute to style-loader to prevent CSP violations due to inline styles ([#43](https://github.com/ui-router/visualizer/issues/43)) ([c137ef2](https://github.com/ui-router/visualizer/commit/c137ef2))
+* **example:** use window['[@uirouter](https://github.com/uirouter)/visualizer'] ([5e1b228](https://github.com/ui-router/visualizer/commit/5e1b228))
+
+
+### Features
+
+* **bundle:** Rename UMD name from `ui-router-visualizer` to `[@uirouter](https://github.com/uirouter)/visualizer` for consistency ([7b7b9d6](https://github.com/ui-router/visualizer/commit/7b7b9d6))
+
+
+### BREAKING CHANGES
+
+* **bundle:** UMD name renamed from `ui-router-visualizer` to `@uirouter/visualizer`.
+This will affect people who add the visualizer using script tags, instead of a bundler.
+
+```
+var Visualizer = window['@uirouter/visualizer'];
+router.plugin(Visualizer);
+```
+
+
+
+
 ## 5.1.3 (2018-01-04)
 [Compare `@uirouter/visualizer` versions 5.1.2 and 5.1.3](https://github.com/ui-router/visualizer/compare/5.1.2...5.1.3)
 
