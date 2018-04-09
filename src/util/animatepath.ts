@@ -2,17 +2,26 @@
 // http://alexandros.resin.io/angular-d3-svg/
 // MIT License https://opensource.org/licenses/MIT
 
-import {easing} from "./easing";
-import {interpolateArray} from "d3-interpolate";
+import { easing } from './easing';
+import { interpolateArray } from 'd3-interpolate';
 
 /** This animation code was taken from trangular.js, and is used to interpolate 2 arrays of values using an easing fn */
-export function animatePath(newValue, oldValue, duration, updateFrame, finishFn = function() {}, easeFn = easing.easeOutElastic) {
-  let start = null, interpolate = interpolateArray(oldValue, newValue);
+export function animatePath(
+  newValue,
+  oldValue,
+  duration,
+  updateFrame,
+  finishFn = function() {},
+  easeFn = easing.easeOutElastic,
+) {
+  let start = null,
+    interpolate = interpolateArray(oldValue, newValue);
 
   let step = function(now) {
     if (duration === -1) return finishFn();
     if (start == null) start = now;
-    let progress = now - start, percent = 1;
+    let progress = now - start,
+      percent = 1;
     if (progress < duration) {
       requestAnimationFrame(step);
       percent = easeFn(progress, 0, 1, duration);
@@ -24,6 +33,5 @@ export function animatePath(newValue, oldValue, duration, updateFrame, finishFn 
 
   return function cancel() {
     duration = -1;
-  }
+  };
 }
-

@@ -1,7 +1,7 @@
-import { h, Component } from "preact";
-import { Modal } from "../util/modal";
-import { ResolveData } from "./ResolveData";
-import { maxLength } from "../util/strings";
+import { h, Component } from 'preact';
+import { Modal } from '../util/modal';
+import { ResolveData } from './ResolveData';
+import { maxLength } from '../util/strings';
 
 export interface KeyValueClasses {
   div?: string;
@@ -12,15 +12,15 @@ export interface KeyValueClasses {
 export interface IKeyValueRowProps {
   classes: KeyValueClasses;
   modalTitle: string;
-  tuple: { key: string, val: any };
+  tuple: { key: string; val: any };
 }
 
 export class KeyValueRow extends Component<IKeyValueRowProps, {}> {
   render() {
     const { tuple: { key, val }, classes, modalTitle } = this.props;
-    const showModal = () =>
-        Modal.show(modalTitle, key, val, ResolveData);
+    const showModal = () => Modal.show(modalTitle, key, val, ResolveData);
 
+    // prettier-ignore
     const renderValue = () => {
       if (val === undefined)                  return <span className="uirTranVis_code">undefined</span>;
       if (val === null)                       return <span className="uirTranVis_code">null</span>;
@@ -33,11 +33,11 @@ export class KeyValueRow extends Component<IKeyValueRowProps, {}> {
     };
 
     return (
-        <div className={classes.div}>
-          <div className={classes.key}>{key}:</div>
-          <div className={classes.val}>{renderValue()}</div>
-        </div>
-    )
+      <div className={classes.div}>
+        <div className={classes.key}>{key}:</div>
+        <div className={classes.val}>{renderValue()}</div>
+      </div>
+    );
   }
 }
 
@@ -77,7 +77,7 @@ export class KeysAndValues extends Component<IKeysAndValuesProps, IKeysAndValues
   private makeBuckets(definitions: IGroupDefinition[], data: { [key: string]: any }): Bucket[] {
     const makeBucket = (def: IGroupDefinition): Bucket => ({
       label: def.label,
-      is: (val) => val === def.value,
+      is: val => val === def.value,
       value: def.value,
       count: 0,
       data: {},
@@ -113,11 +113,13 @@ export class KeysAndValues extends Component<IKeysAndValuesProps, IKeysAndValues
     const buckets: Bucket[] = this.makeBuckets(groupedValues, data);
     const defaultBucket = buckets.find(bucket => bucket.label === 'default');
     const groupedBuckets = buckets.filter(bucket => !!bucket.count && bucket !== defaultBucket);
-    const groupedCount = groupedBuckets.reduce((total, bucket) => total += bucket.count, 0);
+    const groupedCount = groupedBuckets.reduce((total, bucket) => (total += bucket.count), 0);
 
     const tuples = Object.keys(defaultBucket.data).map(key => ({ key, val: defaultBucket.data[key] }));
     const groupedTuples = groupedBuckets.map(bucket => {
-      const key = Object.keys(bucket.data).sort().join(', ');
+      const key = Object.keys(bucket.data)
+        .sort()
+        .join(', ');
       const val = bucket.value;
       return { key, val };
     });
@@ -125,27 +127,26 @@ export class KeysAndValues extends Component<IKeysAndValuesProps, IKeysAndValues
     const showGroupToggle = enableGroupToggle && groupedCount > 1;
 
     return (
-        <div className="uirTranVis_keysAndValues">
-          {tuples.map(tuple => (
-              <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle} />
+      <div className="uirTranVis_keysAndValues">
+        {tuples.map(tuple => <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle} />)}
+
+        {showGroupToggle &&
+          !!groupedTuples.length && (
+            <a
+              href="javascript:void(0)"
+              onClick={() => this.setState({ collapseFalsy: !isCollapsed })}
+              className="uirTranVis_keyValue"
+            >
+              {isCollapsed ? 'show' : 'hide'} {groupedCount} {groupedBuckets.map(bucket => bucket.label).join(' or ')}{' '}
+              parameter values
+            </a>
+          )}
+
+        {(!showGroupToggle || !this.state.collapseFalsy) &&
+          groupedTuples.map(tuple => (
+            <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle} />
           ))}
-
-          {showGroupToggle && !!groupedTuples.length && (
-              <a
-                  href="javascript:void(0)"
-                  onClick={() => this.setState({ collapseFalsy: !isCollapsed })}
-                  className="uirTranVis_keyValue"
-              >
-                {isCollapsed ? 'show' : 'hide'} {groupedCount} {groupedBuckets.map(bucket => bucket.label).join(' or ')} parameter values
-              </a>
-          )}
-
-          {(!showGroupToggle || !this.state.collapseFalsy) && (
-              groupedTuples.map(tuple => (
-                  <KeyValueRow key={tuple.key} tuple={tuple} classes={classes} modalTitle={modalTitle}/>
-              ))
-          )}
-        </div>
+      </div>
     );
   }
 }

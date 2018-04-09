@@ -1,4 +1,4 @@
-import { h, render, Component } from "preact";
+import { h, render, Component } from 'preact';
 
 export interface IProps {
   router;
@@ -16,17 +16,15 @@ export class StateSelector extends Component<IProps, IState> {
   state = {
     current: null,
     states: [],
-    deregisterFn: null
+    deregisterFn: null,
   };
 
   componentDidMount() {
     let router = this.props.router;
-    
-    const updateStates = () => 
-        this.setState({ states: router.stateRegistry.get().map(state => state.name) });
-    const updateCurrent = (trans) =>
-        this.setState({current: trans.to().name});
-    
+
+    const updateStates = () => this.setState({ states: router.stateRegistry.get().map(state => state.name) });
+    const updateCurrent = trans => this.setState({ current: trans.to().name });
+
     if (router.stateRegistry.onStatesChanged) {
       this.deregisterStateListenerFn = router.stateRegistry.onStatesChanged(updateStates);
     }
@@ -46,7 +44,7 @@ export class StateSelector extends Component<IProps, IState> {
     }
   }
 
-  selectState = (event) => {
+  selectState = event => {
     let $state = this.props.router.stateService;
     var to = event.target.value;
     if (to) $state.go(to);
@@ -54,12 +52,14 @@ export class StateSelector extends Component<IProps, IState> {
 
   render() {
     return (
-        <select value={this.state.current || ""} onChange={this.selectState} style={{ maxWidth: 120 }}>
-          <option value="">Choose a state</option>
-          { this.state.states.map(state =>
-              <option key={state} value={state}>{state}</option>
-          ) }
-        </select>
-    )
+      <select value={this.state.current || ''} onChange={this.selectState} style={{ maxWidth: 120 }}>
+        <option value="">Choose a state</option>
+        {this.state.states.map(state => (
+          <option key={state} value={state}>
+            {state}
+          </option>
+        ))}
+      </select>
+    );
   }
 }

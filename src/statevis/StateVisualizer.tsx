@@ -1,16 +1,15 @@
-
-import { h, render, Component } from "preact";
-import { StateSelector } from "../selector/StateSelector";
-import { toggleClass, addClass } from "../util/toggleClass";
-import { draggable, dragActions } from "../util/draggable";
-import { StateTree } from "./tree/StateTree";
+import { h, render, Component } from 'preact';
+import { StateSelector } from '../selector/StateSelector';
+import { toggleClass, addClass } from '../util/toggleClass';
+import { draggable, dragActions } from '../util/draggable';
+import { StateTree } from './tree/StateTree';
 import { Controls } from './Controls';
 import { StateVisWindow } from './StateVisWindow';
-import { DEFAULT_RENDERER, RENDERER_PRESETS } from "./renderers";
-import { Renderer } from "./interface";
+import { DEFAULT_RENDERER, RENDERER_PRESETS } from './renderers';
+import { Renderer } from './interface';
 
 declare function require(string): string;
-require("./statevis.css");
+require('./statevis.css');
 
 export interface IProps {
   router;
@@ -32,7 +31,7 @@ export class StateVisualizer extends Component<IProps, IState> {
   private minimizeTimeout: any;
   private deregisterFns: Function[] = [];
   private window: StateVisWindow;
-  
+
   /**
    * Creates a new StateVisualizer and adds it to the document.
    *
@@ -89,12 +88,12 @@ export class StateVisualizer extends Component<IProps, IState> {
    */
   static create(router, element?, props = {}) {
     if (!element) {
-      element = document.createElement("div");
-      element.id = "uirStateVisualizer";
+      element = document.createElement('div');
+      element.id = 'uirStateVisualizer';
     }
 
     let initialProps: IProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
-    const _render = () =>  {
+    const _render = () => {
       document.body.appendChild(element);
       render(h(StateVisualizer, initialProps), element);
     };
@@ -153,16 +152,20 @@ export class StateVisualizer extends Component<IProps, IState> {
   render() {
     const { minimized } = this.state;
     return (
-      <div ref={(el) => this.el = el as HTMLElement}
-           onMouseDown={this.cancelAutoMinimize.bind(this)}
-           onMouseEnter={this.cancelAutoMinimize.bind(this)}>
-        <StateVisWindow minimized={this.state.minimized}
-                        ref={(windowRef) => this.windowEl = windowRef && windowRef.el || this.windowEl}
-                        onResize={({ width, height }) => this.setState({ width, height })}>
-
-          <div onClick={() => this.setState({ minimized: false })} 
-              className={ `uirStateVisWindowOverlay ${minimized ? "minimized" : "" }`}
-          ></div>
+      <div
+        ref={el => (this.el = el as HTMLElement)}
+        onMouseDown={this.cancelAutoMinimize.bind(this)}
+        onMouseEnter={this.cancelAutoMinimize.bind(this)}
+      >
+        <StateVisWindow
+          minimized={this.state.minimized}
+          ref={windowRef => (this.windowEl = (windowRef && windowRef.el) || this.windowEl)}
+          onResize={({ width, height }) => this.setState({ width, height })}
+        >
+          <div
+            onClick={() => this.setState({ minimized: false })}
+            className={`uirStateVisWindowOverlay ${minimized ? 'minimized' : ''}`}
+          />
 
           <Controls
             router={this.props.router}
@@ -179,6 +182,6 @@ export class StateVisualizer extends Component<IProps, IState> {
           />
         </StateVisWindow>
       </div>
-    )
+    );
   }
 }

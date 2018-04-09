@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { h, Component } from 'preact';
 import { KeysAndValues } from './KeysAndValues';
 
 export interface IProps {
@@ -8,17 +8,17 @@ export interface IProps {
 }
 
 export class TransSummary extends Component<IProps, {}> {
-
-
   render() {
     return (
       <div className="uirTranVis_transSummary">
         <div className="uirTranVis_summaryData">
-          <span>From:</span><strong>{ this.props.trans.from().name || '(root)' }</strong>
+          <span>From:</span>
+          <strong>{this.props.trans.from().name || '(root)'}</strong>
         </div>
 
         <div className="uirTranVis_summaryData">
-          <span>To:</span><strong>{ this.props.trans.to().name || '(root)' }</strong>
+          <span>To:</span>
+          <strong>{this.props.trans.to().name || '(root)'}</strong>
         </div>
 
         <div className="uirTranVis_summaryData">
@@ -33,14 +33,14 @@ export class TransSummary extends Component<IProps, {}> {
 
         <div>
           <KeysAndValues
-              groupedValues={KeysAndValues.falsyGroupDefinitions}
-              enableGroupToggle={true}
-              data={this.props.trans.params()}
-              modalTitle="Parameter value"
-              classes={{ div: 'uirTranVis_keyValue', key: '', val: '' }}>
-          </KeysAndValues>
+            groupedValues={KeysAndValues.falsyGroupDefinitions}
+            enableGroupToggle={true}
+            data={this.props.trans.params()}
+            modalTitle="Parameter value"
+            classes={{ div: 'uirTranVis_keyValue', key: '', val: '' }}
+          />
         </div>
       </div>
-    )
+    );
   }
 }

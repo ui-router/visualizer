@@ -9,7 +9,7 @@
  */
 export function maxLength(max: number, str: string) {
   if (str.length <= max) return str;
-  return str.substr(0, max - 3) + "...";
+  return str.substr(0, max - 3) + '...';
 }
 
 function stringifyPattern(value) {
@@ -32,4 +32,3 @@ export function stringify(o: Object) {
 
   return JSON.stringify(o, (key, val) => format(val)).replace(/\\"/g, '"');
 }
-

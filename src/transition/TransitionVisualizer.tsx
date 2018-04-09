@@ -1,11 +1,11 @@
-import { h, render, Component } from "preact";
+import { h, render, Component } from 'preact';
 
-import {TransitionView} from "./TransitionView";
-import {easing} from "../util/easing";
-import {animatePath} from "../util/animatepath";
+import { TransitionView } from './TransitionView';
+import { easing } from '../util/easing';
+import { animatePath } from '../util/animatepath';
 
 declare var require;
-require("./transitionVisualizer.css");
+require('./transitionVisualizer.css');
 
 export interface IProps {
   router: any;
@@ -79,8 +79,8 @@ export class TransitionVisualizer extends Component<IProps, IState> {
    */
   static create(router, element?, props = {}) {
     if (!element) {
-      element = document.createElement("div");
-      element.id = "uirTransitionVisualizer";
+      element = document.createElement('div');
+      element.id = 'uirTransitionVisualizer';
     }
 
     let initialProps = Object.assign({}, props, { router });
@@ -102,36 +102,38 @@ export class TransitionVisualizer extends Component<IProps, IState> {
 
   state = {
     transitions: [],
-    pointerEvents: "auto",
+    pointerEvents: 'auto',
   };
 
   static defaultProps = {
     router: null,
-    maximumTransitions: 15
+    maximumTransitions: 15,
   };
 
   _div;
   cancelPreviousAnim = null;
 
   componentDidMount() {
-    let dereg = this.props.router.transitionService.onBefore({}, (trans) => {
+    let dereg = this.props.router.transitionService.onBefore({}, trans => {
       this.setState({ transitions: this.state.transitions.concat(trans) });
 
-      let duration = 750, el = this._div.children[0];
+      let duration = 750,
+        el = this._div.children[0];
 
       let scrollToRight = () => {
         let targetScrollX = el.scrollWidth - el.clientWidth + 200;
         this.cancelPreviousAnim && this.cancelPreviousAnim();
-        let newVal = [targetScrollX], oldVal = [el.scrollLeft];
+        let newVal = [targetScrollX],
+          oldVal = [el.scrollLeft];
         let max = this.props.maximumTransitions;
 
         let enforceMax = () => {
           let list = this.state.transitions;
           if (list.length <= max) return;
-          this.setState({ transitions: list.slice(list.length - max)});
+          this.setState({ transitions: list.slice(list.length - max) });
         };
 
-        let callback = (vals) => el.scrollLeft = vals[0];
+        let callback = vals => (el.scrollLeft = vals[0]);
         this.cancelPreviousAnim = animatePath(newVal, oldVal, duration, callback, enforceMax, easing.easeInOutCubic);
       };
 
@@ -139,23 +141,23 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     });
     this.deregisterFns.push(dereg);
 
-    document.body.addEventListener("mousemove", this.onMouseMove);
-    this.deregisterFns.push(() => document.body.removeEventListener("mousemove", this.onMouseMove));
+    document.body.addEventListener('mousemove', this.onMouseMove);
+    this.deregisterFns.push(() => document.body.removeEventListener('mousemove', this.onMouseMove));
   }
 
-  /** 
+  /**
    * Disable pointer events when the mouse is above the timeline
-   * 
+   *
    * This allows clicks to pass through the outer div to the user's app components
    * even when a transitionview details box is open and pinned.
-   * 
+   *
    * Enable pointer events when mouse is inside the timeline to allow horizontal scroll & scroll wheel
    */
-  onMouseMove = (evt) => {
+  onMouseMove = evt => {
     let windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var pointerEvents = (windowHeight - evt.clientY < 65 ? "auto" : "none");
+    var pointerEvents = windowHeight - evt.clientY < 65 ? 'auto' : 'none';
     if (this.state.pointerEvents != pointerEvents) {
-      this.setState({pointerEvents});
+      this.setState({ pointerEvents });
     }
   };
 
@@ -167,17 +169,17 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     let pointerEvents = this.state.pointerEvents;
 
     return (
-      <div ref={el => this._div = el}>
+      <div ref={el => (this._div = el)}>
         <div className="uirTranVis_history" style={{ pointerEvents }}>
-          { this.state.transitions.map(trans =>
+          {this.state.transitions.map(trans => (
             <div key={trans.$id} className="uirTranVis_transition">
               <TransitionView transition={trans} />
-              <div style={{minWidth: "18em", border: "1px solid transparent"}}></div>
+              <div style={{ minWidth: '18em', border: '1px solid transparent' }} />
             </div>
-          )}
-          <div style={{ width: "200px", height: "1px" }} />
+          ))}
+          <div style={{ width: '200px', height: '1px' }} />
         </div>
       </div>
-    )
+    );
   }
 }

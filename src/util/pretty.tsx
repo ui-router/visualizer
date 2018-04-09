@@ -1,7 +1,7 @@
-import { h, render, Component } from "preact";
+import { h, render, Component } from 'preact';
 
 export interface IProps {
-  data: any
+  data: any;
 }
 export interface IState {
   show: boolean;
@@ -14,7 +14,7 @@ export class Pretty extends Component<IProps, IState> {
     margin: '0',
   };
 
-  state = {show: true};
+  state = { show: true };
 
   toggle() {
     this.setState({
@@ -24,12 +24,7 @@ export class Pretty extends Component<IProps, IState> {
 
   render() {
     return (
-        <div>
-          {( this.state.show ?
-              <pre style={this.preStyle}>
-                        {JSON.stringify(this.props.data, null, 2) }
-                    </pre> : false )}
-        </div>
+      <div>{this.state.show ? <pre style={this.preStyle}>{JSON.stringify(this.props.data, null, 2)}</pre> : false}</div>
     );
   }
 }

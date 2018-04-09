@@ -7,6 +7,7 @@
  * All rights reserved.
  * https://raw.github.com/danro/jquery-easing/master/LICENSE
  * ======================================================== */
+// prettier-ignore
 export const easing = {
   // time, begin, change, duration
   easeInOutQuad: function (t, b, c, d) {
@@ -66,4 +67,3 @@ export const easing = {
     return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
   },
 };
-

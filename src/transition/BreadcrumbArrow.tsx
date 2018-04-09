@@ -1,4 +1,4 @@
-import { h, render, Component } from "preact";
+import { h, render, Component } from 'preact';
 
 export interface IProps {
   transition: any;
@@ -7,12 +7,10 @@ export interface IProps {
   message: string;
 }
 
-export interface IState {
-}
+export interface IState {}
 
 export class BreadcrumbArrow extends Component<IProps, IState> {
-  handleClick = () =>
-      this.props.toggleExpand();
+  handleClick = () => this.props.toggleExpand();
 
   iconClass() {
     let iconClasses = {
@@ -20,7 +18,7 @@ export class BreadcrumbArrow extends Component<IProps, IState> {
       success: 'uir-icon uir-iconw-check',
       redirected: 'uir-icon uir-iconw-share',
       ignored: 'uir-icon uir-iconw-circle-o',
-      error: 'uir-icon uir-iconw-close'
+      error: 'uir-icon uir-iconw-close',
     };
 
     return iconClasses[this.props.status];
@@ -28,20 +26,19 @@ export class BreadcrumbArrow extends Component<IProps, IState> {
 
   render() {
     return !this.props.transition ? null : (
-        <div className={this.props.status + " uirTranVis_historyEntry"} onClick={this.handleClick}>
-          <div className="uirTranVis_historyEntrySummary">
-            <div className="uirTranVis_transId">{this.props.transition.$id}</div>
-            <div className="uirTranVis_status">
-              {this.props.status}
-              {!this.props.message ? null : <span>: {this.props.message}</span>}
-            </div>
-            <div className="uirTranVis_transName">
-              <i className={this.iconClass()}/>
-              <span>{this.props.transition.to().name}</span>
-            </div>
+      <div className={this.props.status + ' uirTranVis_historyEntry'} onClick={this.handleClick}>
+        <div className="uirTranVis_historyEntrySummary">
+          <div className="uirTranVis_transId">{this.props.transition.$id}</div>
+          <div className="uirTranVis_status">
+            {this.props.status}
+            {!this.props.message ? null : <span>: {this.props.message}</span>}
+          </div>
+          <div className="uirTranVis_transName">
+            <i className={this.iconClass()} />
+            <span>{this.props.transition.to().name}</span>
           </div>
         </div>
-    )
+      </div>
+    );
   }
-
 }

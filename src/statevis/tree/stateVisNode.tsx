@@ -1,24 +1,24 @@
 import { StateObject } from '@uirouter/core';
 
 export interface StateVisNode {
-  name:       string;
+  name: string;
 
-  label:      string;
-  highlight:  boolean;
-  active:     boolean;
-  retained:   boolean;
-  exited:     boolean;
-  entered:    boolean;
-  inactive:   boolean;
+  label: string;
+  highlight: boolean;
+  active: boolean;
+  retained: boolean;
+  exited: boolean;
+  entered: boolean;
+  inactive: boolean;
   _collapsed: boolean;
   readonly collapsed: boolean;
   readonly visible: boolean;
-  parent:     StateObject;
-  _parent:    StateVisNode;
-  _children:  StateVisNode[];
+  parent: StateObject;
+  _parent: StateVisNode;
+  _children: StateVisNode[];
   readonly children: StateVisNode[];
-  future:     boolean;
-  lazyLoad:   any;
+  future: boolean;
+  lazyLoad: any;
   readonly totalDescendents: number;
 
   _classes: string;
@@ -36,37 +36,36 @@ export interface StateVisNode {
   /** Current animation frame's x coordinate */
   animX: number;
   /** Current animation frame's y coordinate */
-  animY: number
+  animY: number;
 }
-
 
 export function createStateVisNode(state: StateObject): StateVisNode {
   let node: StateVisNode = Object.create(state) as any;
 
-  Object.defineProperty(node, "visible", {
+  Object.defineProperty(node, 'visible', {
     get() {
       if (this.entered) return true;
       let ancestorCollapsed = this._parent && (this._parent.collapsed || !this._parent.visible);
       return !ancestorCollapsed;
-    }
+    },
   });
 
-  Object.defineProperty(node, "children", {
+  Object.defineProperty(node, 'children', {
     get() {
       return this._children.filter(child => child.visible);
-    }
+    },
   });
 
-  Object.defineProperty(node, "totalDescendents", {
+  Object.defineProperty(node, 'totalDescendents', {
     get() {
       return this._children.reduce((acc, child) => acc + child.totalDescendents, this._children.length);
-    }
+    },
   });
 
-  Object.defineProperty(node, "collapsed", {
+  Object.defineProperty(node, 'collapsed', {
     get() {
       return !this.entered && this._collapsed && this._children.length;
-    }
+    },
   });
 
   return node;

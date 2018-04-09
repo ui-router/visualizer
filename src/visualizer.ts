@@ -1,9 +1,9 @@
-import { render, h } from "preact";
-import { UIRouter, UIRouterPlugin } from "@uirouter/core";
-import { StateSelector } from "./selector/StateSelector";
-import { StateVisualizer } from "./statevis/StateVisualizer";
-import { StateTree } from "./statevis/tree/StateTree";
-import { TransitionVisualizer } from "./transition/TransitionVisualizer";
+import { render, h } from 'preact';
+import { UIRouter, UIRouterPlugin } from '@uirouter/core';
+import { StateSelector } from './selector/StateSelector';
+import { StateVisualizer } from './statevis/StateVisualizer';
+import { StateTree } from './statevis/tree/StateTree';
+import { TransitionVisualizer } from './transition/TransitionVisualizer';
 
 const visualizer = (router: UIRouter) => new Visualizer(router, {});
 
@@ -23,7 +23,7 @@ const DEFAULTS = {
 };
 
 class Visualizer implements UIRouterPlugin {
-  name: string = "visualizer";
+  name: string = 'visualizer';
   private stateVisualizerEl: Element;
   private transitionVisualizerEl: Element;
 
@@ -45,13 +45,10 @@ class Visualizer implements UIRouterPlugin {
   }
 }
 
-export {
-    Visualizer,           // router.plugin(Visualizer);
-    visualizer,           // visualizer(router);
-
-    StateVisualizer,      // StateVisualizer.create(router, el?, props?)
-    StateTree,            // StateTree.create(router, el?, props?)
-    TransitionVisualizer, // TransitionVisualizer.create(router, el?, props?)
-
-    StateSelector,        // React State Selector component
-};
+// Visualizer: router.plugin(Visualizer);
+// visualizer: visualizer(router);
+// StateVisualizer: StateVisualizer.create(router, el?, props?)
+// StateTree: StateTree.create(router, el?, props?)
+// TransitionVisualizer: TransitionVisualizer.create(router, el?, props?)
+// StateSelector: React State Selector component
+export { Visualizer, visualizer, StateVisualizer, StateTree, TransitionVisualizer, StateSelector };
