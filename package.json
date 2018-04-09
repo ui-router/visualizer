@@ -9,7 +9,8 @@
     "bundle": "webpack",
     "build": "npm run clean && npm run compile && npm run bundle",
     "prepublishOnly": "npm run build",
-    "release": "release"
+    "release": "release",
+    "precommit": "pretty-quick --staged"
   },
   "homepage": "https://github.com/ui-router/visualizer",
   "contributors": [
@@ -46,6 +47,9 @@
     "copy-webpack-plugin": "^4.2.3",
     "css-loader": "^0.28.7",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
+    "husky": "^0.14.3",
+    "prettier": "^1.11.1",
+    "pretty-quick": "^1.4.1",
     "shx": "^0.2.2",
     "style-loader": "0.19.0",
     "ts-loader": "^2.3.6",
