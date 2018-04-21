@@ -5,7 +5,6 @@ var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   context: __dirname,
-  entry: './src/visualizer.ts',
   entry: {
     'ui-router-visualizer': ['./src/visualizer.ts'],
     'ui-router-visualizer.min': ['./src/visualizer.ts'],
@@ -26,13 +25,6 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
 
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minify: true,
-      sourceMap: true,
-      compress: { warnings: false },
-    }),
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -47,7 +39,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       { test: /\.tsx?$/, loader: 'ts-loader', options: { transpileOnly: true } },
       {
         test: /\.css$/,
