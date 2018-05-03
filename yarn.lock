@@ -59,8 +59,8 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
 "@types/node@*":
-  version "10.0.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
+  version "4.0.42"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-4.0.42.tgz#c09a8e2dd85c4a0b23674eb9deced753e0cc0241"
 
 "@types/shelljs@0.7.8":
   version "0.7.8"
@@ -73,9 +73,9 @@
   version "5.0.18"
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.18.tgz#6dd85654ebc7e25eba2c1b32f069829db351abab"
 
-"@uirouter/publish-scripts@2.3.12":
-  version "2.3.12"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.12.tgz#8b874b22dce719320fb8585220c900b7e597124e"
+"@uirouter/publish-scripts@2.3.13":
+  version "2.3.13"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.13.tgz#ccc0eade4703db7d9b2e1e117a741ddb0dd9e093"
   dependencies:
     conventional-changelog "^1.1.4"
     conventional-changelog-ui-router-core "^1.4.2"
