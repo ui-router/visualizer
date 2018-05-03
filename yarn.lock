@@ -11,8 +11,8 @@
   resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-1.0.4.tgz#f0e1b64162fea2f932007fb966c26cc8aff3a47d"
 
 "@types/d3-hierarchy@^1.0.4":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-1.1.0.tgz#50f1ee052840638035cbdd4acab1fc3470905907"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-1.1.1.tgz#f1b7f4bab0a9ecfb9c372a303ded97d83db3cbbf"
 
 "@types/d3-interpolate@^1.1.6":
   version "1.1.6"
