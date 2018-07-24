@@ -66,8 +66,8 @@
     "@types/node" "*"
 
 "@uirouter/core@^5.0.19":
-  version "5.0.19"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.19.tgz#fe2888190393a8c92584c354e65ab8322c1b0db4"
+  version "5.0.20"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.20.tgz#9c27d8d14d50358040840fd00e9d38c36be1adc5"
 
 "@uirouter/publish-scripts@2.3.20":
   version "2.3.20"
