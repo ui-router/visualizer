@@ -43,9 +43,15 @@ module.exports = {
       { test: /\.tsx?$/, loader: 'ts-loader', options: { transpileOnly: true } },
       {
         test: /\.css$/,
-        loader: [
-          { loader: 'style-loader', options: { hmr: false, attrs: { nonce: 'uiroutervisualizer' } } },
-          { loader: 'css-loader?sourceMap-loader' },
+        use: [
+          {
+            loader: 'style-loader',
+            options: { hmr: false, attrs: { nonce: 'uiroutervisualizer' } },
+          },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true },
+          },
         ],
       },
       // inline base64 URLs for <=8k images, direct URLs for the rest
