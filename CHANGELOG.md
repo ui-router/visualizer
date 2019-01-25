@@ -1,3 +1,8 @@
+## 6.0.3 (2019-01-25)
+[Compare `@uirouter/visualizer` versions 6.0.2 and 6.0.3](https://github.com/ui-router/visualizer/compare/6.0.2...6.0.3)
+
+
+
 ## 6.0.2 (2018-07-17)
 [Compare `@uirouter/visualizer` versions 6.0.0 and 6.0.2](https://github.com/ui-router/visualizer/compare/6.0.0...6.0.2)
 
