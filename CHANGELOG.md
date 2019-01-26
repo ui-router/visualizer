@@ -1,3 +1,13 @@
+# 7.0.0 (2019-01-26)
+[Compare `@uirouter/visualizer` versions 6.0.3 and 7.0.0](https://github.com/ui-router/visualizer/compare/6.0.3...7.0.0)
+
+### Bug Fixes
+
+* **typescript:** Create an artisinal hand crafted typings file for better compat with react ([055e50c](https://github.com/ui-router/visualizer/commit/055e50c))
+
+
+
+
 ## 6.0.3 (2019-01-25)
 [Compare `@uirouter/visualizer` versions 6.0.2 and 6.0.3](https://github.com/ui-router/visualizer/compare/6.0.2...6.0.3)
 
