@@ -13,27 +13,15 @@ export interface VisDimensions {
   width: number;
 }
 
-export interface LayoutFn {
-  (rootNode: StateVisNode): void;
-}
-
-export interface NodeSortFn {
-  (a: StateVisNode, b: StateVisNode): number;
-}
-
-export interface EdgeRenderFn {
-  (rootNode: StateVisNode, renderer: Renderer): any;
-}
-
-export interface LabelRenderFn {
-  (x: number, y: number, node: StateVisNode, renderer: Renderer): any;
-}
-
 export interface Renderer {
-  sortNodesFn: NodeSortFn; // Determines the render order of nodes (to allow a sort of "z-ordering")
-  layoutFn: LayoutFn; // Applies a layout to the nodes
-  labelRenderFn: LabelRenderFn; // Renders a state label
-  edgeRenderFn: EdgeRenderFn; // Renders an edge
+  // Determines the render order of nodes (to allow a sort of "z-ordering")
+  sortNodesFn(a: StateVisNode, b: StateVisNode): number;
+  // Applies a layout to the nodes
+  layoutFn(rootNode: StateVisNode): void;
+  // Renders a state label
+  labelRenderFn(x: number, y: number, node: StateVisNode, renderer: Renderer): any;
+  // Renders an edge
+  edgeRenderFn(rootNode: StateVisNode, renderer: Renderer): any;
 
   baseRadius: number; // size of circles radius, in pixels
   baseFontSize: number; // size of text, in pixels

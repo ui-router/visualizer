@@ -63,7 +63,7 @@
   },
   "main": "_bundles/ui-router-visualizer.js",
   "jsnext:main": "lib-esm/visualizer.js",
-  "typings": "lib-esm/visualizer.d.ts",
+  "typings": "artisinal.typings.d.ts",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
