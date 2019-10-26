@@ -39,13 +39,13 @@
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.22.tgz#4d36280b8d7871f7bd3e5f695a0f83ce6e559e48"
   integrity sha512-J0BVWRDfAmRWKJAesszU6lvu8ApJQ+6gd6OI0v+02hUEgl3a8K2fQ6oP4La3xPbVnl8W4iH7ouvWOc8cJPZPag==
 
-"@uirouter/publish-scripts@2.3.35":
-  version "2.3.35"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.35.tgz#bb9f93fc9f5e58952425efb33660b4c23b997ee0"
-  integrity sha512-QDFKRb8KKXMT3QFql26UqZBKD17S+lMQGUgW8jmZ2DH5Edl3vS04XRZr+0VtK1EbBF5vdSRIMVYWN/zSwGr/4A==
+"@uirouter/publish-scripts@2.3.37":
+  version "2.3.37"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.37.tgz#d48d2f38bc153535be3d91d2d67e092cd468782a"
+  integrity sha512-HnHFGhSNGd7FR2Ji2SOXbCRbBwr9Nul0l3Hr02kklB9GNAM0avnR9VyPIC7vlBBdaZROnsUxYnW0OkpQZI/GTQ==
   dependencies:
     "@types/resolve" "0.0.8"
-    check-peer-dependencies "1.0.2"
+    check-peer-dependencies "1.0.4"
     conventional-changelog "^3.1.10"
     conventional-changelog-ui-router-core "^1.4.2"
     find-parent-dir "^0.3.0"
@@ -775,10 +775,10 @@ chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-check-peer-dependencies@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/check-peer-dependencies/-/check-peer-dependencies-1.0.2.tgz#673bbfe72a70dc0e159a63046afbc1f9987b5221"
-  integrity sha512-LrIb52dfkENcNzUl/2oIYuyEdN7mVoGmyKhimpcfZzIY8N0lp53f70zpq9X2/VIL3fZaatIWU4eJDP5I4emvjQ==
+check-peer-dependencies@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/check-peer-dependencies/-/check-peer-dependencies-1.0.4.tgz#822e88e5c73ecdf4144748603c808ca02612cece"
+  integrity sha512-oNRaEINoFbSQjbJdIqF252XRuW2yUD+VOKN3+snd86Uf8cDhlYTZ1DPN4PY5ieVvaub2nWtGnF/wOR0os8c1/w==
   dependencies:
     semver "^6.3.0"
     shelljs "^0.8.3"
