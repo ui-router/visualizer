@@ -20,7 +20,7 @@
 }
 
 .uirStateVisContainer {
-    z-index: 200;
+    z-index: 999;
     position: fixed;
     right: 32px;
     bottom: 64px;
