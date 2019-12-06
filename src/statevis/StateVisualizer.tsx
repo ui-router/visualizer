@@ -1,11 +1,11 @@
+import { UIRouter } from '@uirouter/core';
 import { h, render, Component } from 'preact';
-import { StateSelector } from '../selector/StateSelector';
-import { toggleClass, addClass } from '../util/toggleClass';
 import { draggable, dragActions } from '../util/draggable';
+import { StateVisualizerOptions } from '../visualizer';
 import { StateTree } from './tree/StateTree';
 import { Controls } from './Controls';
 import { StateVisWindow } from './StateVisWindow';
-import { DEFAULT_RENDERER, RENDERER_PRESETS } from './renderers';
+import { DEFAULT_RENDERER } from './renderers';
 import { Renderer } from './interface';
 
 declare function require(string): string;
@@ -13,6 +13,7 @@ require('./statevis.css');
 
 export interface IProps {
   router;
+  visualizationOptions: StateVisualizerOptions;
   minimizeAfter?: number; // ms
   width?: number; // px
   height?: number; // px
@@ -39,6 +40,7 @@ export class StateVisualizer extends Component<IProps, IState> {
    * @param element (optional) the element where the StateVisualizer should be placed.
    *                If no element is passed, an element will be created in the body.
    * @param props height/width properties default: { height: 350, width: 250 }
+   * @param options StateVisualizerOptions used to customise the styling of the visualizer
    *
    * # Angular 1 + UI-Router (1.0.0-beta.2 and higher):
    *
@@ -86,13 +88,13 @@ export class StateVisualizer extends Component<IProps, IState> {
    *         You can destroy the component using:
    *         [ReactDOM.unmountComponentAtNode](https://facebook.github.io/react/docs/top-level-api.html#reactdom.unmountcomponentatnode)
    */
-  static create(router, element?, props = {}) {
+  static create(router: UIRouter, element?: HTMLElement, props = {}, options?: StateVisualizerOptions) {
     if (!element) {
       element = document.createElement('div');
       element.id = 'uirStateVisualizer';
     }
 
-    let initialProps: IProps = Object.assign({}, props, { router, minimizeAfter: 2500 });
+    let initialProps: IProps = Object.assign({}, props, { router, minimizeAfter: 2500, visualizationOptions: options });
     const _render = () => {
       document.body.appendChild(element);
       render(h(StateVisualizer, initialProps), element);
@@ -119,7 +121,7 @@ export class StateVisualizer extends Component<IProps, IState> {
     this.setState({ renderer });
   }
 
-  cancelAutoMinimize(ev) {
+  cancelAutoMinimize() {
     if (this.minimizeTimeout) {
       clearTimeout(this.minimizeTimeout);
       this.minimizeTimeout = null;
@@ -130,7 +132,7 @@ export class StateVisualizer extends Component<IProps, IState> {
     this.deregisterFns.forEach(fn => fn());
   }
 
-  draggable(enaabled: boolean) {
+  draggable() {
     let controlsEl = this.windowEl.querySelector('.uirStateVisControls');
     let visEl = this.windowEl.querySelector('.statevis');
     this.deregisterFns.push(draggable(controlsEl, dragActions.move(this.windowEl)));
@@ -138,7 +140,7 @@ export class StateVisualizer extends Component<IProps, IState> {
   }
 
   componentDidMount() {
-    this.draggable(true);
+    this.draggable();
 
     if (this.props.minimizeAfter) {
       const doMinimize = () => this.setState({ minimized: true });
@@ -176,6 +178,7 @@ export class StateVisualizer extends Component<IProps, IState> {
 
           <StateTree
             router={this.props.router}
+            nodeOptions={this.props.visualizationOptions.nodeOptions}
             width={this.svgWidth()}
             height={this.svgHeight()}
             renderer={this.state.renderer}

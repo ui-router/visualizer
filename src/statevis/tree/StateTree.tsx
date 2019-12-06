@@ -6,8 +6,17 @@ import { easing } from '../../util/easing';
 import { DEFAULT_RENDERER } from '../renderers';
 import { createStateVisNode, StateVisNode } from './stateVisNode';
 
+export interface NodeOptions {
+  classes?:
+    | ((node: StateVisNode) => string)
+    | {
+        [key: string]: (node: StateVisNode) => boolean;
+      };
+}
+
 export interface IProps extends NodeDimensions, VisDimensions {
   router?: any;
+  nodeOptions?: NodeOptions;
   renderer?: Renderer;
 }
 
@@ -126,14 +135,16 @@ export class StateTree extends Component<IProps, IState> {
     this.props.renderer.layoutFn(rootNode);
 
     // Move all non-visible nodes to same x/y coords as the nearest visible parent
-    nodes.filter(node => !node.visible).forEach(node => {
-      let visibleAncestor = node._parent;
-      while (visibleAncestor && !visibleAncestor.visible) visibleAncestor = visibleAncestor._parent;
-      if (visibleAncestor) {
-        node.x = visibleAncestor.x;
-        node.y = visibleAncestor.y;
-      }
-    });
+    nodes
+      .filter(node => !node.visible)
+      .forEach(node => {
+        let visibleAncestor = node._parent;
+        while (visibleAncestor && !visibleAncestor.visible) visibleAncestor = visibleAncestor._parent;
+        if (visibleAncestor) {
+          node.x = visibleAncestor.x;
+          node.y = visibleAncestor.y;
+        }
+      });
 
     let dimensions = this.dimensions();
 
@@ -180,7 +191,7 @@ export class StateTree extends Component<IProps, IState> {
       500,
       animationFrame,
       () => null,
-      easing.easeInOutExpo,
+      easing.easeInOutExpo
     );
   };
 
@@ -275,6 +286,7 @@ export class StateTree extends Component<IProps, IState> {
               key={node.name}
               node={node}
               router={this.props.router}
+              nodeOptions={this.props.nodeOptions}
               renderer={this.props.renderer}
               doLayout={this.doLayoutAnimation.bind(this)}
               x={node.animX}

@@ -2,13 +2,17 @@ import { render, h } from 'preact';
 import { UIRouter, UIRouterPlugin } from '@uirouter/core';
 import { StateSelector } from './selector/StateSelector';
 import { StateVisualizer } from './statevis/StateVisualizer';
-import { StateTree } from './statevis/tree/StateTree';
+import { NodeOptions, StateTree } from './statevis/tree/StateTree';
 import { TransitionVisualizer } from './transition/TransitionVisualizer';
 
 const visualizer = (router: UIRouter) => new Visualizer(router, {});
 
+export interface StateVisualizerOptions {
+  nodeOptions?: NodeOptions;
+}
+
 export interface Options {
-  state?: boolean;
+  state?: boolean | StateVisualizerOptions;
   transition?: boolean;
 }
 
@@ -37,7 +41,11 @@ class Visualizer implements UIRouterPlugin {
   constructor(public router: UIRouter, options: Options) {
     options = Object.assign({}, DEFAULTS, options);
     if (options.state) {
-      this.stateVisualizerEl = StateVisualizer.create(router);
+      if (options.state === true) {
+        options.state = {};
+      }
+
+      this.stateVisualizerEl = StateVisualizer.create(router, undefined, undefined, options.state);
     }
     if (options.transition) {
       this.transitionVisualizerEl = TransitionVisualizer.create(router);
