@@ -51,10 +51,10 @@
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.22.tgz#4d36280b8d7871f7bd3e5f695a0f83ce6e559e48"
   integrity sha512-J0BVWRDfAmRWKJAesszU6lvu8ApJQ+6gd6OI0v+02hUEgl3a8K2fQ6oP4La3xPbVnl8W4iH7ouvWOc8cJPZPag==
 
-"@uirouter/publish-scripts@2.3.40":
-  version "2.3.40"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.40.tgz#5a98b361afd5b0995bb3983279239b38bfef7236"
-  integrity sha512-CRPJ66jE2G+X7FgH2YYQo+cFIOzzkxrOb2wp9lD2gEiii02Ya8dTsb3gvjp4I7BYO7V1Ob8/NsB5twVRyOnAQQ==
+"@uirouter/publish-scripts@2.3.42":
+  version "2.3.42"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.42.tgz#790ed9f39d40e51bac1441625c66625aedb13f78"
+  integrity sha512-QLPDiXkn35SFl9nzKexRiObN2/nGZFjiaImBQ3anx0Y7iG/HMzHw4pE082FqXZMQfmULEiuNhBQVCVC7ybCB6w==
   dependencies:
     check-peer-dependencies "1.0.7"
     conventional-changelog "^3.1.15"
