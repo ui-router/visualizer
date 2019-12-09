@@ -7,11 +7,7 @@ import { DEFAULT_RENDERER } from '../renderers';
 import { createStateVisNode, StateVisNode } from './stateVisNode';
 
 export interface NodeOptions {
-  classes?:
-    | ((node: StateVisNode) => string)
-    | {
-        [key: string]: (node: StateVisNode) => boolean;
-      };
+  classes?(node: StateVisNode): string;
 }
 
 export interface IProps extends NodeDimensions, VisDimensions {

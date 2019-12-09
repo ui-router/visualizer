@@ -50,17 +50,8 @@ export class StateNode extends Component<IProps, IState> {
       'highlight',
       'collapsed',
     ].filter(clazz => node[clazz]);
-    let customClasses = [];
-
-    if (nodeOptions.classes) {
-      customClasses =
-        typeof nodeOptions.classes === 'function'
-          ? [nodeOptions.classes(node)]
-          : Object.keys(nodeOptions.classes).filter(customClass => nodeOptions.classes[customClass](node));
-    }
-
-    let circleClasses = defaultClasses.concat(customClasses).join(' ');
-
+    let nodeClasses = nodeOptions.classes ? nodeOptions.classes(node) : '';
+    let circleClasses = defaultClasses + nodeClasses;
     let descendents = node.collapsed ? node.totalDescendents : 0;
 
     return (
