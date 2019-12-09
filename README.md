@@ -77,6 +77,30 @@ var pluginInstance = uiRouterInstance.plugin(Visualizer);
 
 ---
 
+### Configuring the plugin
+
+Optionally you can pass configuration to how the visualizer displays the state tree and the transitions.
+
+The state tree visualizer can be configured to style each node specifically.
+
+Example below marks every node with angular.js view with is-ng1 class.
+
+```js
+var options = {
+  stateVisualizer: {
+    node: {
+      classes(node) {
+        return Object.entries(node.views || {}).some(routeView => routeView[1] && routeView[1].$type === 'ng1')
+          ? 'is-ng1'
+          : '';
+      },
+    },
+  },
+};
+
+var pluginInstance = uiRouterInstance.plugin(Visualizer, options);
+```
+
 ### Getting a reference to the `UIRouter` object
 
 #### Angular 1

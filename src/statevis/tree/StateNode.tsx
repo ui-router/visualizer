@@ -50,8 +50,8 @@ export class StateNode extends Component<IProps, IState> {
       'highlight',
       'collapsed',
     ].filter(clazz => node[clazz]);
-    let nodeClasses = nodeOptions.classes ? nodeOptions.classes(node) : '';
-    let circleClasses = defaultClasses + nodeClasses;
+    let nodeClasses = nodeOptions && nodeOptions.classes ? nodeOptions.classes(node) : '';
+    let circleClasses = defaultClasses + ' ' + nodeClasses;
     let descendents = node.collapsed ? node.totalDescendents : 0;
 
     return (
