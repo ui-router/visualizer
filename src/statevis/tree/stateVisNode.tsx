@@ -1,6 +1,6 @@
 import { StateObject } from '@uirouter/core';
 
-export interface StateVisNode {
+export interface StateVisNode extends StateObject {
   name: string;
 
   label: string;
@@ -40,7 +40,7 @@ export interface StateVisNode {
 }
 
 export function createStateVisNode(state: StateObject): StateVisNode {
-  let node: StateVisNode = Object.create(state) as any;
+  let node: StateVisNode = Object.create(state);
 
   Object.defineProperty(node, 'visible', {
     get() {

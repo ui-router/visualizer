@@ -1,10 +1,12 @@
-import { h, render, Component } from 'preact';
+import { h, Component } from 'preact';
 import { Renderer } from '../interface';
+import { NodeOptions } from './StateTree';
 import { StateVisNode } from './stateVisNode';
 
 export interface IProps {
   router: any;
   node: StateVisNode;
+  nodeOptions: NodeOptions;
   renderer: Renderer;
   doLayout: Function;
   x: number;
@@ -15,13 +17,13 @@ export interface IState {}
 export class StateNode extends Component<IProps, IState> {
   goTimeout = null;
 
-  handleCollapseClicked = event => {
+  handleCollapseClicked = () => {
     clearTimeout(this.goTimeout);
     this.props.node._collapsed = !this.props.node._collapsed;
     this.props.doLayout();
   };
 
-  handleGoClicked = event => {
+  handleGoClicked = () => {
     clearTimeout(this.goTimeout);
     let stateName = this.props.node.name;
     stateName = stateName.replace(/\.\*\*$/, '');
@@ -30,7 +32,7 @@ export class StateNode extends Component<IProps, IState> {
 
   render() {
     let renderer = this.props.renderer;
-    let { node, x, y } = this.props;
+    let { node, x, y, nodeOptions } = this.props;
 
     let { baseRadius, baseFontSize, baseNodeStrokeWidth, zoom } = renderer;
     let r = baseRadius * zoom;
@@ -38,9 +40,18 @@ export class StateNode extends Component<IProps, IState> {
     let fontSize = baseFontSize * zoom;
     let nodeStrokeWidth = baseNodeStrokeWidth * (node.entered ? 1.5 : 1) * zoom;
 
-    let classes = ['entered', 'retained', 'exited', 'active', 'inactive', 'future', 'highlight', 'collapsed'];
-    let circleClasses = classes.reduce((str, clazz) => str + (node[clazz] ? ` ${clazz} ` : ''), '');
-
+    let defaultClasses = [
+      'entered',
+      'retained',
+      'exited',
+      'active',
+      'inactive',
+      'future',
+      'highlight',
+      'collapsed',
+    ].filter(clazz => node[clazz]);
+    let nodeClasses = nodeOptions.classes ? nodeOptions.classes(node) : '';
+    let circleClasses = defaultClasses + nodeClasses;
     let descendents = node.collapsed ? node.totalDescendents : 0;
 
     return (
