@@ -8,11 +8,12 @@ import { TransitionVisualizer } from './transition/TransitionVisualizer';
 const visualizer = (router: UIRouter) => new Visualizer(router, {});
 
 export interface StateVisualizerOptions {
-  nodeOptions?: NodeOptions;
+  node?: NodeOptions;
 }
 
 export interface Options {
-  state?: boolean | StateVisualizerOptions;
+  state?: boolean;
+  stateVisualizer?: StateVisualizerOptions;
   transition?: boolean;
 }
 
@@ -23,6 +24,7 @@ function unmountComponent(node) {
 
 const DEFAULTS = {
   state: true,
+  stateVisualizer: {},
   transition: true,
 };
 
@@ -41,11 +43,7 @@ class Visualizer implements UIRouterPlugin {
   constructor(public router: UIRouter, options: Options) {
     options = Object.assign({}, DEFAULTS, options);
     if (options.state) {
-      if (options.state === true) {
-        options.state = {};
-      }
-
-      this.stateVisualizerEl = StateVisualizer.create(router, undefined, undefined, options.state);
+      this.stateVisualizerEl = StateVisualizer.create(router, undefined, undefined, options.stateVisualizer);
     }
     if (options.transition) {
       this.transitionVisualizerEl = TransitionVisualizer.create(router);

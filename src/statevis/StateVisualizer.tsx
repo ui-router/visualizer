@@ -178,7 +178,7 @@ export class StateVisualizer extends Component<IProps, IState> {
 
           <StateTree
             router={this.props.router}
-            nodeOptions={this.props.visualizationOptions.nodeOptions}
+            nodeOptions={this.props.visualizationOptions.node}
             width={this.svgWidth()}
             height={this.svgHeight()}
             renderer={this.state.renderer}
