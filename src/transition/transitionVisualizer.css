@@ -13,7 +13,7 @@
     right: 0;
     padding: 0 16px;
     overflow-x: scroll;
-    z-index: 50;
+    z-index: 999;
     /* disable mouse clicks, hover, etc, for the overall div */
     pointer-events: none;
 }
