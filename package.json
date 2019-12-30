@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/d3-hierarchy": "^1.1.5",
     "@types/d3-interpolate": "^1.3.0",
-    "@uirouter/core": "^5.0.22",
+    "@uirouter/core": "^6.0.2",
     "@uirouter/publish-scripts": "2.3.42",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^2.1.0",
