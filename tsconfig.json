@@ -1,22 +1,14 @@
 {
-  "files": [
-    "src/visualizer.ts", "src/svg.d.ts"
-  ],
-
+  "include": ["src"],
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "h",
     "lib": ["es6", "dom"],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "sourceRoot": "src",
     "moduleResolution": "node",
-    "module": "commonjs",
     "target": "es5",
-    "outDir": "lib",
-    "declaration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "inlineSources": true
   }
 }
-

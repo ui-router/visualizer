@@ -21,9 +21,6 @@ export interface IControlsState {
   showRendererPrefs: boolean;
 }
 
-declare function require(string): string;
-const imgChevron = require('../../images/16/chevron-down.png');
-
 export class Controls extends Component<IControlsProps, IControlsState> {
   state = {
     showRendererPrefs: false,
