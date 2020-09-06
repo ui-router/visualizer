@@ -3,8 +3,8 @@
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "7.0.0",
   "scripts": {
-    "start": "webpack-dev-server --port 4039 --content-base example",
-    "clean": "shx rm -rf dist lib lib-esm _bundles",
+    "example": "npm run bundle && http-server . -o example",
+    "clean": "shx rm -rf lib lib-esm _bundles",
     "compile": "tsc --outdir lib && tsc -m es6 --outdir lib-esm",
     "bundle": "rollup -c",
     "build": "npm run clean && npm run compile && npm run bundle",
@@ -45,12 +45,14 @@
     "@types/d3-interpolate": "^1.3.0",
     "@uirouter/core": "^6.0.6",
     "@uirouter/publish-scripts": "2.5.3",
+    "http-server": "^0.12.3",
     "husky": "^4.2.5",
     "prettier": "^2.1.1",
     "pretty-quick": "^3.0.0",
     "rollup": "^2.26.10",
     "rollup-plugin-postcss": "^3.1.8",
     "rollup-plugin-terser": "^7.0.2",
+    "serve": "^11.3.2",
     "shx": "^0.3.2",
     "tslib": "^2.0.1",
     "typescript": "^4.0.2"
@@ -59,7 +61,7 @@
     "@uirouter/core": ">=5.0.0"
   },
   "main": "_bundles/ui-router-visualizer.js",
-  "jsnext:main": "lib-esm/visualizer.js",
+  "module": "_bundles/ui-router-visualizer.esm.js",
   "typings": "artisinal.typings.d.ts",
   "husky": {
     "hooks": {
