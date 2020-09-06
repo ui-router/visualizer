@@ -3,9 +3,7 @@ import { h, render, Component } from 'preact';
 import { TransitionView } from './TransitionView';
 import { easing } from '../util/easing';
 import { animatePath } from '../util/animatepath';
-
-declare var require;
-require('./transitionVisualizer.css');
+import './transitionVisualizer.css';
 
 export interface IProps {
   router: any;
@@ -114,7 +112,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
   cancelPreviousAnim = null;
 
   componentDidMount() {
-    let dereg = this.props.router.transitionService.onBefore({}, trans => {
+    let dereg = this.props.router.transitionService.onBefore({}, (trans) => {
       this.setState({ transitions: this.state.transitions.concat(trans) });
 
       let duration = 750,
@@ -133,7 +131,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
           this.setState({ transitions: list.slice(list.length - max) });
         };
 
-        let callback = vals => (el.scrollLeft = vals[0]);
+        let callback = (vals) => (el.scrollLeft = vals[0]);
         this.cancelPreviousAnim = animatePath(newVal, oldVal, duration, callback, enforceMax, easing.easeInOutCubic);
       };
 
@@ -153,7 +151,7 @@ export class TransitionVisualizer extends Component<IProps, IState> {
    *
    * Enable pointer events when mouse is inside the timeline to allow horizontal scroll & scroll wheel
    */
-  onMouseMove = evt => {
+  onMouseMove = (evt) => {
     let windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var pointerEvents = windowHeight - evt.clientY < 65 ? 'auto' : 'none';
     if (this.state.pointerEvents != pointerEvents) {
@@ -169,9 +167,9 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     let pointerEvents = this.state.pointerEvents;
 
     return (
-      <div ref={el => (this._div = el)}>
+      <div ref={(el) => (this._div = el)}>
         <div className="uirTranVis_history" style={{ pointerEvents }}>
-          {this.state.transitions.map(trans => (
+          {this.state.transitions.map((trans) => (
             <div key={trans.$id} className="uirTranVis_transition">
               <TransitionView transition={trans} />
               <div style={{ minWidth: '18em', border: '1px solid transparent' }} />

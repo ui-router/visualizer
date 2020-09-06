@@ -7,9 +7,7 @@ import { Controls } from './Controls';
 import { StateVisWindow } from './StateVisWindow';
 import { DEFAULT_RENDERER } from './renderers';
 import { Renderer } from './interface';
-
-declare function require(string): string;
-require('./statevis.css');
+import './statevis.css';
 
 export interface IProps {
   router;
@@ -129,7 +127,7 @@ export class StateVisualizer extends Component<IProps, IState> {
   }
 
   componentWillUnmount() {
-    this.deregisterFns.forEach(fn => fn());
+    this.deregisterFns.forEach((fn) => fn());
   }
 
   draggable() {
@@ -155,13 +153,13 @@ export class StateVisualizer extends Component<IProps, IState> {
     const { minimized } = this.state;
     return (
       <div
-        ref={el => (this.el = el as HTMLElement)}
+        ref={(el) => (this.el = el as HTMLElement)}
         onMouseDown={this.cancelAutoMinimize.bind(this)}
         onMouseEnter={this.cancelAutoMinimize.bind(this)}
       >
         <StateVisWindow
           minimized={this.state.minimized}
-          ref={windowRef => (this.windowEl = (windowRef && windowRef.el) || this.windowEl)}
+          ref={(windowRef) => (this.windowEl = (windowRef && windowRef.el) || this.windowEl)}
           onResize={({ width, height }) => this.setState({ width, height })}
         >
           <div
