@@ -4,190 +4,188 @@
 */
 
 #uirStateVisualizer {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 16px;
-    font-family: sans-serif;
-    font-weight: normal;
-    vertical-align: baseline;
-    line-height: 1;
-    display: block;
-    box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: normal;
+  vertical-align: baseline;
+  line-height: 1;
+  display: block;
+  box-sizing: content-box;
 }
 #uirStateVisualizer svg {
-    box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 .uirStateVisContainer {
-    z-index: 999;
-    position: fixed;
-    right: 32px;
-    bottom: 64px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    transform: scale(1);
-    transform-origin: right bottom;
-    transition: right 0.5s ease, bottom 0.5s ease, transform 0.5s ease;
-    overflow: hidden;
-    resize: both;
+  z-index: 999;
+  position: fixed;
+  right: 32px;
+  bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1);
+  transform-origin: right bottom;
+  transition: right 0.5s ease, bottom 0.5s ease, transform 0.5s ease;
+  overflow: hidden;
+  resize: both;
 }
 
 .uirStateVisContainer.minimized {
-    cursor: pointer;
-    transform: scale(0.25);
-    z-index: 60;
+  cursor: pointer;
+  transform: scale(0.25);
+  z-index: 1000;
 }
 
 .uirStateVisContainer:hover {
-    outline: 2px solid rgba(0,0,0,0.35)
+  outline: 2px solid rgba(0, 0, 0, 0.35);
 }
 
 .uirStateVisContainer:hover .uirStateVisControls {
-    visibility: visible;
+  visibility: visible;
 }
 
 .uirStateVisContainer .uirStateVisControls {
-    visibility: hidden;
-    display: flex;
-    width: 100%;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    flex: 1 0 auto;
-    z-index: 1;
+  visibility: hidden;
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 1 0 auto;
+  z-index: 1;
 }
 
 .uirStateVisContainer .uirStateVisControls .uirStateVisIcons span svg {
-    padding: 3px;
-    fill: #777777;
+  padding: 3px;
+  fill: #777777;
 }
 
 .uirStateVisContainer .uirStateVisControls .uirStateVisIcons span:hover svg {
-    fill: black;
+  fill: black;
 }
 
 .uirStateVisHover > div {
-    transition: opacity 500ms ease;
-    opacity: 0;
-    height: 0;
-    padding: 0;
+  transition: opacity 500ms ease;
+  opacity: 0;
+  height: 0;
+  padding: 0;
 
-    position: absolute;
-    top: 0;
-    right: 0;
-    overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
 
-    margin-top: 26px;
-    font-size: 14px;
+  margin-top: 26px;
+  font-size: 14px;
 }
 
 .uirStateVisHover > div.hoverBlock {
-    left: 0;
-    border-bottom: none;
-    background: white;
+  left: 0;
+  border-bottom: none;
+  background: white;
 }
 
 .uirStateVisHover:hover > div.hoverBlock {
-    border-bottom: 2px solid lightgrey;
+  border-bottom: 2px solid lightgrey;
 }
 
-
 .uirStateVisHover:hover > div {
-    opacity: 1;
-    height: auto;
+  opacity: 1;
+  height: auto;
 }
 
 .uirStateVisHover .uirStateVisLayoutPrefs {
-    padding: 12px 24px;
+  padding: 12px 24px;
 }
 
 .uirStateVisContainer .statevis {
-    flex: 1 1 auto;
-    transition: all 1s ease;
+  flex: 1 1 auto;
+  transition: all 1s ease;
 }
 
 .uirStateVisWindowOverlay {
-    display: none;
+  display: none;
 }
 
 .minimized .uirStateVisWindowOverlay {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0; 
-    top: 0;
-    bottom: 0;
-    z-index: 10;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
 }
-  
+
 .statevis circle {
-    /*r: 10;*/
-    fill: #fff;
-    stroke: grey;
-    /*stroke-width: 3px;*/
+  /*r: 10;*/
+  fill: #fff;
+  stroke: grey;
+  /*stroke-width: 3px;*/
 
-    transition-property: r, fill, stroke, stroke-width;
-    transition-duration: 350ms;
-    transition-timing-function: ease-in-out;
+  transition-property: r, fill, stroke, stroke-width;
+  transition-duration: 350ms;
+  transition-timing-function: ease-in-out;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .statevis text {
-    transition-property: x, y, font-size, stroke, stroke-width;
-    transition-duration: 350ms;
-    transition-timing-function: ease-in-out;
+  transition-property: x, y, font-size, stroke, stroke-width;
+  transition-duration: 350ms;
+  transition-timing-function: ease-in-out;
 }
 
 .statevis circle.future {
-    /*r: 10;*/
-    stroke: grey;
-    stroke-dasharray: 7,5;
-    /*stroke-width: 1px;*/
+  /*r: 10;*/
+  stroke: grey;
+  stroke-dasharray: 7, 5;
+  /*stroke-width: 1px;*/
 }
 
 .statevis circle.entered {
-    /*r: 10;*/
-    stroke: black;
-    fill: lightgreen;
+  /*r: 10;*/
+  stroke: black;
+  fill: lightgreen;
 }
 
 .statevis circle.entered:after {
-    content: "<text>Entered</text>"
+  content: '<text>Entered</text>';
 }
 
 .statevis circle.active {
-    /*r: 15;*/
-    fill: green;
-    stroke: black;
+  /*r: 15;*/
+  fill: green;
+  stroke: black;
 }
 
 .statevis circle.collapsed {
-    stroke-dasharray: 2, 2
+  stroke-dasharray: 2, 2;
 }
 
 .statevis text {
-    font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 .statevis .link {
-    fill: none;
-    stroke: #ccc;
-    /*stroke-width: 2px;*/
+  fill: none;
+  stroke: #ccc;
+  /*stroke-width: 2px;*/
 }
 
 .statevis text.label {
-    fill: grey;
-    alignment-baseline: middle;
+  fill: grey;
+  alignment-baseline: middle;
 }
 
-
 .draggable {
-    cursor: move;
+  cursor: move;
 }
 
 /*.draggable:hover {*/
-    /*outline: 3px solid rgba(0,0,0,0.15)*/
+/*outline: 3px solid rgba(0,0,0,0.15)*/
 /*}*/
