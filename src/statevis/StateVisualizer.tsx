@@ -107,12 +107,11 @@ export class StateVisualizer extends Component<IProps, IState> {
     return element;
   }
 
-  el: HTMLElement;
+  rootEl: HTMLElement;
   windowEl: HTMLElement;
 
   dispose() {
-    let Nothing = () => null;
-    render(h(Nothing as any, null), document.body, this.el);
+    render(null, document.getElementById('uirStateVisualizer'), this.rootEl);
   }
 
   handleRendererChange(renderer: Renderer) {
@@ -153,7 +152,7 @@ export class StateVisualizer extends Component<IProps, IState> {
     const { minimized } = this.state;
     return (
       <div
-        ref={(el) => (this.el = el as HTMLElement)}
+        ref={(el) => (this.rootEl = el as HTMLElement)}
         onMouseDown={this.cancelAutoMinimize.bind(this)}
         onMouseEnter={this.cancelAutoMinimize.bind(this)}
       >
