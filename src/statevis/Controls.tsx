@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import { StateSelector } from '../selector/StateSelector';
-import { RENDERER_PRESETS, DEFAULT_RENDERER } from './renderers';
 import { LayoutPrefs } from './LayoutPrefs';
 import { Renderer } from './interface';
 import { UIRouter } from '@uirouter/core';

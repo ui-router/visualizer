@@ -1,11 +1,5 @@
-import { h, render, Component } from 'preact';
-import { StateSelector } from '../selector/StateSelector';
+import { h, Component } from 'preact';
 import { toggleClass, addClass } from '../util/toggleClass';
-import { draggable, dragActions } from '../util/draggable';
-import { StateTree } from './tree/StateTree';
-import { Controls } from './Controls';
-import { DEFAULT_RENDERER, RENDERER_PRESETS } from './renderers';
-import { Renderer } from './interface';
 
 export interface IProps {
   minimized?: boolean; // ms
@@ -70,7 +64,7 @@ export class StateVisWindow extends Component<IProps, IState> {
 
       toggleClass('minimized')(el);
       el.removeEventListener('click', unminimize);
-      const animationEndListener = evt => {
+      const animationEndListener = (evt) => {
         let bounds = el.getBoundingClientRect();
         el.style.top = bounds.top + 'px';
         el.style.left = bounds.left + 'px';
@@ -89,7 +83,7 @@ export class StateVisWindow extends Component<IProps, IState> {
   };
 
   componentWillUnmount() {
-    this.deregisterFns.forEach(fn => fn());
+    this.deregisterFns.forEach((fn) => fn());
   }
 
   componentDidMount() {
@@ -103,8 +97,8 @@ export class StateVisWindow extends Component<IProps, IState> {
     let _width = this.el.style.width;
     let _height = this.el.style.height;
 
-    let observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
+    let observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
         if (mutation.attributeName == 'style') {
           let el = mutation.target,
             newwidth = el['style'].width,
@@ -135,7 +129,7 @@ export class StateVisWindow extends Component<IProps, IState> {
 
   render() {
     return (
-      <div className="uirStateVisContainer" ref={el => (this.el = el as HTMLElement)}>
+      <div className="uirStateVisContainer" ref={(el) => (this.el = el as HTMLElement)}>
         {this.props.children}
       </div>
     );
