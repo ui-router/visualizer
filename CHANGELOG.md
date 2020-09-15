@@ -1,3 +1,23 @@
+# 7.1.0 (2020-09-15)
+[Compare `@uirouter/visualizer` versions 7.0.0 and 7.1.0](https://github.com/ui-router/visualizer/compare/7.0.0...7.1.0)
+
+### Bug Fixes
+
+* fix classnames ([4d5fb1a](https://github.com/ui-router/visualizer/commit/4d5fb1a))
+* Fix disposing of the state visualizer ([7fc2ba8](https://github.com/ui-router/visualizer/commit/7fc2ba8))
+* Fix z-index of minimized state visualizer ([8d3e9e3](https://github.com/ui-router/visualizer/commit/8d3e9e3))
+* **statevis:** add documentation on how to use the options on the state visualizer and fix the node classes not being appended correctly ([#199](https://github.com/ui-router/visualizer/issues/199)) ([eda9657](https://github.com/ui-router/visualizer/commit/eda9657))
+
+
+### Features
+
+* Switch bundle from webpack to rollup and emit new esm bundle ([c4444db](https://github.com/ui-router/visualizer/commit/c4444db))
+* **statevis:** allow nodes to be styled by custom classes ([#197](https://github.com/ui-router/visualizer/issues/197)) ([b8f0ef6](https://github.com/ui-router/visualizer/commit/b8f0ef6))
+* **update_dependencies:** Add a repository_dispatch trigger ([8b0f88a](https://github.com/ui-router/visualizer/commit/8b0f88a))
+
+
+
+
 # 7.0.0 (2019-01-26)
 [Compare `@uirouter/visualizer` versions 6.0.3 and 7.0.0](https://github.com/ui-router/visualizer/compare/6.0.3...7.0.0)
 
