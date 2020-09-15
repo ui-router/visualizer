@@ -40,16 +40,9 @@ export class StateNode extends Component<IProps, IState> {
     let fontSize = baseFontSize * zoom;
     let nodeStrokeWidth = baseNodeStrokeWidth * (node.entered ? 1.5 : 1) * zoom;
 
-    let defaultClasses = [
-      'entered',
-      'retained',
-      'exited',
-      'active',
-      'inactive',
-      'future',
-      'highlight',
-      'collapsed',
-    ].filter(clazz => node[clazz]);
+    let defaultClasses = ['entered', 'retained', 'exited', 'active', 'inactive', 'future', 'highlight', 'collapsed']
+      .filter((clazz) => node[clazz])
+      .join(' ');
     let nodeClasses = nodeOptions && nodeOptions.classes ? nodeOptions.classes(node) : '';
     let circleClasses = defaultClasses + ' ' + nodeClasses;
     let descendents = node.collapsed ? node.totalDescendents : 0;
