@@ -59,7 +59,7 @@ export class StateNode extends Component<IProps, IState> {
           </text>
         )}
 
-        {renderer.labelRenderFn(x, y, node, renderer)}
+        {renderer.labelRenderFn(x, y, node, nodeOptions, renderer)}
 
         <text className="label" text-anchor="middle" font-size={fontSize} transform={`translate(0, ${r * 2})`}>
           {node.label}

@@ -1,9 +1,10 @@
 import { h } from 'preact';
 import { Renderer } from './interface';
 import { hierarchy, cluster as d3cluster, tree as d3tree, HierarchyPointNode } from 'd3-hierarchy';
+import { NodeOptions } from './tree/StateTree';
 import { StateVisNode } from './tree/stateVisNode'; // has or is using
 
-export const RENDERER_PRESETS = {
+export const RENDERER_PRESETS: { [name: string]: Partial<Renderer> } = {
   Tree: {
     layoutFn: TREE_LAYOUT,
     sortNodesFn: TOP_TO_BOTTOM_SORT,
@@ -75,7 +76,7 @@ export function CLUSTER_LAYOUT(rootNode: StateVisNode) {
 
 /** For RADIAL_LAYOUT: projects x/y coords from a cluster layout to circular layout */
 function project(x, y) {
-  let angle = (x - 90) / 180 * Math.PI,
+  let angle = ((x - 90) / 180) * Math.PI,
     radius = y;
   const CENTER = 0.5;
   return { x: CENTER + radius * Math.cos(angle), y: CENTER + radius * Math.sin(angle) };
@@ -86,13 +87,13 @@ export function RADIAL_LAYOUT(rootNode: StateVisNode) {
 
   let layout = d3cluster<StateVisNode>()
     .size([360, 0.4])
-    .separation(function(a, b) {
+    .separation(function (a, b) {
       return (a.parent == b.parent ? 1 : 2) / a.depth;
     });
 
   let nodes = layout(root);
 
-  nodes.each(function(node) {
+  nodes.each(function (node) {
     let projected = project(node.x, node.y);
     let visNode: StateVisNode = node.data;
     visNode.layoutX = node.x;
@@ -104,7 +105,7 @@ export function RADIAL_LAYOUT(rootNode: StateVisNode) {
 
 /** Mutates each StateVisNode by copying the new x/y values from the d3 HierarchyPointNode structure */
 function updateNodes(nodes: HierarchyPointNode<StateVisNode>) {
-  nodes.each(node => {
+  nodes.each((node) => {
     node.data.layoutX = node.data.x = node.x;
     node.data.layoutY = node.data.y = node.y;
   });
@@ -115,13 +116,11 @@ function updateNodes(nodes: HierarchyPointNode<StateVisNode>) {
 // STATE NAME LABEL
 ///////////////////////////////////////////
 
-export function RADIAL_TEXT(x, y, node: StateVisNode, renderer: Renderer) {
+export function RADIAL_TEXT(x, y, node: StateVisNode, nodeOptions: NodeOptions, renderer: Renderer) {
   let { baseFontSize, zoom } = renderer;
   let fontSize = baseFontSize * zoom;
 
-  let segments = node.name.split('.');
-  let name = segments.pop();
-  if (name == '**') name = segments.pop() + '.**';
+  const label = nodeOptions?.label ? nodeOptions.label(node, defaultLabel(node)) : defaultLabel(node);
 
   let angle = node.layoutX || 0;
 
@@ -134,25 +133,30 @@ export function RADIAL_TEXT(x, y, node: StateVisNode, renderer: Renderer) {
   return (
     <text className="name" text-anchor={textAnchor} transform={transform} font-size={fontSize}>
       {' '}
-      {name}{' '}
+      {label}{' '}
     </text>
   );
 }
 
-export function SLANTED_TEXT(x, y, node: StateVisNode, renderer: Renderer) {
-  let { baseRadius, baseFontSize, baseStrokeWidth, baseNodeStrokeWidth, zoom } = renderer;
-  let r = baseRadius * zoom;
-  let fontSize = baseFontSize * zoom;
+export function defaultLabel(node: StateVisNode) {
   let segments = node.name.split('.');
   let name = segments.pop();
   if (name == '**') name = segments.pop() + '.**';
+  return name;
+}
+
+export function SLANTED_TEXT(x, y, node: StateVisNode, nodeOptions: NodeOptions, renderer: Renderer) {
+  let { baseFontSize, zoom } = renderer;
+  let fontSize = baseFontSize * zoom;
+
+  const label = nodeOptions?.label ? nodeOptions.label(node, defaultLabel(node)) : defaultLabel(node);
 
   let transform = `rotate(-15),translate(0, ${-15 * zoom})`;
 
   return (
     <text className="name" text-anchor="middle" transform={transform} font-size={fontSize}>
       {' '}
-      {name}{' '}
+      {label}{' '}
     </text>
   );
 }

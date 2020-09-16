@@ -1,3 +1,4 @@
+import { NodeOptions } from './tree/StateTree';
 import { StateVisNode } from './tree/stateVisNode';
 
 export interface NodeDimensions {
@@ -19,7 +20,7 @@ export interface Renderer {
   // Applies a layout to the nodes
   layoutFn(rootNode: StateVisNode): void;
   // Renders a state label
-  labelRenderFn(x: number, y: number, node: StateVisNode, renderer: Renderer): any;
+  labelRenderFn(x: number, y: number, node: StateVisNode, nodeOptions: NodeOptions, renderer: Renderer): any;
   // Renders an edge
   edgeRenderFn(rootNode: StateVisNode, renderer: Renderer): any;
 
