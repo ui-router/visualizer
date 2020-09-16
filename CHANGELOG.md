@@ -1,3 +1,13 @@
+# 7.2.0 (2020-09-16)
+[Compare `@uirouter/visualizer` versions 7.1.0 and 7.2.0](https://github.com/ui-router/visualizer/compare/7.1.0...7.2.0)
+
+### Features
+
+* **StateVisualizer:** Support customization of state node labels ([d3cfd6e](https://github.com/ui-router/visualizer/commit/d3cfd6e))
+
+
+
+
 # 7.1.0 (2020-09-15)
 [Compare `@uirouter/visualizer` versions 7.0.0 and 7.1.0](https://github.com/ui-router/visualizer/compare/7.0.0...7.1.0)
 
