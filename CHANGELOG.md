@@ -1,3 +1,13 @@
+## 7.2.1 (2020-09-19)
+[Compare `@uirouter/visualizer` versions 7.2.0 and 7.2.1](https://github.com/ui-router/visualizer/compare/7.2.0...7.2.1)
+
+### Bug Fixes
+
+* Pin d3-interpolate to 1.4.0 to avoid bundling an arrow function for IE11 compat ([1f4a926](https://github.com/ui-router/visualizer/commit/1f4a926))
+
+
+
+
 # 7.2.0 (2020-09-16)
 [Compare `@uirouter/visualizer` versions 7.1.0 and 7.2.0](https://github.com/ui-router/visualizer/compare/7.1.0...7.2.0)
 
