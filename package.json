@@ -3,7 +3,7 @@
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "7.2.0",
   "scripts": {
-    "example": "npm run bundle && http-server . -o example",
+    "start": "npm run bundle && http-server . -o example",
     "clean": "shx rm -rf lib lib-esm _bundles",
     "compile": "tsc --outdir lib && tsc -m es6 --outdir lib-esm",
     "bundle": "rollup -c",
@@ -34,11 +34,10 @@
   "license": "MIT",
   "dependencies": {
     "d3-hierarchy": "^2.0.0",
-    "d3-interpolate": "^2.0.1",
+    "d3-interpolate": "=1.4.0",
     "preact": "~10.4.8"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
     "@types/d3-hierarchy": "^1.1.5",
@@ -47,15 +46,14 @@
     "@uirouter/publish-scripts": "2.5.3",
     "http-server": "^0.12.3",
     "husky": "^4.3.0",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "pretty-quick": "^3.0.2",
-    "rollup": "^2.26.11",
+    "rollup": "^2.27.1",
     "rollup-plugin-postcss": "^3.1.8",
-    "rollup-plugin-terser": "^7.0.2",
     "serve": "^11.3.2",
     "shx": "^0.3.2",
     "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
   "peerDependencies": {
     "@uirouter/core": ">=5.0.0"

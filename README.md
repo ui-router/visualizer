@@ -48,7 +48,7 @@ Register the plugin with the `UIRouter` object.
   Add the npm package to your project
 
   ```
-  npm install --save @uirouter/visualizer
+  npm install @uirouter/visualizer
   ```
 
   - Use `require` or ES6 `import`:
