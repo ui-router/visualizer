@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "d3-hierarchy": "^2.0.0",
-    "d3-interpolate": "=1.4.0",
+    "d3-interpolate": "=2.0.1",
     "preact": "~10.4.8"
   },
   "devDependencies": {
