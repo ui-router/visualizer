@@ -57,10 +57,10 @@
   resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-1.4.1.tgz#0d9746c84dfef28807b2989eed4f37b2575e1f33"
   integrity sha512-xkPLi+gbgUU9ED6QX4g6jqYL2KCB0/3AlM+ncMGqn49OgH0gFMY/ITGqPF8HwEiLzJaC+2L0I+gNwBgABv1Pvg==
 
-"@types/d3-hierarchy@^1.1.5":
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-1.1.7.tgz#14a57b0539f8929015f8ad96490de50a16211040"
-  integrity sha512-fvht6DOYKzqmXjMb/+xfgkmrWM4SD7rMA/ZbM+gGwr9ZTuIDfky95J8CARtaJo/ExeWyS0xGVdL2gqno2zrQ0Q==
+"@types/d3-hierarchy@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-3.0.0.tgz#ad00bd976b38c4d12e0814dc3d634a57ea0e6e7a"
+  integrity sha512-gW9zxjPyjhMJrFqF32wz4oVV5jlbY2UhfQ0FtZmK00b6VkOTIbgLD2K/oke/epAV8TorzoA2NQiYSlNnbWlXHQ==
 
 "@types/d3-interpolate@^1.3.0":
   version "1.4.2"
