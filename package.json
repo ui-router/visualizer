@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "d3-hierarchy": "^2.0.0",
+    "d3-hierarchy": "^3.0.1",
     "d3-interpolate": "=1.4.0",
     "preact": "~10.4.8"
   },
