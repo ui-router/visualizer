@@ -35,10 +35,10 @@
     is-module "^1.0.0"
     resolve "^1.17.0"
 
-"@rollup/plugin-typescript@^6.0.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-typescript/-/plugin-typescript-6.1.0.tgz#289e7f0ea12fd659bd13ad59dda73b9055538b83"
-  integrity sha512-hJxaiE6WyNOsK+fZpbFh9CUijZYqPQuAOWO5khaGTUkM8DYNNyA2TDlgamecE+qLOG1G1+CwbWMAx3rbqpp6xQ==
+"@rollup/plugin-typescript@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-typescript/-/plugin-typescript-8.2.3.tgz#d1aed5dc424623bad8ff026f13f732e7cbeee175"
+  integrity sha512-bSkd+DD3wP9OLU6lPet59B6jJF29/RlxHkbwvOVOcf1nk8eQYWw24HpldEdrPo/WG0QAPD7TqI7+2y5jtdqjww==
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     resolve "^1.17.0"
