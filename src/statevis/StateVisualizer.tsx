@@ -152,7 +152,9 @@ export class StateVisualizer extends Component<IProps, IState> {
     const { minimized } = this.state;
     return (
       <div
-        ref={(el) => (this.rootEl = el as HTMLElement)}
+        ref={(el) => {
+          this.rootEl = el as HTMLElement;
+        }}
         onMouseDown={this.cancelAutoMinimize.bind(this)}
         onMouseEnter={this.cancelAutoMinimize.bind(this)}
       >
