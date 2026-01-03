@@ -3,12 +3,13 @@
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "h",
-    "lib": ["es6", "dom"],
+    "lib": ["ES2018", "dom"],
     "rootDir": ".",
     "sourceRoot": "src",
     "moduleResolution": "node",
     "target": "es5",
     "sourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "skipLibCheck": true
   }
 }
