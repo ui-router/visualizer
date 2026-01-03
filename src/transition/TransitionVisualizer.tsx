@@ -167,7 +167,11 @@ export class TransitionVisualizer extends Component<IProps, IState> {
     let pointerEvents = this.state.pointerEvents;
 
     return (
-      <div ref={(el) => (this._div = el)}>
+      <div
+        ref={(el) => {
+          this._div = el;
+        }}
+      >
         <div className="uirTranVis_history" style={{ pointerEvents }}>
           {this.state.transitions.map((trans) => (
             <div key={trans.$id} className="uirTranVis_transition">

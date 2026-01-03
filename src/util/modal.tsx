@@ -22,13 +22,17 @@ export class Modal extends Component<IProps, IState> {
     let el = this._ref;
     setTimeout(() => {
       let fades = el.getElementsByClassName('uir-fade');
-      [].slice.apply(fades).forEach(node => (node.className += ' in'));
+      [].slice.apply(fades).forEach((node) => (node.className += ' in'));
     }, 35);
   }
 
   render() {
     return (
-      <div ref={ref => (this._ref = ref)}>
+      <div
+        ref={(ref) => {
+          this._ref = ref;
+        }}
+      >
         <div className="uirTranVis_modal-backdrop uir-fade" style={{ zIndex: 1040 }} />
 
         <div tabIndex={-1} className="uirTranVis_modal uir-fade" style={{ zIndex: 1050, display: 'block' }}>

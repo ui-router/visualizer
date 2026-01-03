@@ -129,7 +129,12 @@ export class StateVisWindow extends Component<IProps, IState> {
 
   render() {
     return (
-      <div className="uirStateVisContainer" ref={(el) => (this.el = el as HTMLElement)}>
+      <div
+        className="uirStateVisContainer"
+        ref={(el) => {
+          this.el = el as HTMLElement;
+        }}
+      >
         {this.props.children}
       </div>
     );
