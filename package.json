@@ -3,7 +3,7 @@
   "description": "UI-Router State Visualizer and Transition Visualizer",
   "version": "7.2.1",
   "scripts": {
-    "start": "npm run bundle && http-server . -o example",
+    "start": "npm run bundle && serve . --open /example",
     "clean": "shx rm -rf lib lib-esm _bundles",
     "compile": "tsc --outdir lib && tsc -m es6 --outdir lib-esm",
     "bundle": "rolldown -c rolldown.config.mjs",
@@ -42,13 +42,12 @@
     "@types/d3-interpolate": "^1.3.0",
     "@uirouter/core": "^6.0.6",
     "@uirouter/publish-scripts": "2.5.5",
-    "http-server": "^0.12.3",
     "husky": "^4.3.0",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.0.2",
     "rolldown": "^1.0.0-beta.58",
     "rollup-plugin-styles": "^4.0.0",
-    "serve": "^11.3.2",
+    "serve": "^14.2.4",
     "shx": "^0.3.2",
     "tslib": "^2.0.1",
     "typescript": "^5.9.3"
