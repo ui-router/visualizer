@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run bundle && serve . --open /example",
     "clean": "shx rm -rf lib lib-esm _bundles",
-    "compile": "tsc --outdir lib && tsc -m es6 --outdir lib-esm",
+    "compile": "tsgo --outdir lib && tsgo -m es6 --outdir lib-esm",
     "bundle": "rolldown -c rolldown.config.mjs",
     "build": "npm run clean && npm run compile && npm run bundle",
     "prepublishOnly": "npm run build",
@@ -50,6 +50,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "serve": "^14.2.5",
     "shx": "^0.4.0",
+    "@typescript/native-preview": "^7.0.0-dev.20250701",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3"
   },
