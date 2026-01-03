@@ -160,7 +160,9 @@ export class StateVisualizer extends Component<IProps, IState> {
       >
         <StateVisWindow
           minimized={this.state.minimized}
-          ref={(windowRef) => (this.windowEl = (windowRef && windowRef.el) || this.windowEl)}
+          ref={(windowRef) => {
+            this.windowEl = (windowRef && windowRef.el) || this.windowEl;
+          }}
           onResize={({ width, height }) => this.setState({ width, height })}
         >
           <div
