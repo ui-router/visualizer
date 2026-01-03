@@ -14,11 +14,11 @@ jobs:
       - run: true
 
   test:
-    name: yarn ${{ matrix.yarncmd }}
+    name: npm run ${{ matrix.npmcmd }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        yarncmd: ['build']
+        npmcmd: ['build']
     steps:
       - uses: actions/checkout@v2
       - name: Configure
@@ -26,8 +26,8 @@ jobs:
           git config --global user.email uirouter@github.actions
           git config --global user.name uirouter_github_actions
       - name: Install Dependencies
-        run: yarn install --pure-lockfile
+        run: npm ci
       - name: Check Peer Dependencies
         run: npx check-peer-dependencies
       - name: Run Tests
-        run: yarn ${{ matrix.yarncmd }}
+        run: npm run ${{ matrix.npmcmd }}
